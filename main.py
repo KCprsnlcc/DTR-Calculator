@@ -269,25 +269,54 @@ class DailyTimeRecordApp:
         self.current_day = self.selected_date.strftime("%A")
 
         # Setup UI Components
+        self.setup_menu()
         self.setup_header()
         self.setup_time_inputs()
         self.setup_controls()
         self.setup_history()
 
+        # Center the window
+        self.center_window()
+
+        # Display help on first launch
+        self.display_welcome_message()
+
     # ----------------------------
     # Window Setup Methods
     # ----------------------------
 
-    def center_window(self, width, height):
+    def center_window(self):
         """
         Center the window on the screen.
         """
         self.master.update_idletasks()
         screen_width = self.master.winfo_screenwidth()
         screen_height = self.master.winfo_screenheight()
-        x = (screen_width - width) // 2
-        y = (screen_height - height) // 2
-        self.master.geometry(f"{width}x{height}+{x}+{y}")
+        window_width = self.master.winfo_width()
+        window_height = self.master.winfo_height()
+        x = (screen_width // 2) - (window_width // 2)
+        y = (screen_height // 2) - (window_height // 2)
+        self.master.geometry(f"+{x}+{y}")
+
+    def setup_menu(self):
+        """
+        Setup the menu bar with File and Help menus.
+        """
+        menubar = tk.Menu(self.master)
+        self.master.config(menu=menubar)
+
+        # File Menu
+        file_menu = tk.Menu(menubar, tearoff=0)
+        menubar.add_cascade(label="File", menu=file_menu)
+        file_menu.add_command(label="Exit", command=self.master.quit)
+        Tooltip(file_menu, "File operations")
+
+        # Help Menu
+        help_menu = tk.Menu(menubar, tearoff=0)
+        menubar.add_cascade(label="Help", menu=help_menu)
+        help_menu.add_command(label="How to Use", command=self.show_help_dialog)
+        help_menu.add_command(label="About", command=self.show_about_dialog)
+        Tooltip(help_menu, "Help and information")
 
     def setup_header(self):
         """
@@ -1265,6 +1294,7 @@ class DailyTimeRecordApp:
             messagebox.showerror("Error", f"Failed to save records: {e}")
             logging.error(f"Error saving records: {e}")
 
+
     # ----------------------------
     # History Management Methods
     # ----------------------------
@@ -1342,6 +1372,181 @@ class DailyTimeRecordApp:
             widget.config(foreground=color)
         for child in widget.winfo_children():
             self.set_widget_foreground(child, color)
+
+    # ----------------------------
+    # Help and About Dialogs
+    # ----------------------------
+
+    def show_help_dialog(self):
+        """
+        Display the How to Use dialog.
+        """
+        help_window = tk.Toplevel(self.master)
+        help_window.title("How to Use - Daily Time Record")
+        help_window.grab_set()  # Make the dialog modal
+
+        # Set window size and position
+        help_window.geometry("600x400")
+        self.center_child_window(help_window)
+
+        # Create a frame for content with padding
+        frame = ttk.Frame(help_window, padding=10)
+        frame.pack(fill="both", expand=True)
+
+        # Add a Text widget with scrollbars
+        text_area = tk.Text(frame, wrap="word", font=("Arial", 12))
+        text_area.pack(side="left", fill="both", expand=True)
+
+        scrollbar = ttk.Scrollbar(frame, orient="vertical", command=text_area.yview)
+        scrollbar.pack(side="right", fill="y")
+        text_area.configure(yscrollcommand=scrollbar.set)
+
+        # Define help content
+        help_content = """
+        **Daily Time Record (DTR) Application - How to Use**
+
+        **1. Date Selection:**
+        - **Year, Month, Day:** Use the dropdown menus at the top to select the desired date.
+        - The selected day of the week will be displayed below the date selectors.
+
+        **2. Time Entry:**
+        - **Morning:**
+            - **Time In:** Enter the time you arrived in the morning.
+            - **Time Out:** Enter the time you left in the morning.
+        - **Afternoon:**
+            - **Time In:** Enter the time you arrived in the afternoon.
+            - **Time Out:** Enter the time you left in the afternoon.
+        - **AM/PM:** Select whether the time is in the AM or PM.
+
+        **3. Time Picker:**
+        - Click the **Select Time** button next to each time entry to open a time picker dialog.
+        - Choose the desired time, and the fields will be populated automatically.
+
+        **4. Half Day:**
+        - If you are taking a half day, check the **Half Day** checkbox.
+        - For a half day, fill in either the morning or afternoon time fields accordingly.
+
+        **5. Calculating Deductions:**
+        - After entering all necessary times, click **Calculate Deductions**.
+        - The application will display any lateness or undertime, durations worked, and total deduction points.
+
+        **6. Saving Records:**
+        - Click **Save Record** to save the current day's deductions.
+        - If a record for the selected date already exists, you will be prompted to add another record for that date.
+
+        **7. Exporting History:**
+        - Click **Export History** to export all records to a CSV file for external analysis or record-keeping.
+
+        **8. Deduction History:**
+        - View all saved records in the **Deduction History** section.
+        - Right-click on any record to **Edit** or **Delete** it.
+
+        **9. Theme Switching:**
+        - Use the **Light Mode** and **Dark Mode** buttons at the top to switch between themes.
+        - Font colors will adjust automatically to ensure readability.
+
+        **10. Full-Screen Mode:**
+        - Click the **Full Screen** button to toggle full-screen mode for an immersive experience.
+
+        **Tips:**
+        - Ensure all time entries are valid to avoid calculation errors.
+        - Regularly export your history to keep backups of your records.
+
+        For further assistance, please refer to the user manual or contact support.
+        """
+
+        # Insert help content into the Text widget
+        text_area.insert("1.0", help_content)
+        text_area.config(state="disabled")  # Make the text read-only
+
+        # Adjust font colors based on current theme
+        if self.current_theme in ['superhero', 'darkly', 'cyborg', 'slate']:
+            text_area.config(bg="#2e2e2e", fg="white", insertbackground="white")
+        else:
+            text_area.config(bg="white", fg="black", insertbackground="black")
+
+    def show_about_dialog(self):
+        """
+        Display the About dialog.
+        """
+        about_window = tk.Toplevel(self.master)
+        about_window.title("About - Daily Time Record")
+        about_window.grab_set()  # Make the dialog modal
+
+        # Set window size and position
+        about_window.geometry("400x200")
+        self.center_child_window(about_window)
+
+        # Create a frame for content with padding
+        frame = ttk.Frame(about_window, padding=10)
+        frame.pack(fill="both", expand=True)
+
+        # Add About content
+        about_content = """
+        **Daily Time Record (DTR) Application**
+
+        Version: 2.0
+
+        Developed by: Your Company Name
+
+        Purpose:
+        This application helps track daily work times, calculate deduction points based on lateness and undertime, and maintain a history of records for easy management.
+
+        © 2025 Your Company Name. All rights reserved.
+        """
+
+        label = ttk.Label(frame, text=about_content, justify="center", font=("Arial", 12))
+        label.pack(fill="both", expand=True)
+
+        # Adjust font colors based on current theme
+        if self.current_theme in ['superhero', 'darkly', 'cyborg', 'slate']:
+            label.config(foreground="white")
+        else:
+            label.config(foreground="black")
+
+    def display_welcome_message(self):
+        """
+        Display a welcome message when the application starts.
+        """
+        messagebox.showinfo("Welcome", "Welcome to the Daily Time Record (DTR) Application!\n\n"
+                                     "Use the Help menu to learn how to use the application.")
+
+    # ----------------------------
+    # Help and About Dialogs
+    # ----------------------------
+
+    # The show_help_dialog and show_about_dialog methods have been added above.
+
+    # ----------------------------
+    # Additional Helper Methods
+    # ----------------------------
+
+    def center_child_window(self, child):
+        """
+        Center a child window relative to the main application window.
+        """
+        self.master.update_idletasks()
+        parent_x = self.master.winfo_rootx()
+        parent_y = self.master.winfo_rooty()
+        parent_width = self.master.winfo_width()
+        parent_height = self.master.winfo_height()
+
+        child.update_idletasks()
+        child_width = child.winfo_width()
+        child_height = child.winfo_height()
+
+        pos_x = parent_x + (parent_width // 2) - (child_width // 2)
+        pos_y = parent_y + (parent_height // 2) - (child_height // 2)
+
+        child.geometry(f"+{pos_x}+{pos_y}")
+
+    # ----------------------------
+    # Remaining Methods
+    # ----------------------------
+
+    # The remaining methods such as load_records, save_records_to_file, populate_history, etc., are unchanged from the previous code.
+
+    # ... (Methods like load_records, save_records_to_file, populate_history, etc., are as previously defined.)
 
 # ============================
 # Application Entry Point

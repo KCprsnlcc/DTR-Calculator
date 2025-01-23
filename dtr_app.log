@@ -186,3 +186,19 @@
 2025-01-24 00:14:34,695 - WARNING - No time fields filled for half day.
 2025-01-24 00:14:38,930 - INFO - Exited full-screen mode.
 2025-01-24 00:14:47,149 - INFO - Application closed.
+2025-01-24 00:19:41,581 - INFO - Application started.
+2025-01-24 00:19:41,635 - INFO - Loaded records as list of dictionaries.
+2025-01-24 00:19:41,719 - INFO - History populated in Treeview.
+2025-01-24 00:20:42,761 - INFO - Application closed.
+2025-01-24 00:21:08,020 - INFO - Application started.
+2025-01-24 00:21:08,072 - INFO - Loaded records as list of dictionaries.
+2025-01-24 00:21:08,154 - INFO - History populated in Treeview.
+2025-01-24 00:21:37,067 - INFO - Records saved successfully as list of dictionaries.
+2025-01-24 00:21:37,067 - INFO - History populated in Treeview.
+2025-01-24 00:21:38,277 - INFO - Record deleted for 2025-01-23.
+2025-01-24 00:21:43,144 - INFO - Theme changed to superhero.
+2025-01-24 00:21:47,345 - INFO - Half Day selected.
+2025-01-24 00:21:48,184 - INFO - Full Day selected.
+2025-01-24 00:21:50,172 - INFO - Theme changed to superhero.
+2025-01-24 00:21:51,182 - INFO - Theme changed to flatly.
+2025-01-24 00:22:08,168 - INFO - Application closed.
