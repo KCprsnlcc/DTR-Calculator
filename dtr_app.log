@@ -56,3 +56,43 @@
 2025-01-23 23:24:42,308 - INFO - Record saved for 2025-01-23: 0.524 points.
 2025-01-23 23:24:42,308 - INFO - History populated in Treeview.
 2025-01-23 23:24:54,268 - INFO - History exported to C:/Users/kcper/OneDrive/Documents/gf.csv
+2025-01-23 23:29:21,428 - INFO - Application started.
+2025-01-23 23:29:21,582 - INFO - Loaded records as list of dictionaries.
+2025-01-23 23:29:21,668 - INFO - History populated in Treeview.
+2025-01-23 23:30:12,322 - INFO - Half Day selected.
+2025-01-23 23:30:13,151 - INFO - Half Day Morning lateness: 0.09 points
+2025-01-23 23:30:13,151 - INFO - Half Day afternoon absence: 0.5 points
+2025-01-23 23:30:13,151 - INFO - Total deduction calculated: 0.59 points
+2025-01-23 23:30:17,092 - INFO - Full Day selected.
+2025-01-23 23:30:17,830 - INFO - Half Day selected.
+2025-01-23 23:30:22,251 - INFO - User chose not to add another record for 2025-01-23.
+2025-01-23 23:30:26,215 - INFO - Records saved successfully as list of dictionaries.
+2025-01-23 23:30:27,198 - INFO - Record saved for 2025-01-23: 0.59 points.
+2025-01-23 23:30:27,199 - INFO - History populated in Treeview.
+2025-01-23 23:30:30,089 - INFO - Half Day Morning lateness: 0.09 points
+2025-01-23 23:30:30,089 - INFO - Half Day afternoon absence: 0.5 points
+2025-01-23 23:30:30,093 - INFO - Total deduction calculated: 0.59 points
+2025-01-23 23:30:35,466 - INFO - User chose not to add another record for 2025-01-23.
+2025-01-23 23:35:59,493 - INFO - Application started.
+2025-01-23 23:35:59,655 - WARNING - Added default fields to incomplete record: {'date': '2025-01-23', 'deduction_points': 0.52, 'late_morning': 0, 'undertime_morning': 0, 'late_afternoon': 0, 'undertime_afternoon': 0, 'duration_morning': 0, 'duration_afternoon': 0}
+2025-01-23 23:35:59,655 - WARNING - Added default fields to incomplete record: {'date': '2025-01-23', 'deduction_points': 0.524, 'late_morning': 0, 'undertime_morning': 0, 'late_afternoon': 0, 'undertime_afternoon': 0, 'duration_morning': 0, 'duration_afternoon': 0}
+2025-01-23 23:35:59,655 - WARNING - Added default fields to incomplete record: {'date': '2025-01-23', 'deduction_points': 0.59, 'late_morning': 0, 'undertime_morning': 0, 'late_afternoon': 0, 'undertime_afternoon': 0, 'duration_morning': 0, 'duration_afternoon': 0}
+2025-01-23 23:35:59,655 - INFO - Loaded records as list of dictionaries.
+2025-01-23 23:35:59,805 - INFO - History populated in Treeview.
+2025-01-23 23:36:51,905 - WARNING - Incomplete time fields for full day.
+2025-01-23 23:36:52,841 - INFO - Half Day selected.
+2025-01-23 23:36:53,721 - INFO - Half Day Morning lateness: 0.181 points
+2025-01-23 23:36:53,721 - INFO - Half Day afternoon absence: 0.5 points
+2025-01-23 23:36:53,723 - INFO - Total deduction calculated: 0.681 points
+2025-01-23 23:37:03,727 - INFO - Records saved successfully as list of dictionaries.
+2025-01-23 23:37:05,252 - INFO - Record saved for 2025-01-23: 0.681 points.
+2025-01-23 23:37:05,252 - INFO - History populated in Treeview.
+2025-01-23 23:38:22,398 - INFO - Half Day afternoon absence: 0.5 points
+2025-01-23 23:38:22,398 - INFO - Total deduction calculated: 0.5 points
+2025-01-23 23:43:21,846 - INFO - Application closed.
+2025-01-23 23:47:29,674 - INFO - Application started.
+2025-01-23 23:47:29,806 - INFO - Loaded records as list of dictionaries.
+2025-01-23 23:47:29,998 - INFO - History populated in Treeview.
+2025-01-23 23:47:37,078 - INFO - Entered full-screen mode.
+2025-01-23 23:47:39,551 - INFO - Exited full-screen mode.
+2025-01-23 23:47:50,270 - INFO - Application closed.
