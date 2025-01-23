@@ -40,3 +40,19 @@
 2025-01-23 23:18:25,699 - INFO - History populated in Treeview.
 2025-01-23 23:18:25,699 - INFO - Date changed to 2025-01-23
 2025-01-23 23:19:12,311 - INFO - Application closed.
+2025-01-23 23:21:02,672 - INFO - Application started.
+2025-01-23 23:21:02,772 - INFO - Records loaded successfully.
+2025-01-23 23:23:01,096 - INFO - Application started.
+2025-01-23 23:23:01,271 - INFO - Records saved successfully as list of dictionaries.
+2025-01-23 23:23:01,271 - INFO - Converted existing records from dict to list format.
+2025-01-23 23:23:01,415 - INFO - History populated in Treeview.
+2025-01-23 23:23:57,113 - INFO - No deductions to save.
+2025-01-23 23:24:34,186 - WARNING - Incomplete time fields for full day.
+2025-01-23 23:24:35,424 - INFO - Half Day selected.
+2025-01-23 23:24:36,473 - INFO - Half Day Morning lateness: 0.024 points
+2025-01-23 23:24:36,473 - INFO - Half Day afternoon absence: 0.5 points
+2025-01-23 23:24:36,473 - INFO - Total deduction calculated: 0.524 points
+2025-01-23 23:24:40,907 - INFO - Records saved successfully as list of dictionaries.
+2025-01-23 23:24:42,308 - INFO - Record saved for 2025-01-23: 0.524 points.
+2025-01-23 23:24:42,308 - INFO - History populated in Treeview.
+2025-01-23 23:24:54,268 - INFO - History exported to C:/Users/kcper/OneDrive/Documents/gf.csv

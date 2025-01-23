@@ -143,30 +143,42 @@ class TimePickerDialog:
     """
     A dialog for selecting time (Hour, Minute, AM/PM).
     """
-    def __init__(self, parent, title="Select Time"):
+    def __init__(self, parent, initial_time=None, title="Select Time"):
         self.top = tk.Toplevel(parent)
         self.top.title(title)
         self.top.grab_set()  # Make the dialog modal
         self.selected_time = None
 
+        # Determine initial time
+        if initial_time:
+            hour_24 = initial_time.hour
+            minute = initial_time.minute
+            ampm = "PM" if hour_24 >= 12 else "AM"
+            hour = hour_24 % 12
+            hour = 12 if hour == 0 else hour
+        else:
+            hour = 12
+            minute = 0
+            ampm = "AM"
+
         # Hour selection
         ttk.Label(self.top, text="Hour:").grid(row=0, column=0, padx=10, pady=5, sticky="e")
-        self.hour_var = tk.StringVar(value="12")
+        self.hour_var = tk.StringVar(value=str(hour))
         self.hour_spin = ttk.Spinbox(self.top, from_=1, to=12, textvariable=self.hour_var, width=5, state="readonly")
         self.hour_spin.grid(row=0, column=1, padx=10, pady=5)
 
         # Minute selection
         ttk.Label(self.top, text="Minute:").grid(row=1, column=0, padx=10, pady=5, sticky="e")
-        self.minute_var = tk.StringVar(value="00")
+        self.minute_var = tk.StringVar(value=f"{minute:02}")
         self.minute_spin = ttk.Spinbox(self.top, from_=0, to=59, textvariable=self.minute_var, width=5, format="%02.0f", state="readonly")
         self.minute_spin.grid(row=1, column=1, padx=10, pady=5)
 
         # AM/PM selection
         ttk.Label(self.top, text="AM/PM:").grid(row=2, column=0, padx=10, pady=5, sticky="e")
-        self.ampm_var = tk.StringVar(value="AM")
+        self.ampm_var = tk.StringVar(value=ampm)
         self.ampm_combo = ttk.Combobox(self.top, textvariable=self.ampm_var, values=["AM", "PM"], state="readonly", width=3)
         self.ampm_combo.grid(row=2, column=1, padx=10, pady=5)
-        self.ampm_combo.current(0)
+        self.ampm_combo.current(0 if ampm == "AM" else 1)
 
         # Buttons
         button_frame = ttk.Frame(self.top)
@@ -540,20 +552,22 @@ class DailyTimeRecordApp:
         label = ttk.Label(frame, text=label_text, width=20)
         label.pack(side="left", padx=5)
 
-        # Entry to display selected time using standard ttk
+        # Entry to display and input time using standard ttk
         time_var = tk.StringVar(value='--:-- --')
-        time_entry = ttk.Entry(frame, textvariable=time_var, width=10, state='readonly')
+        time_entry = ttk.Entry(frame, textvariable=time_var, width=10)
         time_entry.pack(side="left", padx=2)
-        Tooltip(time_entry, "Click to select time")
+        Tooltip(time_entry, "Enter time manually or click 'Select Time' to choose.")
 
         def open_time_picker():
-            picker = TimePickerDialog(self.master, title=f"Select {label_text.strip(':')}")
+            current_time_str = time_var.get()
+            try:
+                current_time = datetime.strptime(current_time_str, "%I:%M %p").time()
+            except ValueError:
+                current_time = None  # If invalid or default, start with None
+            picker = TimePickerDialog(self.master, initial_time=current_time, title=f"Select {label_text.strip(':')}")
             selected_time = picker.show()
             if selected_time:
                 time_var.set(selected_time.strftime("%I:%M %p"))
-
-        # Bind click on the entry to open time picker
-        time_entry.bind("<1>", lambda event: open_time_picker())
 
         # Button to open Time Picker Dialog using ttkbootstrap
         time_button = ttkb.Button(frame, text="Select Time", command=open_time_picker)
@@ -568,9 +582,22 @@ class DailyTimeRecordApp:
         Callback when the date is changed in Date Selection Comboboxes.
         """
         try:
-            year = int(self.year_var.get()) if hasattr(self, 'year_var') else int(self.search_from_year_var.get())
-            month = list(calendar.month_name).index(self.month_var.get()) if hasattr(self, 'month_var') else list(calendar.month_name).index(self.search_from_month_var.get())
-            day = int(self.day_var.get()) if hasattr(self, 'day_var') else int(self.search_from_day_var.get())
+            # Determine which date selection was changed
+            widget = event.widget
+            if widget in [self.year_combo, self.month_combo, self.day_combo]:
+                year = int(self.year_var.get())
+                month = list(calendar.month_name).index(self.month_var.get())
+                day = int(self.day_var.get())
+            elif widget in [self.search_from_year, self.search_from_month, self.search_from_day]:
+                year = int(self.search_from_year_var.get())
+                month = list(calendar.month_name).index(self.search_from_month_var.get())
+                day = int(self.search_from_day_var.get())
+            elif widget in [self.search_to_year, self.search_to_month, self.search_to_day]:
+                year = int(self.search_to_year_var.get())
+                month = list(calendar.month_name).index(self.search_to_month_var.get())
+                day = int(self.search_to_day_var.get())
+            else:
+                return
 
             self.selected_date = datetime(year, month, day).date()
             self.current_day = self.selected_date.strftime("%A")
@@ -628,7 +655,7 @@ class DailyTimeRecordApp:
 
     def parse_time(self, time_var):
         """
-        Parse time from the time picker.
+        Parse time from the time entry.
         """
         time_str = time_var.get()
         try:
@@ -769,15 +796,23 @@ class DailyTimeRecordApp:
 
         date_str = self.selected_date.strftime("%Y-%m-%d")
 
-        # Check for duplicate entries
-        if date_str in self.records:
-            overwrite = messagebox.askyesno("Overwrite Record",
-                                            f"A record for {date_str} already exists. Do you want to overwrite it?")
-            if not overwrite:
-                logging.info(f"User chose not to overwrite existing record for {date_str}.")
+        # Create a new record
+        new_record = {
+            "date": date_str,
+            "deduction_points": deduction_points
+        }
+
+        # Check for existing records on the same date
+        existing_records = [record for record in self.records if record["date"] == date_str]
+        if existing_records:
+            add_record = messagebox.askyesno("Add Record",
+                                             f"A record for {date_str} already exists.\nDo you want to add another record for this date?")
+            if not add_record:
+                logging.info(f"User chose not to add another record for {date_str}.")
                 return
 
-        self.records[date_str] = deduction_points
+        # Append the new record
+        self.records.append(new_record)
         self.save_records_to_file()
         messagebox.showinfo("Success", f"Record for {date_str} saved successfully.")
         logging.info(f"Record saved for {date_str}: {deduction_points} points.")
@@ -804,8 +839,8 @@ class DailyTimeRecordApp:
             with open(file_path, 'w', newline='') as csvfile:
                 writer = csv.writer(csvfile)
                 writer.writerow(["Date", "Deduction Points"])
-                for date_str, deduction in sorted(self.records.items()):
-                    writer.writerow([date_str, deduction])
+                for record in sorted(self.records, key=lambda x: x["date"]):
+                    writer.writerow([record["date"], record["deduction_points"]])
             messagebox.showinfo("Export Successful", f"History exported to {file_path}")
             logging.info(f"History exported to {file_path}")
         except Exception as e:
@@ -823,12 +858,21 @@ class DailyTimeRecordApp:
             return
 
         date_str, current_deduction = self.history_tree.item(selected_item, 'values')
+        # Find the first matching record
+        for record in self.records:
+            if record["date"] == date_str and str(record["deduction_points"]) == current_deduction:
+                break
+        else:
+            messagebox.showerror("Error", "Selected record not found.")
+            logging.error("Selected record not found during edit.")
+            return
+
         new_deduction = simpledialog.askfloat("Edit Deduction",
                                               f"Enter new deduction points for {date_str}:",
                                               initialvalue=float(current_deduction),
                                               minvalue=0.0)
         if new_deduction is not None:
-            self.records[date_str] = round(new_deduction, 3)
+            record["deduction_points"] = round(new_deduction, 3)
             self.save_records_to_file()
             self.populate_history()
             messagebox.showinfo("Success", f"Record for {date_str} updated successfully.")
@@ -846,9 +890,18 @@ class DailyTimeRecordApp:
 
         date_str, deduction = self.history_tree.item(selected_item, 'values')
         confirm = messagebox.askyesno("Confirm Deletion",
-                                      f"Are you sure you want to delete the record for {date_str}?")
+                                      f"Are you sure you want to delete the record for {date_str} with {deduction} deduction points?")
         if confirm:
-            del self.records[date_str]
+            # Find and remove the specific record
+            for i, record in enumerate(self.records):
+                if record["date"] == date_str and str(record["deduction_points"]) == deduction:
+                    del self.records[i]
+                    break
+            else:
+                messagebox.showerror("Error", "Selected record not found.")
+                logging.error("Selected record not found during deletion.")
+                return
+
             self.save_records_to_file()
             self.populate_history()
             messagebox.showinfo("Deleted", f"Record for {date_str} has been deleted.")
@@ -883,8 +936,8 @@ class DailyTimeRecordApp:
                 logging.warning("Invalid search date range.")
                 return
 
-            filtered_records = {date: ded for date, ded in self.records.items()
-                                if from_date <= datetime.strptime(date, "%Y-%m-%d").date() <= to_date}
+            filtered_records = [record for record in self.records
+                                if from_date <= datetime.strptime(record["date"], "%Y-%m-%d").date() <= to_date]
 
             self.populate_history(filtered_records)
             logging.info(f"Searched records from {from_date} to {to_date}.")
@@ -899,36 +952,61 @@ class DailyTimeRecordApp:
     def load_records(self):
         """
         Load records from the JSON data file.
+        Ensures that records are a list of dictionaries with 'date' and 'deduction_points'.
+        If the existing data is a dictionary, it converts it to the new format.
         """
         if os.path.exists(DATA_FILE):
             try:
                 with open(DATA_FILE, 'r') as f:
-                    records = json.load(f)
-                logging.info("Records loaded successfully.")
-                return records
+                    data = json.load(f)
+                
+                if isinstance(data, dict):
+                    # Convert dict to list of dicts
+                    records = [{"date": date, "deduction_points": ded} for date, ded in data.items()]
+                    self.records = records
+                    self.save_records_to_file()  # Save the converted data
+                    logging.info("Converted existing records from dict to list format.")
+                elif isinstance(data, list):
+                    # Validate each record
+                    valid_records = []
+                    for record in data:
+                        if isinstance(record, dict) and "date" in record and "deduction_points" in record:
+                            valid_records.append(record)
+                        else:
+                            logging.warning(f"Ignored invalid record format: {record}")
+                    self.records = valid_records
+                    logging.info("Loaded records as list of dictionaries.")
+                else:
+                    self.records = []
+                    logging.warning("Unknown data format. Starting with empty records.")
+                
+                return self.records
             except json.JSONDecodeError as e:
                 messagebox.showerror("Error", f"Failed to load records: {e}")
                 logging.error(f"JSON decode error: {e}")
-                return {}
+                return []
             except Exception as e:
                 messagebox.showerror("Error", f"An error occurred while loading records:\n{e}")
                 logging.error(f"Error loading records: {e}")
-                return {}
+                return []
         else:
             logging.info("No existing records found. Starting fresh.")
-            return {}
+            return []
+
 
     def save_records_to_file(self):
         """
         Save records to the JSON data file.
+        Ensures that records are saved as a list of dictionaries.
         """
         try:
             with open(DATA_FILE, 'w') as f:
                 json.dump(self.records, f, indent=4)
-            logging.info("Records saved successfully.")
+            logging.info("Records saved successfully as list of dictionaries.")
         except Exception as e:
             messagebox.showerror("Error", f"Failed to save records: {e}")
             logging.error(f"Error saving records: {e}")
+
 
     # ----------------------------
     # History Management Methods
@@ -944,8 +1022,8 @@ class DailyTimeRecordApp:
 
         records_to_show = records if records is not None else self.records
 
-        for date_str, deduction in sorted(records_to_show.items()):
-            self.history_tree.insert("", "end", values=(date_str, deduction))
+        for record in sorted(records_to_show, key=lambda x: x["date"]):
+            self.history_tree.insert("", "end", values=(record["date"], record["deduction_points"]))
         logging.info("History populated in Treeview.")
 
     # ----------------------------
