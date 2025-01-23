@@ -3,8 +3,6 @@
         "date": "2025-01-23",
         "deduction_points": 0.52,
         "late_morning": 0,
-        "undertime_morning": 0,
-        "late_afternoon": 0,
         "undertime_afternoon": 0,
         "duration_morning": 0,
         "duration_afternoon": 0
@@ -13,8 +11,6 @@
         "date": "2025-01-23",
         "deduction_points": 0.524,
         "late_morning": 0,
-        "undertime_morning": 0,
-        "late_afternoon": 0,
         "undertime_afternoon": 0,
         "duration_morning": 0,
         "duration_afternoon": 0
@@ -23,8 +19,6 @@
         "date": "2025-01-23",
         "deduction_points": 0.59,
         "late_morning": 0,
-        "undertime_morning": 0,
-        "late_afternoon": 0,
         "undertime_afternoon": 0,
         "duration_morning": 0,
         "duration_afternoon": 0
@@ -33,10 +27,16 @@
         "date": "2025-01-23",
         "deduction_points": 0.681,
         "late_morning": 88,
-        "undertime_morning": 0,
-        "late_afternoon": 0,
         "undertime_afternoon": 0,
         "duration_morning": 123,
+        "duration_afternoon": 0
+    },
+    {
+        "date": "2025-01-23",
+        "deduction_points": 0.52,
+        "late_morning": 10,
+        "undertime_afternoon": 0,
+        "duration_morning": 921,
         "duration_afternoon": 0
     }
 ]

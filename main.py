@@ -147,7 +147,7 @@ class Tooltip:
 class TimePickerDialog:
     """
     A dialog for selecting time (Hour, Minute, AM/PM).
-    Modified to prevent automatic insertion of ":" and restrict input to 4 digits.
+    Modified to handle separate hour and minute entries with a fixed colon.
     """
     def __init__(self, parent, initial_time=None, title="Select Time"):
         self.parent = parent  # Keep a reference to the parent
@@ -384,6 +384,7 @@ class DailyTimeRecordApp:
         """
         Setup the Morning and Afternoon time input sections.
         Removed 'Undertime Morning' and 'Late Afternoon' fields.
+        Implemented fixed colon in manual input fields.
         """
         # Frame for Morning Inputs using ttkbootstrap
         self.frame_morning = ttkb.LabelFrame(self.master, text="Morning", padding=10)
@@ -615,8 +616,8 @@ class DailyTimeRecordApp:
 
     def create_time_input(self, parent, label_text, attr_name):
         """
-        Create a time input section with label, entry, and select button.
-        Modified to restrict manual input to 4 digits without ":".
+        Create a time input section with label, fixed colon, and two entry fields for hours and minutes.
+        The colon is fixed and not removable.
         """
         frame = ttkb.Frame(parent)
         frame.pack(fill="x", pady=5)
@@ -624,90 +625,81 @@ class DailyTimeRecordApp:
         label = ttk.Label(frame, text=label_text, width=20)
         label.pack(side="left", padx=5)
 
-        # Entry to display and input time using standard ttk
-        time_var = tk.StringVar(value='0000')  # Modified default value to 4 digits without ":"
-        time_entry = ttk.Entry(frame, textvariable=time_var, width=10)
-        time_entry.pack(side="left", padx=2)
-        Tooltip(time_entry, "Enter time manually (HHMM) or click 'Select Time' to choose.")
+        # Hours Entry
+        hour_var = tk.StringVar(value='00')
+        hour_entry = ttk.Entry(frame, textvariable=hour_var, width=3, justify='center')
+        hour_entry.pack(side="left", padx=(0, 2))
+        Tooltip(hour_entry, "Enter hours (01-12)")
+        self.register_time_validation(hour_entry, hour_var, part='hour')
 
-        def validate_and_correct(event):
-            """
-            Validate and correct the time format in the entry.
-            Ensures only 4 digits without ":" are present.
-            """
-            time_str = time_var.get().strip().upper()
-            if ":" in time_str:
-                time_str = time_str.replace(":", "")
-                time_var.set(time_str)
-            if len(time_str) != 4 or not time_str.isdigit():
-                messagebox.showerror("Invalid Time Format", f"'{time_var.get()}' is not a valid time. Please enter in 'HHMM' format.")
-                time_var.set('0000')
-                return
-            try:
-                hour = int(time_str[:2])
-                minute = int(time_str[2:])
-                if not (1 <= hour <= 12 and 0 <= minute <= 59):
-                    raise ValueError
-                # Optionally, you can prompt for AM/PM or assume default
-            except ValueError:
-                messagebox.showerror("Invalid Time", "Hour must be between 01 and 12 and Minute between 00 and 59.")
-                time_var.set('0000')
+        # Fixed Colon Label
+        colon_label = ttk.Label(frame, text=":", width=1)
+        colon_label.pack(side="left")
 
-        # Bind the validation function to focus out event
-        time_entry.bind("<FocusOut>", validate_and_correct)
-
-        def open_time_picker():
-            current_time_str = time_var.get()
-            try:
-                hour = int(current_time_str[:2])
-                minute = int(current_time_str[2:])
-                ampm = "AM"  # Default to AM, since no AM/PM is handled here
-                if 1 <= hour <= 12 and 0 <= minute <= 59:
-                    hour_24 = hour if ampm == "AM" else hour + 12
-                    current_time = time(hour_24 % 24, minute)
-                else:
-                    current_time = None
-            except:
-                current_time = None  # If invalid or default, start with None
-            picker = TimePickerDialog(self.master, initial_time=current_time, title=f"Select {label_text.strip(':')}")
-            selected_time = picker.show()
-            if selected_time:
-                # Convert to 12-hour format
-                hour_12 = selected_time.hour % 12
-                hour_12 = 12 if hour_12 == 0 else hour_12
-                minute = selected_time.minute
-                time_var.set(f"{hour_12:02}{minute:02}")
+        # Minutes Entry
+        minute_var = tk.StringVar(value='00')
+        minute_entry = ttk.Entry(frame, textvariable=minute_var, width=3, justify='center')
+        minute_entry.pack(side="left", padx=(2, 5))
+        Tooltip(minute_entry, "Enter minutes (00-59)")
+        self.register_time_validation(minute_entry, minute_var, part='minute')
 
         # Button to open Time Picker Dialog using ttkbootstrap
-        time_button = ttkb.Button(frame, text="Select Time", command=open_time_picker)
+        time_button = ttkb.Button(frame, text="Select Time", command=lambda: self.open_time_picker(attr_name))
         time_button.pack(side="left", padx=2)
         Tooltip(time_button, "Open time picker")
 
         # Set attributes for later access
-        setattr(self, f'{attr_name}_var', time_var)
+        setattr(self, f'{attr_name}_hour_var', hour_var)
+        setattr(self, f'{attr_name}_minute_var', minute_var)
 
-        # Bind key release event for real-time editing
-        time_entry.bind("<KeyRelease>", self.create_time_input_key_release(time_var))
+    def register_time_validation(self, entry, var, part='hour'):
+        """
+        Register validation for the time entry fields to ensure only valid input is allowed.
+        """
+        def validate(*args):
+            value = var.get()
+            if part == 'hour':
+                if not value.isdigit() or not (1 <= int(value) <= 12):
+                    entry.config(foreground='red')
+                else:
+                    entry.config(foreground='black')
+            elif part == 'minute':
+                if not value.isdigit() or not (0 <= int(value) <= 59):
+                    entry.config(foreground='red')
+                else:
+                    entry.config(foreground='black')
+        var.trace_add('write', validate)
 
-    def create_time_input_key_release(self, time_var):
+    def open_time_picker(self, attr_name):
         """
-        Create a key release handler for time input fields.
-        Ensures only 4 digits are entered without ":".
+        Open the TimePickerDialog and set the selected time to the corresponding entry fields.
         """
-        def on_key_release(event):
-            """
-            Handle key release events for real-time input correction.
-            """
-            current_text = time_var.get().strip().upper()
-            if not current_text.isdigit():
-                # Remove non-digit characters
-                new_text = ''.join(filter(str.isdigit, current_text))
-                time_var.set(new_text)
-                return
-            if len(current_text) > 4:
-                # Limit to 4 digits
-                time_var.set(current_text[:4])
-        return on_key_release
+        hour_var = getattr(self, f'{attr_name}_hour_var')
+        minute_var = getattr(self, f'{attr_name}_minute_var')
+        current_hour = hour_var.get()
+        current_minute = minute_var.get()
+
+        # Convert current entries to time object
+        try:
+            hour = int(current_hour)
+            minute = int(current_minute)
+            if 1 <= hour <= 12 and 0 <= minute <= 59:
+                # Assume AM for the picker; can be extended to handle AM/PM if needed
+                time_obj = time(hour, minute)
+            else:
+                time_obj = None
+        except ValueError:
+            time_obj = None
+
+        picker = TimePickerDialog(self.master, initial_time=time_obj, title=f"Select {attr_name.replace('_', ' ').title()}")
+        selected_time = picker.show()
+        if selected_time:
+            # Convert to 12-hour format
+            hour_12 = selected_time.hour % 12
+            hour_12 = 12 if hour_12 == 0 else hour_12
+            minute = selected_time.minute
+            hour_var.set(f"{hour_12:02}")
+            minute_var.set(f"{minute:02}")
 
     def on_date_change(self, event):
         """
@@ -785,36 +777,29 @@ class DailyTimeRecordApp:
         except Exception as e:
             logging.error(f"Error updating search to days: {e}")
 
-    def parse_time(self, time_var):
+    def parse_time(self, attr_name):
         """
-        Parse time from the time entry.
-        Now expects a 4-digit string without ":".
+        Parse time from the time entry fields.
+        Combines hours and minutes from separate entries.
         """
-        time_str = time_var.get()
-        if len(time_str) != 4 or not time_str.isdigit():
-            return None
+        hour_var = getattr(self, f'{attr_name}_hour_var')
+        minute_var = getattr(self, f'{attr_name}_minute_var')
+        time_str = f"{hour_var.get()}:{minute_var.get()}"
         try:
-            hour = int(time_str[:2])
-            minute = int(time_str[2:])
-            # Assuming AM/PM is not handled here; can be extended if needed
-            # For now, treat as 12-hour format without AM/PM
-            if not (1 <= hour <= 12 and 0 <= minute <= 59):
-                return None
-            return time(hour, minute)
+            return datetime.strptime(time_str, "%I:%M").time()
         except ValueError:
             return None
 
     def calculate_deductions(self):
         """
         Calculate deduction points based on input times and half-day selection.
-        Also calculate total late, undertime, and durations.
         Removed 'Undertime Morning' and 'Late Afternoon' calculations.
         """
         # Get inputs
-        morning_in = self.parse_time(self.morning_in_var) if hasattr(self, 'morning_in_var') else None
-        morning_out = self.parse_time(self.morning_out_var) if hasattr(self, 'morning_out_var') else None
-        afternoon_in = self.parse_time(self.afternoon_in_var) if hasattr(self, 'afternoon_in_var') else None
-        afternoon_out = self.parse_time(self.afternoon_out_var) if hasattr(self, 'afternoon_out_var') else None
+        morning_in = self.parse_time("morning_in") if hasattr(self, 'morning_in_hour_var') else None
+        morning_out = self.parse_time("morning_out") if hasattr(self, 'morning_out_hour_var') else None
+        afternoon_in = self.parse_time("afternoon_in") if hasattr(self, 'afternoon_in_hour_var') else None
+        afternoon_out = self.parse_time("afternoon_out") if hasattr(self, 'afternoon_out_hour_var') else None
         half_day = self.half_day_var.get()
 
         # Validation

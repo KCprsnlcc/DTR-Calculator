@@ -96,3 +96,22 @@
 2025-01-23 23:47:37,078 - INFO - Entered full-screen mode.
 2025-01-23 23:47:39,551 - INFO - Exited full-screen mode.
 2025-01-23 23:47:50,270 - INFO - Application closed.
+2025-01-23 23:49:01,806 - INFO - Application started.
+2025-01-23 23:49:01,925 - INFO - Loaded records as list of dictionaries.
+2025-01-23 23:49:02,024 - INFO - History populated in Treeview.
+2025-01-23 23:49:35,856 - INFO - Half Day selected.
+2025-01-23 23:49:36,648 - INFO - Half Day Morning lateness: 0.185 points
+2025-01-23 23:49:36,648 - INFO - Half Day afternoon absence: 0.5 points
+2025-01-23 23:49:36,652 - INFO - Total deduction calculated: 0.685 points
+2025-01-23 23:52:23,498 - INFO - Application started.
+2025-01-23 23:52:23,602 - INFO - Loaded records as list of dictionaries.
+2025-01-23 23:52:23,681 - INFO - History populated in Treeview.
+2025-01-23 23:52:47,197 - INFO - Half Day selected.
+2025-01-23 23:52:48,877 - INFO - Half Day Morning lateness: 0.02 points
+2025-01-23 23:52:48,877 - INFO - Half Day afternoon absence: 0.5 points
+2025-01-23 23:52:48,879 - INFO - Total deduction calculated: 0.52 points
+2025-01-23 23:52:59,858 - INFO - Theme changed to superhero.
+2025-01-23 23:53:15,661 - INFO - Theme changed to flatly.
+2025-01-23 23:53:58,268 - INFO - Records saved successfully as list of dictionaries.
+2025-01-23 23:53:59,634 - INFO - Record saved for 2025-01-23: 0.52 points.
+2025-01-23 23:53:59,634 - INFO - History populated in Treeview.
