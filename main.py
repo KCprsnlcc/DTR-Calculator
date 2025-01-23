@@ -254,11 +254,18 @@ class DailyTimeRecordApp:
         self.master = master
         master.title("Daily Time Record")
 
+        # Add the icon to the Tkinter window
+        icon_path = "icon.ico"  # Ensure the icon file is in the same directory as the script
+        if os.path.exists(icon_path):
+            master.iconbitmap(icon_path)
+        else:
+            logging.warning("Icon file not found. Default icon will be used.")
+
         # Allow window to be resizable
         master.resizable(True, True)
 
         # Initialize style with ttkbootstrap
-        self.style = Style(theme='flatly')  # default to 'flatly' (light theme)
+        self.style = Style(theme='flatly')  # Default to 'flatly' (light theme)
         self.current_theme = 'flatly'
 
         # Load existing records

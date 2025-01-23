@@ -2,8 +2,7 @@
  False,
  False,
  True,
- 'C:\\xampp\\htdocs\\DTR '
- 'Calculator\\.venv\\Lib\\site-packages\\PyInstaller\\bootloader\\images\\icon-windowed.ico',
+ ['C:\\xampp\\htdocs\\DTR Calculator\\icon.ico'],
  None,
  False,
  False,
@@ -87,7 +86,7 @@
  [],
  False,
  False,
- 1737649999,
+ 1737651642,
  [('runw.exe',
    'C:\\xampp\\htdocs\\DTR '
    'Calculator\\.venv\\Lib\\site-packages\\PyInstaller\\bootloader\\Windows-64bit-intel\\runw.exe',
