@@ -1,14 +1,6 @@
 [
     {
         "date": "2025-01-23",
-        "deduction_points": 0.52,
-        "late_morning": 0,
-        "undertime_afternoon": 0,
-        "duration_morning": 0,
-        "duration_afternoon": 0
-    },
-    {
-        "date": "2025-01-23",
         "deduction_points": 0.524,
         "late_morning": 0,
         "undertime_afternoon": 0,

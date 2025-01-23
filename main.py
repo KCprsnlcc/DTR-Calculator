@@ -254,12 +254,8 @@ class DailyTimeRecordApp:
         self.master = master
         master.title("Daily Time Record")
 
-        # Set a fixed size and center the window
-        window_width = 1000  # Increased width
-        window_height = 1000  # Increased height for better UI
-        master.geometry(f"{window_width}x{window_height}")
-        master.resizable(False, False)
-        self.center_window(window_width, window_height)
+        # Allow window to be resizable
+        master.resizable(True, True)
 
         # Initialize style with ttkbootstrap
         self.style = Style(theme='flatly')  # default to 'flatly' (light theme)
@@ -302,7 +298,7 @@ class DailyTimeRecordApp:
 
         # Labels frame (left side) using standard ttk
         labels_frame = ttk.Frame(header_frame)
-        labels_frame.pack(side="left")
+        labels_frame.pack(side="left", fill="x", expand=True)
 
         # Custom Date Selection using Comboboxes
         date_selection_frame = ttk.Frame(labels_frame)
@@ -319,7 +315,7 @@ class DailyTimeRecordApp:
             state="readonly",
             width=5
         )
-        self.year_combo.grid(row=0, column=1, padx=5, pady=2)
+        self.year_combo.grid(row=0, column=1, padx=5, pady=2, sticky="w")
         self.year_combo.set(str(self.selected_date.year))
         self.year_combo.bind("<<ComboboxSelected>>", self.update_days)
 
@@ -333,7 +329,7 @@ class DailyTimeRecordApp:
             state="readonly",
             width=10
         )
-        self.month_combo.grid(row=0, column=3, padx=5, pady=2)
+        self.month_combo.grid(row=0, column=3, padx=5, pady=2, sticky="w")
         self.month_combo.set(calendar.month_name[self.selected_date.month])
         self.month_combo.bind("<<ComboboxSelected>>", self.update_days)
 
@@ -347,7 +343,7 @@ class DailyTimeRecordApp:
             state="readonly",
             width=3
         )
-        self.day_combo.grid(row=0, column=5, padx=5, pady=2)
+        self.day_combo.grid(row=0, column=5, padx=5, pady=2, sticky="w")
         self.day_combo.set(str(self.selected_date.day))
         self.day_combo.bind("<<ComboboxSelected>>", self.on_date_change)
 
@@ -386,34 +382,37 @@ class DailyTimeRecordApp:
         Removed 'Undertime Morning' and 'Late Afternoon' fields.
         Implemented fixed colon in manual input fields with AM/PM dropdowns.
         """
+        # Configure grid to be responsive
+        self.master.columnconfigure(0, weight=1)
+
         # Frame for Morning Inputs using ttkbootstrap
         self.frame_morning = ttkb.LabelFrame(self.master, text="Morning", padding=10)
-        self.frame_morning.pack(padx=10, pady=10, fill="x")
+        self.frame_morning.pack(padx=10, pady=10, fill="x", expand=True)
 
         self.create_time_input(self.frame_morning, "Time In:", "morning_in")
         self.create_time_input(self.frame_morning, "Time Out:", "morning_out")
 
         # Frame for Afternoon Inputs using ttkbootstrap
         self.frame_afternoon = ttkb.LabelFrame(self.master, text="Afternoon", padding=10)
-        self.frame_afternoon.pack(padx=10, pady=10, fill="x")
+        self.frame_afternoon.pack(padx=10, pady=10, fill="x", expand=True)
 
         self.create_time_input(self.frame_afternoon, "Time In:", "afternoon_in")
         self.create_time_input(self.frame_afternoon, "Time Out:", "afternoon_out")
 
         # Additional Labels for New Calculations
         # Morning Late
-        self.label_morning_late = ttk.Label(self.frame_morning, text="Late: 0 minutes")
+        self.label_morning_late = ttk.Label(self.frame_morning, text="Late: 0 minutes", font=("Arial", 12))
         self.label_morning_late.pack(anchor="w", pady=2)
 
         # Afternoon Undertime
-        self.label_afternoon_undertime = ttk.Label(self.frame_afternoon, text="Undertime: 0 minutes")
+        self.label_afternoon_undertime = ttk.Label(self.frame_afternoon, text="Undertime: 0 minutes", font=("Arial", 12))
         self.label_afternoon_undertime.pack(anchor="w", pady=2)
 
         # Duration Labels
-        self.label_duration_morning = ttk.Label(self.frame_morning, text="Duration: 0 hours 0 minutes")
+        self.label_duration_morning = ttk.Label(self.frame_morning, text="Duration: 0 hours 0 minutes", font=("Arial", 12))
         self.label_duration_morning.pack(anchor="w", pady=2)
 
-        self.label_duration_afternoon = ttk.Label(self.frame_afternoon, text="Duration: 0 hours 0 minutes")
+        self.label_duration_afternoon = ttk.Label(self.frame_afternoon, text="Duration: 0 hours 0 minutes", font=("Arial", 12))
         self.label_duration_afternoon.pack(anchor="w", pady=2)
 
     def setup_controls(self):
@@ -435,6 +434,11 @@ class DailyTimeRecordApp:
         controls_frame = ttkb.Frame(self.master)
         controls_frame.pack(pady=10)
 
+        # Configure grid to be responsive
+        controls_frame.columnconfigure(0, weight=1)
+        controls_frame.columnconfigure(1, weight=1)
+        controls_frame.columnconfigure(2, weight=1)
+
         # Calculate Button
         self.button_calculate = ttkb.Button(
             controls_frame,
@@ -442,7 +446,7 @@ class DailyTimeRecordApp:
             command=self.calculate_deductions,
             bootstyle="success"
         )
-        self.button_calculate.pack(side="left", padx=5)
+        self.button_calculate.grid(row=0, column=0, padx=5, pady=5, sticky="ew")
         Tooltip(self.button_calculate, "Calculate deduction points based on input times")
 
         # Save Record Button
@@ -452,7 +456,7 @@ class DailyTimeRecordApp:
             command=self.save_record,
             bootstyle="info"
         )
-        self.button_save.pack(side="left", padx=5)
+        self.button_save.grid(row=0, column=1, padx=5, pady=5, sticky="ew")
         Tooltip(self.button_save, "Save the current day's record")
 
         # Export History Button
@@ -462,7 +466,7 @@ class DailyTimeRecordApp:
             command=self.export_history,
             bootstyle="warning"
         )
-        self.button_export.pack(side="left", padx=5)
+        self.button_export.grid(row=0, column=2, padx=5, pady=5, sticky="ew")
         Tooltip(self.button_export, "Export deduction history to CSV")
 
         # Deduction Points Display using standard ttk
@@ -583,8 +587,8 @@ class DailyTimeRecordApp:
                                                                 "Duration Morning", "Duration Afternoon"), show='headings', selectmode="browse")
         self.history_tree.heading("Date", text="Date")
         self.history_tree.heading("Deduction Points", text="Deduction Points")
-        self.history_tree.heading("Late Morning", text="Late Morning")
-        self.history_tree.heading("Undertime Afternoon", text="Undertime Afternoon")
+        self.history_tree.heading("Late Morning", text="Late Morning (min)")
+        self.history_tree.heading("Undertime Afternoon", text="Undertime Afternoon (min)")
         self.history_tree.heading("Duration Morning", text="Duration Morning")
         self.history_tree.heading("Duration Afternoon", text="Duration Afternoon")
         self.history_tree.pack(fill="both", expand=True)
@@ -592,8 +596,8 @@ class DailyTimeRecordApp:
         # Adjust column widths
         self.history_tree.column("Date", width=100, anchor="center")
         self.history_tree.column("Deduction Points", width=120, anchor="center")
-        self.history_tree.column("Late Morning", width=100, anchor="center")
-        self.history_tree.column("Undertime Afternoon", width=150, anchor="center")
+        self.history_tree.column("Late Morning", width=150, anchor="center")
+        self.history_tree.column("Undertime Afternoon", width=180, anchor="center")
         self.history_tree.column("Duration Morning", width=150, anchor="center")
         self.history_tree.column("Duration Afternoon", width=150, anchor="center")
 
@@ -1261,7 +1265,6 @@ class DailyTimeRecordApp:
             messagebox.showerror("Error", f"Failed to save records: {e}")
             logging.error(f"Error saving records: {e}")
 
-
     # ----------------------------
     # History Management Methods
     # ----------------------------
@@ -1301,10 +1304,44 @@ class DailyTimeRecordApp:
     def change_theme(self, theme_name):
         """
         Change the application's theme.
+        Adjust font colors based on the selected theme.
         """
         self.style.theme_use(theme_name)
         self.current_theme = theme_name
         logging.info(f"Theme changed to {theme_name}.")
+
+        # Adjust font colors based on theme
+        if theme_name in ['superhero', 'darkly', 'cyborg', 'slate']:
+            # Dark mode themes
+            self.set_dark_mode_fonts()
+        else:
+            # Light mode themes
+            self.set_light_mode_fonts()
+
+    def set_dark_mode_fonts(self):
+        """
+        Set font colors to white for better visibility in dark modes.
+        """
+        # Iterate over all labels and set foreground to white
+        for widget in self.master.winfo_children():
+            self.set_widget_foreground(widget, 'white')
+
+    def set_light_mode_fonts(self):
+        """
+        Set font colors to default (black) for light modes.
+        """
+        # Iterate over all labels and set foreground to default
+        for widget in self.master.winfo_children():
+            self.set_widget_foreground(widget, 'black')
+
+    def set_widget_foreground(self, widget, color):
+        """
+        Recursively set the foreground color of labels and other text widgets.
+        """
+        if isinstance(widget, ttk.Label) or isinstance(widget, tk.Label):
+            widget.config(foreground=color)
+        for child in widget.winfo_children():
+            self.set_widget_foreground(child, color)
 
 # ============================
 # Application Entry Point

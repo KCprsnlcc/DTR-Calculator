@@ -163,3 +163,26 @@
 2025-01-24 00:06:07,716 - INFO - Date changed to 2025-01-22
 2025-01-24 00:06:26,686 - INFO - Exited full-screen mode.
 2025-01-24 00:06:31,571 - INFO - Application closed.
+2025-01-24 00:11:30,024 - INFO - Application started.
+2025-01-24 00:11:30,081 - INFO - Loaded records as list of dictionaries.
+2025-01-24 00:11:30,162 - INFO - History populated in Treeview.
+2025-01-24 00:12:10,186 - INFO - Records saved successfully as list of dictionaries.
+2025-01-24 00:12:10,186 - INFO - History populated in Treeview.
+2025-01-24 00:12:12,266 - INFO - Record updated for 2025-01-23: 0.52 points.
+2025-01-24 00:12:21,717 - INFO - Records saved successfully as list of dictionaries.
+2025-01-24 00:12:21,717 - INFO - History populated in Treeview.
+2025-01-24 00:12:22,914 - INFO - Record updated for 2025-01-23: 0.712 points.
+2025-01-24 00:12:26,876 - INFO - Records saved successfully as list of dictionaries.
+2025-01-24 00:12:26,876 - INFO - History populated in Treeview.
+2025-01-24 00:12:27,784 - INFO - Record deleted for 2025-01-23.
+2025-01-24 00:12:49,002 - INFO - Application closed.
+2025-01-24 00:13:34,047 - INFO - Application started.
+2025-01-24 00:13:34,101 - INFO - Loaded records as list of dictionaries.
+2025-01-24 00:13:34,157 - INFO - History populated in Treeview.
+2025-01-24 00:13:59,425 - INFO - Half Day selected.
+2025-01-24 00:14:14,706 - INFO - No deductions to save.
+2025-01-24 00:14:27,968 - INFO - No deductions to save.
+2025-01-24 00:14:30,528 - INFO - Entered full-screen mode.
+2025-01-24 00:14:34,695 - WARNING - No time fields filled for half day.
+2025-01-24 00:14:38,930 - INFO - Exited full-screen mode.
+2025-01-24 00:14:47,149 - INFO - Application closed.
