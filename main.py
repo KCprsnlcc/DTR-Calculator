@@ -113,14 +113,19 @@ class Tooltip:
     def showtip(self, event=None):
         if self.tipwindow or not self.text:
             return
-        # Calculate position
-        x, y, cx, cy = self.widget.bbox("insert")
-        x = x + self.widget.winfo_rootx() + 25
-        y = y + cy + self.widget.winfo_rooty() + 20
-        # Create tooltip window
-        self.tipwindow = tw = tk.Toplevel(self.widget)
+        # Calculate position relative to parent
+        parent = self.widget.winfo_toplevel()
+        parent_x = parent.winfo_rootx()
+        parent_y = parent.winfo_rooty()
+        parent_width = parent.winfo_width()
+        parent_height = parent.winfo_height()
+
+        # Tooltip dimensions
+        self.widget.update_idletasks()
+        tw = tk.Toplevel(self.widget)
         tw.wm_overrideredirect(True)  # Remove window decorations
-        tw.wm_geometry(f"+{x}+{y}")
+        tw.wm_geometry("+%d+%d" % (parent_x + parent_width//2, parent_y + parent_height//2))
+
         # Create label inside tooltip window
         label = ttk.Label(
             tw, text=self.text, justify=tk.LEFT,
@@ -144,6 +149,7 @@ class TimePickerDialog:
     A dialog for selecting time (Hour, Minute, AM/PM).
     """
     def __init__(self, parent, initial_time=None, title="Select Time"):
+        self.parent = parent  # Keep a reference to the parent
         self.top = tk.Toplevel(parent)
         self.top.title(title)
         self.top.grab_set()  # Make the dialog modal
@@ -187,6 +193,39 @@ class TimePickerDialog:
         ttk.Button(button_frame, text="OK", command=self.on_ok).pack(side="left", padx=5)
         ttk.Button(button_frame, text="Cancel", command=self.on_cancel).pack(side="left", padx=5)
 
+        # Center the dialog relative to parent
+        self.center_dialog()
+
+        # Bind events for manual editing
+        self.hour_spin.configure(state="normal")
+        self.minute_spin.configure(state="normal")
+        self.ampm_combo.configure(state="readonly")
+        self.top.protocol("WM_DELETE_WINDOW", self.on_cancel)
+
+        # Bind key events for real-time editing
+        self.hour_spin.bind("<KeyRelease>", self.on_key_release)
+        self.minute_spin.bind("<KeyRelease>", self.on_key_release)
+        self.ampm_combo.bind("<KeyRelease>", self.on_key_release)
+
+    def center_dialog(self):
+        """
+        Center the dialog on the parent window.
+        """
+        self.parent.update_idletasks()
+        parent_x = self.parent.winfo_rootx()
+        parent_y = self.parent.winfo_rooty()
+        parent_width = self.parent.winfo_width()
+        parent_height = self.parent.winfo_height()
+
+        self.top.update_idletasks()
+        dialog_width = self.top.winfo_width()
+        dialog_height = self.top.winfo_height()
+
+        pos_x = parent_x + (parent_width // 2) - (dialog_width // 2)
+        pos_y = parent_y + (parent_height // 2) - (dialog_height // 2)
+
+        self.top.geometry(f"+{pos_x}+{pos_y}")
+
     def on_ok(self):
         try:
             hour = int(self.hour_var.get())
@@ -205,6 +244,36 @@ class TimePickerDialog:
 
     def on_cancel(self):
         self.top.destroy()
+
+    def on_key_release(self, event):
+        """
+        Handle key release events for real-time input correction.
+        """
+        current_text = event.widget.get().strip().upper()
+        if event.keysym in ['P', 'M']:
+            if not current_text.endswith('M') and not current_text.endswith('AM') and not current_text.endswith('PM'):
+                event.widget.insert(tk.END, event.keysym)
+        elif event.keysym == 'BackSpace':
+            pass  # Allow user to delete characters
+        else:
+            # Auto-format if possible
+            parts = current_text.split(':')
+            if len(parts) == 1 and parts[0].isdigit():
+                if len(parts[0]) >= 2:
+                    event.widget.delete(0, tk.END)
+                    event.widget.insert(0, parts[0][:2] + ":")
+            elif len(parts) == 2:
+                try:
+                    hour = int(parts[0])
+                    minute = int(parts[1][:2])
+                    ampm = parts[1][2:].strip()
+                    if ampm not in ["AM", "PM"]:
+                        ampm = "AM"
+                    corrected_time = f"{hour:02}:{minute:02} {ampm}"
+                    event.widget.delete(0, tk.END)
+                    event.widget.insert(0, corrected_time)
+                except ValueError:
+                    pass  # Ignore invalid input
 
     def show(self):
         self.top.wait_window()
@@ -553,10 +622,38 @@ class DailyTimeRecordApp:
         label.pack(side="left", padx=5)
 
         # Entry to display and input time using standard ttk
-        time_var = tk.StringVar(value='--:-- --')
+        time_var = tk.StringVar(value='--:-- AM')  # Modified default value
         time_entry = ttk.Entry(frame, textvariable=time_var, width=10)
         time_entry.pack(side="left", padx=2)
         Tooltip(time_entry, "Enter time manually or click 'Select Time' to choose.")
+
+        def validate_and_correct(event):
+            """
+            Validate and correct the time format in the entry.
+            """
+            time_str = time_var.get().strip().upper()
+            try:
+                # Attempt to parse the time
+                parsed_time = datetime.strptime(time_str, "%I:%M %p").time()
+                # Reformat to ensure consistent formatting
+                corrected_time = parsed_time.strftime("%I:%M %p")
+                time_var.set(corrected_time)
+            except ValueError:
+                try:
+                    # Attempt to add missing parts
+                    if ':' not in time_str:
+                        time_str += ":00"
+                    if not any(am_pm in time_str for am_pm in ["AM", "PM"]):
+                        time_str += " AM"  # Default to AM if not specified
+                    parsed_time = datetime.strptime(time_str, "%I:%M %p").time()
+                    corrected_time = parsed_time.strftime("%I:%M %p")
+                    time_var.set(corrected_time)
+                except ValueError:
+                    messagebox.showerror("Invalid Time Format", f"'{time_var.get()}' is not a valid time. Please enter in 'HH:MM AM/PM' format.")
+                    time_var.set('--:-- AM')
+
+        # Bind the validation function to focus out event
+        time_entry.bind("<FocusOut>", validate_and_correct)
 
         def open_time_picker():
             current_time_str = time_var.get()
@@ -576,6 +673,43 @@ class DailyTimeRecordApp:
 
         # Set attributes for later access
         setattr(self, f'{attr_name}_var', time_var)
+
+        # Bind key release event for real-time editing
+        time_entry.bind("<KeyRelease>", self.create_time_input_key_release(time_var))
+
+    def create_time_input_key_release(self, time_var):
+        """
+        Create a key release handler for time input fields.
+        """
+        def on_key_release(event):
+            """
+            Handle key release events for real-time input correction.
+            """
+            current_text = time_var.get().strip().upper()
+            if event.keysym in ['P', 'M']:
+                if not current_text.endswith('M') and not current_text.endswith('AM') and not current_text.endswith('PM'):
+                    time_var.set(current_text + event.keysym)
+            elif event.keysym == 'BackSpace':
+                pass  # Allow user to delete characters
+            else:
+                # Auto-format if possible
+                parts = current_text.split(':')
+                if len(parts) == 1 and parts[0].isdigit():
+                    if len(parts[0]) >= 2:
+                        time_var.set(parts[0][:2] + ":" + parts[0][2:])
+                elif len(parts) == 2:
+                    try:
+                        hour = int(parts[0])
+                        minute = int(parts[1][:2])
+                        ampm = parts[1][2:].strip()
+                        if ampm not in ["AM", "PM"]:
+                            ampm = "AM"
+                        corrected_time = f"{hour:02}:{minute:02} {ampm}"
+                        time_var.set(corrected_time)
+                    except ValueError:
+                        pass  # Ignore invalid input
+
+        return on_key_release
 
     def on_date_change(self, event):
         """
