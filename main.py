@@ -2,12 +2,12 @@ import tkinter as tk
 from tkinter import ttk, messagebox, filedialog, simpledialog
 import ttkbootstrap as ttkb  # Import ttkbootstrap with alias to differentiate
 from ttkbootstrap import Style
-from tkcalendar import DateEntry
 from datetime import datetime, time
 import json
 import os
 import csv
 import logging
+import calendar
 
 # ============================
 # Configuration and Constants
@@ -251,7 +251,7 @@ class DailyTimeRecordApp:
 
     def setup_header(self):
         """
-        Setup the header section with DateEntry and Day Label.
+        Setup the header section with Date Selection and Day Label.
         """
         header_frame = ttkb.Frame(self.master)
         header_frame.pack(fill="x", pady=10, padx=10)
@@ -260,21 +260,58 @@ class DailyTimeRecordApp:
         labels_frame = ttk.Frame(header_frame)
         labels_frame.pack(side="left")
 
-        # DateEntry using tkcalendar with standard ttk
-        self.date_var = tk.StringVar()
-        self.date_entry = DateEntry(
-            labels_frame,
-            textvariable=self.date_var,
-            date_pattern='yyyy-mm-dd',
-            width=12,
-            state="readonly"  # Prevent manual entry to ensure consistency
-        )
-        self.date_entry.set_date(self.selected_date)
-        self.date_entry.pack(pady=5, anchor="w")
-        Tooltip(self.date_entry, "Select a different date")
-        self.date_entry.bind("<<DateEntrySelected>>", self.on_date_change)
+        # Custom Date Selection using Comboboxes
+        date_selection_frame = ttk.Frame(labels_frame)
+        date_selection_frame.pack(pady=5, anchor="w")
 
-        # Label for Day
+        # Year Combobox
+        ttk.Label(date_selection_frame, text="Year:").grid(row=0, column=0, padx=5, pady=2, sticky="e")
+        current_year = datetime.now().year
+        self.year_var = tk.StringVar()
+        self.year_combo = ttk.Combobox(
+            date_selection_frame,
+            textvariable=self.year_var,
+            values=[str(year) for year in range(current_year - 5, current_year + 6)],
+            state="readonly",
+            width=5
+        )
+        self.year_combo.grid(row=0, column=1, padx=5, pady=2)
+        self.year_combo.set(str(self.selected_date.year))
+        self.year_combo.bind("<<ComboboxSelected>>", self.update_days)
+
+        # Month Combobox
+        ttk.Label(date_selection_frame, text="Month:").grid(row=0, column=2, padx=5, pady=2, sticky="e")
+        self.month_var = tk.StringVar()
+        self.month_combo = ttk.Combobox(
+            date_selection_frame,
+            textvariable=self.month_var,
+            values=[calendar.month_name[i] for i in range(1, 13)],
+            state="readonly",
+            width=10
+        )
+        self.month_combo.grid(row=0, column=3, padx=5, pady=2)
+        self.month_combo.set(calendar.month_name[self.selected_date.month])
+        self.month_combo.bind("<<ComboboxSelected>>", self.update_days)
+
+        # Day Combobox
+        ttk.Label(date_selection_frame, text="Day:").grid(row=0, column=4, padx=5, pady=2, sticky="e")
+        self.day_var = tk.StringVar()
+        self.day_combo = ttk.Combobox(
+            date_selection_frame,
+            textvariable=self.day_var,
+            values=[str(day) for day in range(1, 32)],
+            state="readonly",
+            width=3
+        )
+        self.day_combo.grid(row=0, column=5, padx=5, pady=2)
+        self.day_combo.set(str(self.selected_date.day))
+        self.day_combo.bind("<<ComboboxSelected>>", self.on_date_change)
+
+        Tooltip(self.year_combo, "Select Year")
+        Tooltip(self.month_combo, "Select Month")
+        Tooltip(self.day_combo, "Select Day")
+
+        # Label for Day of the Week
         self.label_day = ttk.Label(labels_frame, text=f"Day: {self.current_day}", font=("Arial", 16))
         self.label_day.pack(pady=5, anchor="w")
 
@@ -374,27 +411,93 @@ class DailyTimeRecordApp:
         search_frame = ttk.Frame(history_frame)
         search_frame.pack(fill="x", pady=5)
 
-        ttk.Label(search_frame, text="From:").pack(side="left", padx=5)
-        self.search_from = DateEntry(
+        # Custom Date Selection for Search - From Date
+        ttk.Label(search_frame, text="From Year:").pack(side="left", padx=5)
+        current_year = datetime.now().year
+        self.search_from_year_var = tk.StringVar()
+        self.search_from_year = ttk.Combobox(
             search_frame,
-            date_pattern='yyyy-mm-dd',
-            width=12,
-            state="readonly"
+            textvariable=self.search_from_year_var,
+            values=[str(year) for year in range(current_year - 5, current_year + 6)],
+            state="readonly",
+            width=5
         )
-        self.search_from.pack(side="left", padx=5)
-        Tooltip(self.search_from, "Select start date for search")
-        self.search_from.set_date(datetime.now().date())
+        self.search_from_year.pack(side="left", padx=5)
+        self.search_from_year.set(str(self.selected_date.year))
+        self.search_from_year.bind("<<ComboboxSelected>>", self.update_search_from_days)
 
-        ttk.Label(search_frame, text="To:").pack(side="left", padx=5)
-        self.search_to = DateEntry(
+        ttk.Label(search_frame, text="From Month:").pack(side="left", padx=5)
+        self.search_from_month_var = tk.StringVar()
+        self.search_from_month = ttk.Combobox(
             search_frame,
-            date_pattern='yyyy-mm-dd',
-            width=12,
-            state="readonly"
+            textvariable=self.search_from_month_var,
+            values=[calendar.month_name[i] for i in range(1, 13)],
+            state="readonly",
+            width=10
         )
-        self.search_to.pack(side="left", padx=5)
-        Tooltip(self.search_to, "Select end date for search")
-        self.search_to.set_date(datetime.now().date())
+        self.search_from_month.pack(side="left", padx=5)
+        self.search_from_month.set(calendar.month_name[self.selected_date.month])
+        self.search_from_month.bind("<<ComboboxSelected>>", self.update_search_from_days)
+
+        ttk.Label(search_frame, text="From Day:").pack(side="left", padx=5)
+        self.search_from_day_var = tk.StringVar()
+        self.search_from_day = ttk.Combobox(
+            search_frame,
+            textvariable=self.search_from_day_var,
+            values=[str(day) for day in range(1, 32)],
+            state="readonly",
+            width=3
+        )
+        self.search_from_day.pack(side="left", padx=5)
+        self.search_from_day.set(str(self.selected_date.day))
+        self.search_from_day.bind("<<ComboboxSelected>>", self.on_date_change)
+
+        # Custom Date Selection for Search - To Date
+        ttk.Label(search_frame, text="To Year:").pack(side="left", padx=5)
+        self.search_to_year_var = tk.StringVar()
+        self.search_to_year = ttk.Combobox(
+            search_frame,
+            textvariable=self.search_to_year_var,
+            values=[str(year) for year in range(current_year - 5, current_year + 6)],
+            state="readonly",
+            width=5
+        )
+        self.search_to_year.pack(side="left", padx=5)
+        self.search_to_year.set(str(self.selected_date.year))
+        self.search_to_year.bind("<<ComboboxSelected>>", self.update_search_to_days)
+
+        ttk.Label(search_frame, text="To Month:").pack(side="left", padx=5)
+        self.search_to_month_var = tk.StringVar()
+        self.search_to_month = ttk.Combobox(
+            search_frame,
+            textvariable=self.search_to_month_var,
+            values=[calendar.month_name[i] for i in range(1, 13)],
+            state="readonly",
+            width=10
+        )
+        self.search_to_month.pack(side="left", padx=5)
+        self.search_to_month.set(calendar.month_name[self.selected_date.month])
+        self.search_to_month.bind("<<ComboboxSelected>>", self.update_search_to_days)
+
+        ttk.Label(search_frame, text="To Day:").pack(side="left", padx=5)
+        self.search_to_day_var = tk.StringVar()
+        self.search_to_day = ttk.Combobox(
+            search_frame,
+            textvariable=self.search_to_day_var,
+            values=[str(day) for day in range(1, 32)],
+            state="readonly",
+            width=3
+        )
+        self.search_to_day.pack(side="left", padx=5)
+        self.search_to_day.set(str(self.selected_date.day))
+        self.search_to_day.bind("<<ComboboxSelected>>", self.on_date_change)
+
+        Tooltip(self.search_from_year, "Select From Year")
+        Tooltip(self.search_from_month, "Select From Month")
+        Tooltip(self.search_from_day, "Select From Day")
+        Tooltip(self.search_to_year, "Select To Year")
+        Tooltip(self.search_to_month, "Select To Month")
+        Tooltip(self.search_to_day, "Select To Day")
 
         self.button_search = ttkb.Button(search_frame, text="Search", command=self.search_history)
         self.button_search.pack(side="left", padx=5)
@@ -462,17 +565,66 @@ class DailyTimeRecordApp:
 
     def on_date_change(self, event):
         """
-        Callback when the date is changed in DateEntry.
+        Callback when the date is changed in Date Selection Comboboxes.
         """
         try:
-            self.selected_date = self.date_entry.get_date()
+            year = int(self.year_var.get()) if hasattr(self, 'year_var') else int(self.search_from_year_var.get())
+            month = list(calendar.month_name).index(self.month_var.get()) if hasattr(self, 'month_var') else list(calendar.month_name).index(self.search_from_month_var.get())
+            day = int(self.day_var.get()) if hasattr(self, 'day_var') else int(self.search_from_day_var.get())
+
+            self.selected_date = datetime(year, month, day).date()
             self.current_day = self.selected_date.strftime("%A")
             self.label_day.config(text=f"Day: {self.current_day}")
             self.populate_history()
             logging.info(f"Date changed to {self.selected_date}")
-        except Exception as e:
+        except ValueError as e:
             messagebox.showerror("Error", f"Invalid date selected.\n{e}")
             logging.error(f"Error on date change: {e}")
+
+    def update_days(self, event):
+        """
+        Update the days Combobox based on selected month and year.
+        """
+        try:
+            year = int(self.year_var.get())
+            month = list(calendar.month_name).index(self.month_var.get())
+            num_days = calendar.monthrange(year, month)[1]
+            days = [str(day) for day in range(1, num_days + 1)]
+            self.day_combo['values'] = days
+            if int(self.day_var.get()) > num_days:
+                self.day_var.set(str(num_days))
+        except Exception as e:
+            logging.error(f"Error updating days: {e}")
+
+    def update_search_from_days(self, event):
+        """
+        Update the 'From' days Combobox based on selected month and year in search.
+        """
+        try:
+            year = int(self.search_from_year_var.get())
+            month = list(calendar.month_name).index(self.search_from_month_var.get())
+            num_days = calendar.monthrange(year, month)[1]
+            days = [str(day) for day in range(1, num_days + 1)]
+            self.search_from_day['values'] = days
+            if int(self.search_from_day_var.get()) > num_days:
+                self.search_from_day_var.set(str(num_days))
+        except Exception as e:
+            logging.error(f"Error updating search from days: {e}")
+
+    def update_search_to_days(self, event):
+        """
+        Update the 'To' days Combobox based on selected month and year in search.
+        """
+        try:
+            year = int(self.search_to_year_var.get())
+            month = list(calendar.month_name).index(self.search_to_month_var.get())
+            num_days = calendar.monthrange(year, month)[1]
+            days = [str(day) for day in range(1, num_days + 1)]
+            self.search_to_day['values'] = days
+            if int(self.search_to_day_var.get()) > num_days:
+                self.search_to_day_var.set(str(num_days))
+        except Exception as e:
+            logging.error(f"Error updating search to days: {e}")
 
     def parse_time(self, time_var):
         """
@@ -715,19 +867,30 @@ class DailyTimeRecordApp:
         """
         Search records within the selected date range.
         """
-        from_date = self.search_from.get_date()
-        to_date = self.search_to.get_date()
+        try:
+            from_year = int(self.search_from_year_var.get())
+            from_month = list(calendar.month_name).index(self.search_from_month_var.get())
+            from_day = int(self.search_from_day_var.get())
+            from_date = datetime(from_year, from_month, from_day).date()
 
-        if from_date > to_date:
-            messagebox.showerror("Invalid Range", "From date cannot be after To date.")
-            logging.warning("Invalid search date range.")
-            return
+            to_year = int(self.search_to_year_var.get())
+            to_month = list(calendar.month_name).index(self.search_to_month_var.get())
+            to_day = int(self.search_to_day_var.get())
+            to_date = datetime(to_year, to_month, to_day).date()
 
-        filtered_records = {date: ded for date, ded in self.records.items()
-                            if from_date <= datetime.strptime(date, "%Y-%m-%d").date() <= to_date}
+            if from_date > to_date:
+                messagebox.showerror("Invalid Range", "From date cannot be after To date.")
+                logging.warning("Invalid search date range.")
+                return
 
-        self.populate_history(filtered_records)
-        logging.info(f"Searched records from {from_date} to {to_date}.")
+            filtered_records = {date: ded for date, ded in self.records.items()
+                                if from_date <= datetime.strptime(date, "%Y-%m-%d").date() <= to_date}
+
+            self.populate_history(filtered_records)
+            logging.info(f"Searched records from {from_date} to {to_date}.")
+        except ValueError as e:
+            messagebox.showerror("Invalid Input", f"Please ensure all search dates are selected correctly.\n{e}")
+            logging.error(f"Error in search input: {e}")
 
     # ----------------------------
     # File Handling Methods

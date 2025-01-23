@@ -2,3 +2,41 @@
 2025-01-23 23:04:36,234 - INFO - Records loaded successfully.
 2025-01-23 23:10:09,601 - INFO - Application started.
 2025-01-23 23:10:09,744 - INFO - Records loaded successfully.
+2025-01-23 23:12:22,606 - INFO - Application started.
+2025-01-23 23:12:22,718 - INFO - Records loaded successfully.
+2025-01-23 23:12:22,871 - INFO - History populated in Treeview.
+2025-01-23 23:13:05,251 - WARNING - Incomplete time fields for full day.
+2025-01-23 23:14:01,242 - INFO - Half Day selected.
+2025-01-23 23:14:01,468 - INFO - Full Day selected.
+2025-01-23 23:14:02,951 - INFO - Half Day selected.
+2025-01-23 23:14:04,035 - INFO - Half Day Morning undertime: 1.0 points
+2025-01-23 23:14:04,035 - INFO - Half Day afternoon absence: 0.5 points
+2025-01-23 23:14:04,042 - INFO - Total deduction calculated: 1.5 points
+2025-01-23 23:14:12,361 - INFO - Full Day selected.
+2025-01-23 23:14:13,304 - INFO - Half Day selected.
+2025-01-23 23:14:17,050 - INFO - Half Day Morning undertime: 1.0 points
+2025-01-23 23:14:17,050 - INFO - Half Day afternoon absence: 0.5 points
+2025-01-23 23:14:17,050 - INFO - Total deduction calculated: 1.5 points
+2025-01-23 23:14:17,870 - INFO - Half Day Morning undertime: 1.0 points
+2025-01-23 23:14:17,870 - INFO - Half Day afternoon absence: 0.5 points
+2025-01-23 23:14:17,870 - INFO - Total deduction calculated: 1.5 points
+2025-01-23 23:14:18,339 - INFO - Half Day Morning undertime: 1.0 points
+2025-01-23 23:14:18,339 - INFO - Half Day afternoon absence: 0.5 points
+2025-01-23 23:14:18,339 - INFO - Total deduction calculated: 1.5 points
+2025-01-23 23:15:14,139 - INFO - Half Day afternoon absence: 0.5 points
+2025-01-23 23:15:14,139 - INFO - Total deduction calculated: 0.5 points
+2025-01-23 23:15:34,524 - INFO - Half Day Morning lateness: 0.02 points
+2025-01-23 23:15:34,524 - INFO - Half Day afternoon absence: 0.5 points
+2025-01-23 23:15:34,524 - INFO - Total deduction calculated: 0.52 points
+2025-01-23 23:15:48,647 - INFO - Records saved successfully.
+2025-01-23 23:15:49,874 - INFO - Record saved for 2025-01-23: 0.52 points.
+2025-01-23 23:15:49,875 - INFO - History populated in Treeview.
+2025-01-23 23:15:58,830 - INFO - Records saved successfully.
+2025-01-23 23:15:59,726 - INFO - Record saved for 2025-01-23: 0.52 points.
+2025-01-23 23:15:59,726 - INFO - History populated in Treeview.
+2025-01-23 23:16:02,051 - INFO - User chose not to overwrite existing record for 2025-01-23.
+2025-01-23 23:18:23,582 - INFO - History populated in Treeview.
+2025-01-23 23:18:23,582 - INFO - Date changed to 2025-01-24
+2025-01-23 23:18:25,699 - INFO - History populated in Treeview.
+2025-01-23 23:18:25,699 - INFO - Date changed to 2025-01-23
+2025-01-23 23:19:12,311 - INFO - Application closed.
