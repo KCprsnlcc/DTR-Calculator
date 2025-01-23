@@ -115,3 +115,51 @@
 2025-01-23 23:53:58,268 - INFO - Records saved successfully as list of dictionaries.
 2025-01-23 23:53:59,634 - INFO - Record saved for 2025-01-23: 0.52 points.
 2025-01-23 23:53:59,634 - INFO - History populated in Treeview.
+2025-01-23 23:58:38,610 - INFO - Application started.
+2025-01-23 23:58:38,753 - INFO - Loaded records as list of dictionaries.
+2025-01-23 23:58:38,830 - ERROR - Failed to load logo image: module 'PIL.Image' has no attribute 'ANTIALIAS'
+2025-01-23 23:58:38,924 - INFO - History populated in Treeview.
+2025-01-23 23:58:58,330 - INFO - Entered full-screen mode.
+2025-01-23 23:59:05,154 - INFO - Exited full-screen mode.
+2025-01-23 23:59:12,433 - INFO - Application closed.
+2025-01-23 23:59:39,175 - INFO - Application started.
+2025-01-23 23:59:39,283 - INFO - Loaded records as list of dictionaries.
+2025-01-23 23:59:39,308 - ERROR - Failed to load logo image: module 'PIL.Image' has no attribute 'ANTIALIAS'
+2025-01-23 23:59:39,399 - INFO - History populated in Treeview.
+2025-01-23 23:59:50,552 - INFO - Application closed.
+2025-01-24 00:00:26,478 - INFO - Application started.
+2025-01-24 00:00:26,591 - INFO - Loaded records as list of dictionaries.
+2025-01-24 00:00:26,616 - ERROR - Failed to load logo image: module 'PIL.Image' has no attribute 'ANTIALIAS'
+2025-01-24 00:00:26,697 - INFO - History populated in Treeview.
+2025-01-24 00:00:30,542 - INFO - Application closed.
+2025-01-24 00:04:23,457 - INFO - Application started.
+2025-01-24 00:04:23,543 - INFO - Loaded records as list of dictionaries.
+2025-01-24 00:04:23,620 - INFO - History populated in Treeview.
+2025-01-24 00:04:31,271 - INFO - Entered full-screen mode.
+2025-01-24 00:04:32,834 - INFO - Exited full-screen mode.
+2025-01-24 00:04:34,487 - INFO - Theme changed to superhero.
+2025-01-24 00:04:38,177 - INFO - Theme changed to flatly.
+2025-01-24 00:04:47,640 - INFO - Application closed.
+2025-01-24 00:04:55,921 - INFO - Application started.
+2025-01-24 00:04:55,994 - INFO - Loaded records as list of dictionaries.
+2025-01-24 00:04:56,063 - INFO - History populated in Treeview.
+2025-01-24 00:04:58,168 - INFO - Theme changed to superhero.
+2025-01-24 00:05:07,220 - WARNING - Incomplete time fields for full day.
+2025-01-24 00:05:08,328 - INFO - Half Day selected.
+2025-01-24 00:05:10,748 - WARNING - No time fields filled for half day.
+2025-01-24 00:05:16,478 - WARNING - No time fields filled for half day.
+2025-01-24 00:05:23,389 - INFO - Half Day Morning lateness: 0.187 points
+2025-01-24 00:05:23,389 - INFO - Half Day afternoon absence: 0.5 points
+2025-01-24 00:05:23,389 - INFO - Total deduction calculated: 0.687 points
+2025-01-24 00:05:32,642 - INFO - Theme changed to flatly.
+2025-01-24 00:05:41,910 - INFO - Theme changed to superhero.
+2025-01-24 00:05:44,242 - INFO - Theme changed to flatly.
+2025-01-24 00:05:56,780 - INFO - History populated in Treeview.
+2025-01-24 00:05:56,780 - INFO - Date changed to 2025-01-26
+2025-01-24 00:05:59,565 - INFO - Entered full-screen mode.
+2025-01-24 00:06:04,091 - INFO - History populated in Treeview.
+2025-01-24 00:06:04,091 - INFO - Searched records from 2025-01-24 to 2025-01-26.
+2025-01-24 00:06:07,715 - INFO - History populated in Treeview.
+2025-01-24 00:06:07,716 - INFO - Date changed to 2025-01-22
+2025-01-24 00:06:26,686 - INFO - Exited full-screen mode.
+2025-01-24 00:06:31,571 - INFO - Application closed.

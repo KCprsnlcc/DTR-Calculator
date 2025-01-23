@@ -384,7 +384,7 @@ class DailyTimeRecordApp:
         """
         Setup the Morning and Afternoon time input sections.
         Removed 'Undertime Morning' and 'Late Afternoon' fields.
-        Implemented fixed colon in manual input fields.
+        Implemented fixed colon in manual input fields with AM/PM dropdowns.
         """
         # Frame for Morning Inputs using ttkbootstrap
         self.frame_morning = ttkb.LabelFrame(self.master, text="Morning", padding=10)
@@ -616,7 +616,8 @@ class DailyTimeRecordApp:
 
     def create_time_input(self, parent, label_text, attr_name):
         """
-        Create a time input section with label, fixed colon, and two entry fields for hours and minutes.
+        Create a time input section with label, fixed colon, separate hour and minute entries,
+        AM/PM Combobox, and a button to open the Time Picker Dialog.
         The colon is fixed and not removable.
         """
         frame = ttkb.Frame(parent)
@@ -643,6 +644,13 @@ class DailyTimeRecordApp:
         Tooltip(minute_entry, "Enter minutes (00-59)")
         self.register_time_validation(minute_entry, minute_var, part='minute')
 
+        # AM/PM Combobox
+        ampm_var = tk.StringVar(value="AM")
+        ampm_combo = ttk.Combobox(frame, textvariable=ampm_var, values=["AM", "PM"], state="readonly", width=3)
+        ampm_combo.pack(side="left", padx=(0, 5))
+        ampm_combo.set("AM")
+        Tooltip(ampm_combo, "Select AM or PM")
+
         # Button to open Time Picker Dialog using ttkbootstrap
         time_button = ttkb.Button(frame, text="Select Time", command=lambda: self.open_time_picker(attr_name))
         time_button.pack(side="left", padx=2)
@@ -651,6 +659,11 @@ class DailyTimeRecordApp:
         # Set attributes for later access
         setattr(self, f'{attr_name}_hour_var', hour_var)
         setattr(self, f'{attr_name}_minute_var', minute_var)
+        setattr(self, f'{attr_name}_ampm_var', ampm_var)
+
+        # Bind key release event for real-time editing
+        hour_entry.bind("<KeyRelease>", self.create_time_input_key_release(hour_var, part='hour'))
+        minute_entry.bind("<KeyRelease>", self.create_time_input_key_release(minute_var, part='minute'))
 
     def register_time_validation(self, entry, var, part='hour'):
         """
@@ -670,36 +683,60 @@ class DailyTimeRecordApp:
                     entry.config(foreground='black')
         var.trace_add('write', validate)
 
+    def create_time_input_key_release(self, var, part='hour'):
+        """
+        Create a key release handler for time input fields.
+        Ensures only 2 digits are entered.
+        """
+        def on_key_release(event):
+            current_text = var.get().strip().upper()
+            if not current_text.isdigit():
+                # Remove non-digit characters
+                new_text = ''.join(filter(str.isdigit, current_text))
+                var.set(new_text)
+                return
+            if len(current_text) > 2:
+                # Limit to 2 digits
+                var.set(current_text[:2])
+        return on_key_release
+
     def open_time_picker(self, attr_name):
         """
-        Open the TimePickerDialog and set the selected time to the corresponding entry fields.
+        Open the TimePickerDialog and set the selected time to the corresponding entry fields,
+        including the AM/PM Combobox.
         """
         hour_var = getattr(self, f'{attr_name}_hour_var')
         minute_var = getattr(self, f'{attr_name}_minute_var')
-        current_hour = hour_var.get()
-        current_minute = minute_var.get()
+        ampm_var = getattr(self, f'{attr_name}_ampm_var')
 
         # Convert current entries to time object
         try:
-            hour = int(current_hour)
-            minute = int(current_minute)
-            if 1 <= hour <= 12 and 0 <= minute <= 59:
-                # Assume AM for the picker; can be extended to handle AM/PM if needed
-                time_obj = time(hour, minute)
+            hour = int(hour_var.get())
+            minute = int(minute_var.get())
+            ampm = ampm_var.get()
+            if ampm == "PM" and hour != 12:
+                hour_24 = hour + 12
+            elif ampm == "AM" and hour == 12:
+                hour_24 = 0
             else:
-                time_obj = None
+                hour_24 = hour
+            time_obj = time(hour_24, minute)
         except ValueError:
             time_obj = None
 
         picker = TimePickerDialog(self.master, initial_time=time_obj, title=f"Select {attr_name.replace('_', ' ').title()}")
         selected_time = picker.show()
         if selected_time:
-            # Convert to 12-hour format
+            # Convert to 12-hour format with AM/PM
             hour_12 = selected_time.hour % 12
             hour_12 = 12 if hour_12 == 0 else hour_12
             minute = selected_time.minute
+            ampm = "PM" if selected_time.hour >= 12 else "AM"
+
+            # Update the entries and AM/PM Combobox
             hour_var.set(f"{hour_12:02}")
             minute_var.set(f"{minute:02}")
+            ampm_var.set(ampm)
 
     def on_date_change(self, event):
         """
@@ -780,13 +817,15 @@ class DailyTimeRecordApp:
     def parse_time(self, attr_name):
         """
         Parse time from the time entry fields.
-        Combines hours and minutes from separate entries.
+        Combines hours, minutes, and AM/PM from separate entries.
         """
         hour_var = getattr(self, f'{attr_name}_hour_var')
         minute_var = getattr(self, f'{attr_name}_minute_var')
-        time_str = f"{hour_var.get()}:{minute_var.get()}"
+        ampm_var = getattr(self, f'{attr_name}_ampm_var')
+
+        time_str = f"{hour_var.get()}:{minute_var.get()} {ampm_var.get()}"
         try:
-            return datetime.strptime(time_str, "%I:%M").time()
+            return datetime.strptime(time_str, "%I:%M %p").time()
         except ValueError:
             return None
 
