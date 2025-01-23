@@ -10,3 +10,10 @@ pythonnet==3.0.5
 tkcalendar==1.6.1
 ttkbootstrap==1.10.1
 typing_extensions==4.12.2
+altgraph==0.17.4
+packaging==24.2
+pefile==2023.2.7
+pyinstaller==6.11.1
+pyinstaller-hooks-contrib==2025.0
+pywin32-ctypes==0.2.3
+setuptools==75.8.0
