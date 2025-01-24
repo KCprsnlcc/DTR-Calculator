@@ -40,7 +40,7 @@ HOURS_TO_DAY = {
 # Allowed time configurations per weekday
 ALLOWED_TIMES = {
     "Monday": {
-        "supposed_time_in": time(8, 15)
+        "supposed_time_in": time(8, 00)
     },
     "Tuesday": {
         "supposed_time_in": time(8, 30)
@@ -402,7 +402,7 @@ class DailyTimeRecordApp:
         Tooltip(self.day_combo, "Select Day")
 
         # Label for Day of the Week
-        self.label_day = ttk.Label(labels_frame, text=f"Day: {self.current_day}", font=("Arial", 16))
+        self.label_day = ttk.Label(labels_frame, text=f"Day: {self.current_day}", font=("Inter", 16))
         self.label_day.pack(pady=5, anchor="w")
 
         # Theme and Full-Screen Toggle Buttons (right side) using ttkbootstrap
@@ -440,7 +440,7 @@ class DailyTimeRecordApp:
         left_morning_frame.pack(side="left", fill="x", expand=True)
 
         # Supposed Time In Label
-        self.label_supposed_time_in = ttk.Label(left_morning_frame, text="Supposed Time In: --:-- --", font=("Arial", 12))
+        self.label_supposed_time_in = ttk.Label(left_morning_frame, text="Supposed Time In: --:-- --", font=("Inter", 12))
         self.label_supposed_time_in.pack(anchor="w", pady=(0, 5))
 
         # Actual Time In Input
@@ -460,7 +460,7 @@ class DailyTimeRecordApp:
         self.label_morning_late = ttk.Label(
             right_morning_frame,
             text="Late: 0 minutes",
-            font=("Arial", 13, "bold"),
+            font=("Inter", 13, "bold"),
             foreground="#000000"  # A distinct color for visibility
         )
         self.label_morning_late.pack(anchor="center", pady=5)
@@ -469,7 +469,7 @@ class DailyTimeRecordApp:
         self.label_morning_late_deduction = ttk.Label(
             right_morning_frame,
             text="Late Deduction: 0.000",
-            font=("Arial", 13, "bold"),
+            font=("Inter", 13, "bold"),
             foreground="#000000"
         )
         self.label_morning_late_deduction.pack(anchor="center", pady=5)
@@ -483,7 +483,7 @@ class DailyTimeRecordApp:
         left_afternoon_frame.pack(side="left", fill="x", expand=True)
 
         # Supposed Time Out Label
-        self.label_supposed_time_out = ttk.Label(left_afternoon_frame, text="Supposed Time Out: --:-- --", font=("Arial", 12))
+        self.label_supposed_time_out = ttk.Label(left_afternoon_frame, text="Supposed Time Out: --:-- --", font=("Inter", 12))
         self.label_supposed_time_out.pack(anchor="w", pady=(0, 5))
 
         # Actual Time Out Input
@@ -503,7 +503,7 @@ class DailyTimeRecordApp:
         self.label_afternoon_undertime = ttk.Label(
             right_afternoon_frame,
             text="Undertime: 0 minutes",
-            font=("Arial", 13, "bold"),
+            font=("Inter", 13, "bold"),
             foreground="#000000"
         )
         self.label_afternoon_undertime.pack(anchor="center", pady=5)
@@ -512,7 +512,7 @@ class DailyTimeRecordApp:
         self.label_afternoon_undertime_deduction = ttk.Label(
             right_afternoon_frame,
             text="Undertime Deduction: 0.000",
-            font=("Arial", 13, "bold"),
+            font=("Inter", 13, "bold"),
             foreground="#000000"
         )
         self.label_afternoon_undertime_deduction.pack(anchor="center", pady=5)
@@ -561,7 +561,7 @@ class DailyTimeRecordApp:
         Tooltip(self.button_export, "Export deduction history to CSV")
 
         # Deduction Points Display using standard ttk
-        self.label_deductions = ttk.Label(self.master, text="Total Deduction Points: 0.000", font=("Arial", 16, "bold"))
+        self.label_deductions = ttk.Label(self.master, text="Total Deduction Points: 0.000", font=("Inter", 16, "bold"))
         self.label_deductions.pack(pady=20)
 
     def setup_history(self):
@@ -1484,7 +1484,7 @@ Key Features:
 - Theme Customization: Switch between light and dark modes for convenience.
 - Full-Screen Mode: Toggle full-screen mode as desired.
 """
-        label_overview = tk.Text(tab_overview, wrap="word", font=("Arial", 12), bg=help_window.cget("bg"), borderwidth=0)
+        label_overview = tk.Text(tab_overview, wrap="word", font=("Inter", 12), bg=help_window.cget("bg"), borderwidth=0)
         label_overview.insert("1.0", overview_content)
         label_overview.config(state="disabled")
         label_overview.pack(fill="both", expand=True, padx=10, pady=10)
@@ -1526,7 +1526,7 @@ Step-by-Step Guide
    - Switch between "Light Mode" and "Dark Mode" using the top-right buttons.
    - Use "Full Screen" to toggle between windowed and full-screen mode.
 """
-        label_guide = tk.Text(tab_guide, wrap="word", font=("Arial", 12), bg=help_window.cget("bg"), borderwidth=0)
+        label_guide = tk.Text(tab_guide, wrap="word", font=("Inter", 12), bg=help_window.cget("bg"), borderwidth=0)
         label_guide.insert("1.0", guide_content)
         label_guide.config(state="disabled")
         label_guide.pack(fill="both", expand=True, padx=10, pady=10)
@@ -1582,7 +1582,7 @@ While every effort has been made to ensure reliability,
 the developers are not liable for discrepancies arising from use.
 Users are encouraged to back up data regularly.
 """
-        label_about = tk.Text(frame, wrap="word", font=("Arial", 12), bg=about_window.cget("bg"), borderwidth=0)
+        label_about = tk.Text(frame, wrap="word", font=("Inter", 12), bg=about_window.cget("bg"), borderwidth=0)
         label_about.insert("1.0", about_content)
         label_about.config(state="disabled")
         label_about.pack(fill="both", expand=True)
