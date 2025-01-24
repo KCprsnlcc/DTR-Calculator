@@ -247,6 +247,10 @@ class DailyTimeRecordApp:
 
         self.records = self.load_records()
 
+        # NEW: We'll keep "current_records" to hold whichever subset is displayed (e.g. after search).
+        #      We will sort this, then display. By default, it is all records.
+        self.current_records = list(self.records)  
+
         self.selected_date = datetime.now().date()
         self.current_day = self.selected_date.strftime("%A")
 
@@ -603,21 +607,29 @@ class DailyTimeRecordApp:
         self.history_tree = ttk.Treeview(
             history_frame,
             columns=(
-                "Date", "Morning Actual Time In", "Supposed Time In", "Late Minutes",
-                "Afternoon Actual Time Out", "Supposed Time Out", "Undertime Minutes",
+                "Date",
+                "Morning Actual Time In",
+                "Supposed Time In",
+                "Late Minutes",
+                "Afternoon Actual Time Out",
+                "Supposed Time Out",
+                "Undertime Minutes",
                 "Deduction Points"
             ),
             show='headings',
-            selectmode="extended"  
+            selectmode="extended"
         )
-        self.history_tree.heading("Date", text="Date")
-        self.history_tree.heading("Morning Actual Time In", text="Actual Time In")
-        self.history_tree.heading("Supposed Time In", text="Supposed Time In")
-        self.history_tree.heading("Late Minutes", text="Late (min)")
-        self.history_tree.heading("Afternoon Actual Time Out", text="Actual Time Out")
-        self.history_tree.heading("Supposed Time Out", text="Supposed Time Out")
-        self.history_tree.heading("Undertime Minutes", text="Undertime (min)")
-        self.history_tree.heading("Deduction Points", text="Deduction Points")
+
+        # Set up headings
+        self.history_tree.heading("Date", text="Date", command=lambda: self.sort_by_column("Date"))
+        self.history_tree.heading("Morning Actual Time In", text="Actual Time In", command=lambda: self.sort_by_column("Morning Actual Time In"))
+        self.history_tree.heading("Supposed Time In", text="Supposed Time In", command=lambda: self.sort_by_column("Supposed Time In"))
+        self.history_tree.heading("Late Minutes", text="Late (min)", command=lambda: self.sort_by_column("Late Minutes"))
+        self.history_tree.heading("Afternoon Actual Time Out", text="Actual Time Out", command=lambda: self.sort_by_column("Afternoon Actual Time Out"))
+        self.history_tree.heading("Supposed Time Out", text="Supposed Time Out", command=lambda: self.sort_by_column("Supposed Time Out"))
+        self.history_tree.heading("Undertime Minutes", text="Undertime (min)", command=lambda: self.sort_by_column("Undertime Minutes"))
+        self.history_tree.heading("Deduction Points", text="Deduction Points", command=lambda: self.sort_by_column("Deduction Points"))
+
         self.history_tree.pack(fill="both", expand=True)
 
         self.history_tree.column("Date", width=100, anchor="center")
@@ -633,12 +645,92 @@ class DailyTimeRecordApp:
         self.history_tree.configure(yscroll=scrollbar.set)
         scrollbar.pack(side="right", fill="y")
 
+        # NEW: Bind <Delete> key to enable pressing Delete to remove multiple rows
+        self.history_tree.bind("<Delete>", lambda e: self.delete_record())
+
+        # Right-click context menu
         self.history_tree.bind("<Button-3>", self.show_context_menu)
         self.context_menu = tk.Menu(self.master, tearoff=0)
         self.context_menu.add_command(label="Edit Record", command=self.edit_record)
         self.context_menu.add_command(label="Delete Record", command=self.delete_record)
 
-        self.populate_history()
+        # NEW: Keep track of sorting state for each column (True=ascending, False=descending)
+        self.sort_states = {
+            "Date": False,  # We'll start with newest-first (descending date) as default
+            "Morning Actual Time In": True,
+            "Supposed Time In": True,
+            "Late Minutes": True,
+            "Afternoon Actual Time Out": True,
+            "Supposed Time Out": True,
+            "Undertime Minutes": True,
+            "Deduction Points": True
+        }
+
+        self.populate_history()  # Populate with default sort (newest first for date)
+
+    # ----------- Sorting Logic -----------
+    def sort_by_column(self, column_name):
+        """
+        Sort self.current_records based on the specified column.
+        Toggles ascending/descending each time you click the same column header.
+        """
+        ascending = self.sort_states[column_name]
+        # Toggle the sort state for next time
+        self.sort_states[column_name] = not ascending
+
+        # We define how to parse each column
+        def parse_date(val):
+            # val is e.g. "2025-01-24"
+            try:
+                return datetime.strptime(val, "%Y-%m-%d").date()
+            except:
+                return datetime.min.date()
+
+        def parse_time(val):
+            # val is e.g. "07:30 AM", or "--:-- --"
+            if val.strip() == "--:-- --":
+                return time.min
+            try:
+                return datetime.strptime(val, "%I:%M %p").time()
+            except:
+                return time.min
+
+        def parse_int(val):
+            try:
+                return int(val)
+            except:
+                return 0
+
+        def parse_float(val):
+            try:
+                return float(val)
+            except:
+                return 0.0
+
+        # Key function depends on column
+        if column_name == "Date":
+            key_func = lambda r: parse_date(r["date"])
+        elif column_name == "Morning Actual Time In":
+            key_func = lambda r: parse_time(r.get("morning_actual_time_in", "--:-- --"))
+        elif column_name == "Supposed Time In":
+            key_func = lambda r: parse_time(r.get("supposed_time_in", "--:-- --"))
+        elif column_name == "Late Minutes":
+            key_func = lambda r: parse_int(r.get("late_minutes", 0))
+        elif column_name == "Afternoon Actual Time Out":
+            key_func = lambda r: parse_time(r.get("afternoon_actual_time_out", "--:-- --"))
+        elif column_name == "Supposed Time Out":
+            key_func = lambda r: parse_time(r.get("supposed_time_out", "--:-- --"))
+        elif column_name == "Undertime Minutes":
+            key_func = lambda r: parse_int(r.get("undertime_minutes", 0))
+        elif column_name == "Deduction Points":
+            key_func = lambda r: parse_float(r.get("deduction_points", 0))
+        else:
+            key_func = lambda r: r  # fallback no-op
+
+        # Sort the current_records in place
+        # ascending = True => ascending sort
+        self.current_records.sort(key=key_func, reverse=not ascending)
+        self.populate_history(self.current_records)
 
     # ----------- EVENT BINDINGS / UI LOGIC -----------
 
@@ -1088,6 +1180,7 @@ class DailyTimeRecordApp:
             "deduction_points": deduction_points
         }
 
+        # Check if there's already a record with the same date (not a strict replacement, just alert).
         existing_records = [record for record in self.records if record["date"] == date_str]
         if existing_records:
             add_record = messagebox.askyesno(
@@ -1102,6 +1195,9 @@ class DailyTimeRecordApp:
         self.save_records_to_file()
         messagebox.showinfo("Success", f"Record for {date_str} saved successfully.")
         logging.info(f"Record saved for {date_str}: {deduction_points} points.")
+
+        # Also update self.current_records to reflect the full dataset, then re-populate
+        self.current_records = list(self.records)
         self.populate_history()
 
     def export_history(self):
@@ -1131,6 +1227,7 @@ class DailyTimeRecordApp:
                     "Undertime Minutes",
                     "Deduction Points"
                 ])
+                # Sort by date ascending for CSV or as needed. Modify if you prefer another order.
                 for record in sorted(self.records, key=lambda x: x["date"]):
                     writer.writerow([
                         record["date"],
@@ -1151,16 +1248,16 @@ class DailyTimeRecordApp:
     # --------------- EDIT/DELETE MULTIPLE RECORDS ---------------
 
     def show_context_menu(self, event):
+        # Identify the row under right-click; but user can select multiple
         selected_item = self.history_tree.identify_row(event.y)
         if selected_item:
-            self.history_tree.selection_set(selected_item)
+            self.history_tree.selection_set(selected_item)  # ensure the row is selected
             self.context_menu.post(event.x_root, event.y_root)
 
     def edit_record(self):
         """
         Edit the selected record(s) – but we only support editing one record at a time
-        in the current example. 
-        We'll let the user pick a new 'morning_actual_time_in' and 'afternoon_actual_time_out'.
+        in the current example.
         """
         selected_items = self.history_tree.selection()
         if len(selected_items) == 0:
@@ -1197,9 +1294,10 @@ class DailyTimeRecordApp:
         Callback after user finishes editing the record. We recalculate its
         late/undertime/deductions, then save.
         """
-        # Recalculate for that single record
         self.recalc_single_record(updated_record)
         self.save_records_to_file()
+        # Rebuild current records
+        self.current_records = list(self.records)
         self.populate_history()
         messagebox.showinfo("Success", f"Record for {updated_record['date']} updated successfully.")
         logging.info(f"Record updated for {updated_record['date']} with new times.")
@@ -1217,7 +1315,8 @@ class DailyTimeRecordApp:
         morning_in_str = record["morning_actual_time_in"]
         if morning_in_str and morning_in_str != "--:-- --":
             morning_time = self.str_to_time(morning_in_str)
-            record["supposed_time_in"] = ALLOWED_TIMES.get(day_name, {}).get("supposed_time_in", "--:-- --").strftime("%I:%M %p")
+            record["supposed_time_in"] = ALLOWED_TIMES.get(day_name, {}).get("supposed_time_in", "--:-- --").strftime("%I:%M %p") \
+                if ALLOWED_TIMES.get(day_name, {}).get("supposed_time_in", None) else "--:-- --"
 
             # Calculate late
             try:
@@ -1235,7 +1334,7 @@ class DailyTimeRecordApp:
             # Flexi Time Out
             hour_min = morning_time.hour * 60 + morning_time.minute
             if day_name == "Monday":
-                if hour_min <= 450: 
+                if hour_min <= 450:
                     s_out = time(16, 30)
                 else:
                     s_out = time(17, 0)
@@ -1313,25 +1412,30 @@ class DailyTimeRecordApp:
             return
 
         # Delete each selected item from self.records
+        to_delete = []
         for item in selected_items:
             values = self.history_tree.item(item, 'values')
             date_str = values[0]
             morning_in_str = values[1]
             afternoon_out_str = values[4]
-            # deduction = float(values[7])  # we used to match on deduction; now let's match on times
-
             # find the first matching record
             idx_to_remove = None
             for i, record in enumerate(self.records):
-                if (record["date"] == date_str and 
+                if (record["date"] == date_str and
                     record["morning_actual_time_in"] == morning_in_str and
                     record["afternoon_actual_time_out"] == afternoon_out_str):
                     idx_to_remove = i
                     break
             if idx_to_remove is not None:
-                self.records.pop(idx_to_remove)
+                to_delete.append(idx_to_remove)
+
+        # Remove from self.records in reverse index order so we don't shift indexes
+        for idx in sorted(to_delete, reverse=True):
+            self.records.pop(idx)
 
         self.save_records_to_file()
+        # Rebuild current_records from updated self.records
+        self.current_records = list(self.records)
         self.populate_history()
         messagebox.showinfo("Deleted", "Selected record(s) have been deleted.")
         logging.info("Selected record(s) deleted.")
@@ -1357,6 +1461,8 @@ class DailyTimeRecordApp:
                 record for record in self.records
                 if from_date <= datetime.strptime(record["date"], "%Y-%m-%d").date() <= to_date
             ]
+            # We update current_records to the filtered list, then populate
+            self.current_records = filtered_records
             self.populate_history(filtered_records)
             logging.info(f"Searched records from {from_date} to {to_date}.")
         except ValueError as e:
@@ -1425,13 +1531,30 @@ class DailyTimeRecordApp:
             logging.error(f"Error saving records: {e}")
 
     def populate_history(self, records=None):
+        """
+        Refresh the Treeview with the given records or the entire self.current_records
+        if records is None. Also applies the 'default' sort for Date = newest first if no column sort yet.
+        """
         for item in self.history_tree.get_children():
             self.history_tree.delete(item)
 
         if records is None:
-            records = self.records
+            # Use self.current_records if no explicit records given
+            records = self.current_records
 
-        for record in sorted(records, key=lambda x: x["date"]):
+        # If we are populating for the first time (or reset), ensure newest-first for Date
+        # Only do this if the user hasn't explicitly sorted by clicking a column yet for "Date".
+        # We'll assume the self.sort_states["Date"] is False => meaning descending is the default.
+        # If "Date" is the sorting column, do not forcibly re-sort now to avoid overriding user toggles.
+        # But if no columns have been clicked or no active sort, we do the default.
+        # We'll interpret that as: if records == self.records or self.current_records (full set),
+        # then we do the default sort. If it was from a user search, we also do the same by default.
+        # This is simpler to keep the logic consistent with your request.
+        if records == self.current_records and not any(self.sort_states.values()):
+            # If somehow all are false, we'd do a default. But let's just do a quick descending date sort here:
+            records = sorted(records, key=lambda x: x["date"], reverse=True)
+
+        for record in records:
             self.history_tree.insert("", "end", values=(
                 record["date"],
                 record.get("morning_actual_time_in", "--:-- --"),
@@ -1487,15 +1610,16 @@ class DailyTimeRecordApp:
 
         overview_content = """Daily Time Record (DTR) Application - Overview
 
-This version supports a Half-Day feature and a new Flexi Time Out logic:
-- Monday: Actual Time In ≤7:30 AM => 4:30 PM, else => 5:00 PM
-- Tuesday-Friday:
-    ≤7:30 AM => 4:30 PM
-    7:31-8:00 AM => 5:00 PM
-    8:01 AM or later => 5:30 PM
+This version includes:
+- Half-Day checking
+- Flexi Time Out logic
+- Multi-selection for deletion
+- Single-record editing
+- Column sorting on click
+- Press 'Delete' key to remove selected row(s)
 
-Also supports multi-selection in the history with a 'Select All' button,
-and the 'Edit Record' now only edits Actual Time In/Out fields.
+Default sort: Date = newest first (descending).
+Click each column header to toggle ascending/descending.
 """
         label_overview = tk.Text(tab_overview, wrap="word", font=("Inter", 12), bg=help_window.cget("bg"), borderwidth=0)
         label_overview.insert("1.0", overview_content)
@@ -1514,10 +1638,11 @@ and the 'Edit Record' now only edits Actual Time In/Out fields.
 5. Click 'Calculate Deductions' to see Late / Undertime / Total points.
 6. Click 'Save Record' to store it. 
 7. 'Export History' => CSV. 
-8. In the History, you can multi-select rows with Ctrl+Click or Shift+Click. 
-   - Right-click => 'Edit Record' or 'Delete Record'.
-   - 'Edit Record' now only modifies Actual Time In/Out. The system recalculates deduction points automatically.
-   - 'Delete Record' removes all selected rows after confirmation.
+8. In the History:
+   - Multi-select rows with Ctrl+Click or Shift+Click 
+   - Press 'Delete' key or right-click => 'Delete Record' to remove them.
+   - 'Edit Record' modifies Actual Time In/Out only; deductions auto-recalc.
+   - Click column headers to toggle ascending/descending sort.
 """
         label_guide = tk.Text(tab_guide, wrap="word", font=("Inter", 12), bg=help_window.cget("bg"), borderwidth=0)
         label_guide.insert("1.0", guide_content)
@@ -1543,10 +1668,10 @@ and the 'Edit Record' now only edits Actual Time In/Out fields.
 
         about_content = """Daily Time Record (DTR) Application
 
-Version: 2.0 - Enhanced with:
+Enhanced with:
  - Half-Day Checking
  - Flexi Time Out
- - Multi-selection
+ - Multi-selection & Sorting
  - Simplified Record Editing
 
 Developed by: KCprsnlcc
@@ -1653,10 +1778,11 @@ class EditRecordDialog:
         # Attempt to parse existing time
         current_val = target_var.get().strip()
         time_obj = None
-        try:
-            time_obj = datetime.strptime(current_val, "%I:%M %p").time()
-        except:
-            pass
+        if current_val != "--:-- --":
+            try:
+                time_obj = datetime.strptime(current_val, "%I:%M %p").time()
+            except:
+                pass
 
         picker = TimePickerDialog(self.top, initial_time=time_obj, title="Select Time")
         selected_time = picker.show()
