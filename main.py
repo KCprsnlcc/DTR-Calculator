@@ -63,6 +63,7 @@ HALF_DAY_TIMES = {
     "Friday": time(8, 30)
 }
 
+
 def convert_time_diff_to_day_fraction(hours, minutes):
     """
     Convert hours/minutes difference into a fraction of a day (up to 8 hours).
@@ -82,9 +83,10 @@ def setup_logging():
         format='%(asctime)s - %(levelname)s - %(message)s'
     )
 
+
 class Tooltip:
     """
-    A custom tooltip class for Tkinter widgets.
+    A custom tooltip class for Tkinter widgets that displays above the cursor.
     """
     def __init__(self, widget, text='widget info'):
         self.widget = widget
@@ -94,6 +96,7 @@ class Tooltip:
         self.x = self.y = 0
         self.widget.bind("<Enter>", self.enter)
         self.widget.bind("<Leave>", self.leave)
+        self.widget.bind("<Motion>", self.move)
 
     def enter(self, event=None):
         self.schedule()
@@ -101,6 +104,10 @@ class Tooltip:
     def leave(self, event=None):
         self.unschedule()
         self.hidetip()
+
+    def move(self, event):
+        self.x = event.x_root
+        self.y = event.y_root
 
     def schedule(self):
         self.unschedule()
@@ -115,17 +122,13 @@ class Tooltip:
     def showtip(self, event=None):
         if self.tipwindow or not self.text:
             return
-        parent = self.widget.winfo_toplevel()
-        parent_x = parent.winfo_rootx()
-        parent_y = parent.winfo_rooty()
-        parent_width = parent.winfo_width()
-        parent_height = parent.winfo_height()
 
-        self.widget.update_idletasks()
-        tw = tk.Toplevel(self.widget)
+        # Create the tooltip window
+        self.tipwindow = tw = tk.Toplevel(self.widget)
         tw.wm_overrideredirect(True)  # Remove window decorations
-        tw.wm_geometry("+%d+%d" % (parent_x + parent_width//2, parent_y + parent_height//2))
+        tw.wm_geometry(f"+{self.x}+{self.y - 20}")  # Position above the cursor (20 pixels above)
 
+        # Add the label with the tooltip text
         label = ttk.Label(
             tw, text=self.text, justify=tk.LEFT,
             background="#ffffe0", relief=tk.SOLID, borderwidth=1,
@@ -133,12 +136,11 @@ class Tooltip:
         )
         label.pack(ipadx=1)
 
-        self.tipwindow = tw
-
     def hidetip(self):
         if self.tipwindow:
             self.tipwindow.destroy()
         self.tipwindow = None
+
 
 class TimePickerDialog:
     """
@@ -226,6 +228,7 @@ class TimePickerDialog:
         self.top.wait_window()
         return self.selected_time
 
+
 class DailyTimeRecordApp:
     """
     The main application class for the Daily Time Record Calculator.
@@ -242,20 +245,21 @@ class DailyTimeRecordApp:
 
         master.resizable(True, True)
 
+        # Keep an initial bootstrap theme to load styles; we override later:
         self.style = Style(theme='flatly')
         self.current_theme = 'flatly'
 
         self.records = self.load_records()
-
-        # NEW: We'll keep "current_records" to hold whichever subset is displayed (e.g. after search).
-        #      We will sort this, then display. By default, it is all records.
-        self.current_records = list(self.records)  
+        self.current_records = list(self.records)
 
         self.selected_date = datetime.now().date()
         self.current_day = self.selected_date.strftime("%A")
 
         self.morning_check = tk.BooleanVar(value=True)
         self.afternoon_check = tk.BooleanVar(value=True)
+
+        # By default, let's assume user starts in "Light" theme:
+        self.apply_apple_calculator_light_style()
 
         self.setup_menu()
         self.setup_header()
@@ -265,6 +269,228 @@ class DailyTimeRecordApp:
 
         self.center_window()
         self.update_supposed_time_in_label()
+
+    # ------------------------------------------------------------------------
+    # APPLE CALCULATOR STYLE: We define two separate styles:
+    # 1) Light style (White background, black text, etc.)
+    # 2) Dark style (Dark gray background, white text, etc.) + override dark blue => white
+    # ------------------------------------------------------------------------
+    def apply_apple_calculator_light_style(self):
+        """
+        Apple Calculator–inspired LIGHT mode:
+         - White background
+         - Black text
+         - Light grays for frames & buttons
+         - Orange highlight for primary button
+        """
+        # Colors
+        BG_LIGHT = "#FFFFFF"      # main background (white)
+        BG_FRAME = "#F2F2F2"      # lighter gray for frames
+        FG_TEXT = "#000000"       # black text
+        BTN_GRAY = "#D0D0D0"      # normal button background
+        BTN_ORANGE = "#FF9500"    # primary highlight (orange)
+        BTN_HOVER_GRAY = "#C0C0C0"
+        BTN_HOVER_ORANGE = "#FFB340"
+
+        # Root window
+        self.master.configure(bg=BG_LIGHT)
+
+        # Frame and LabelFrame
+        self.style.configure("TFrame", background=BG_LIGHT)
+        self.style.configure("TLabelFrame", background=BG_FRAME, foreground=FG_TEXT)
+        self.style.configure("TLabelframe.Label", background=BG_FRAME, foreground=FG_TEXT)
+        self.style.configure("TLabel", background=BG_LIGHT, foreground=FG_TEXT)
+
+        # Buttons
+        self.style.configure(
+            "Calc.TButton",
+            background=BTN_GRAY,
+            foreground=FG_TEXT,
+            bordercolor=BTN_GRAY,
+            focusthickness=0,
+            relief="flat",
+            font=("Helvetica", 10, "bold")
+        )
+        self.style.map(
+            "Calc.TButton",
+            background=[("active", BTN_HOVER_GRAY), ("pressed", BTN_HOVER_GRAY)]
+        )
+
+        self.style.configure(
+            "CalcPrimary.TButton",
+            background=BTN_ORANGE,
+            foreground="#FFFFFF",
+            bordercolor=BTN_ORANGE,
+            focusthickness=0,
+            relief="flat",
+            font=("Helvetica", 10, "bold")
+        )
+        self.style.map(
+            "CalcPrimary.TButton",
+            background=[("active", BTN_HOVER_ORANGE), ("pressed", BTN_HOVER_ORANGE)]
+        )
+
+        # Checkbutton, Combobox
+        self.style.configure("TCheckbutton", background=BG_LIGHT, foreground=FG_TEXT)
+        self.style.configure(
+            "TCombobox",
+            fieldbackground="#FFFFFF",
+            foreground=FG_TEXT
+        )
+        self.style.map(
+            "TCombobox",
+            fieldbackground=[("readonly", "#FFFFFF")],
+            selectforeground=[("readonly", FG_TEXT)],
+            selectbackground=[("readonly", "#FFFFFF")]
+        )
+
+        # Treeview
+        self.style.configure(
+            "Treeview",
+            background="#FFFFFF",
+            fieldbackground="#FFFFFF",
+            foreground=FG_TEXT,
+            rowheight=25
+        )
+        self.style.configure(
+            "Treeview.Heading",
+            background=BG_FRAME,
+            foreground=FG_TEXT
+        )
+
+        # Scrollbar
+        self.style.configure("Vertical.TScrollbar", background=BG_FRAME)
+
+        # (Optional) Menu bar overrides in Light
+        self.master.option_add('*Menu.tearOff', False)
+        # This might not always be respected on all OS's, but we try:
+        self.master.configure(menu=tk.Menu(self.master, bg=BG_LIGHT, fg=FG_TEXT))
+
+    def apply_apple_calculator_dark_style(self):
+        """
+        Apple Calculator–inspired DARK mode:
+         - Dark gray backgrounds
+         - White text
+         - Gray buttons
+         - Orange highlight for primary button
+         - Override any default "dark blue" so text is white
+        """
+        BG_DARK = "#333333"
+        BG_FRAME = "#3C3C3C"
+        FG_TEXT = "#FFFFFF"
+        BTN_GRAY = "#505050"
+        BTN_ORANGE = "#FF9500"
+        BTN_HOVER_GRAY = "#626262"
+        BTN_HOVER_ORANGE = "#FFA040"
+
+        self.master.configure(bg=BG_DARK)
+
+        self.style.configure("TFrame", background=BG_DARK)
+        self.style.configure("TLabelFrame", background=BG_FRAME, foreground=FG_TEXT)
+        self.style.configure("TLabelframe.Label", background=BG_FRAME, foreground=FG_TEXT)
+        self.style.configure("TLabel", background=BG_DARK, foreground=FG_TEXT)
+
+        # Buttons
+        self.style.configure(
+            "Calc.TButton",
+            background=BTN_GRAY,
+            foreground=FG_TEXT,
+            bordercolor=BTN_GRAY,
+            focusthickness=0,
+            relief="flat",
+            font=("Helvetica", 10, "bold")
+        )
+        self.style.map(
+            "Calc.TButton",
+            background=[("active", BTN_HOVER_GRAY), ("pressed", BTN_HOVER_GRAY)],
+            foreground=[("active", FG_TEXT)]
+        )
+
+        self.style.configure(
+            "CalcPrimary.TButton",
+            background=BTN_ORANGE,
+            foreground="#FFFFFF",
+            bordercolor=BTN_ORANGE,
+            focusthickness=0,
+            relief="flat",
+            font=("Helvetica", 10, "bold")
+        )
+        self.style.map(
+            "CalcPrimary.TButton",
+            background=[("active", BTN_HOVER_ORANGE), ("pressed", BTN_HOVER_ORANGE)],
+            foreground=[("active", "#FFFFFF")]
+        )
+
+        # Checkbutton, Combobox
+        self.style.configure("TCheckbutton", background=BG_DARK, foreground=FG_TEXT)
+        self.style.configure("TCombobox", fieldbackground=BG_FRAME, foreground=FG_TEXT)
+        self.style.map(
+            "TCombobox",
+            fieldbackground=[("readonly", BG_FRAME)],
+            selectforeground=[("readonly", FG_TEXT)],
+            selectbackground=[("readonly", BG_FRAME)]
+        )
+
+        self.style.configure(
+            "Treeview",
+            background=BG_DARK,
+            fieldbackground=BG_DARK,
+            foreground=FG_TEXT,
+            rowheight=25
+        )
+        self.style.configure(
+            "Treeview.Heading",
+            background=BG_FRAME,
+            foreground=FG_TEXT
+        )
+
+        self.style.configure("Vertical.TScrollbar", background=BG_FRAME)
+
+        # Force any possible link or accent text to white
+        # (This helps override “dark blue” in some ttkbootstrap themes.)
+        self.master.option_add("*foreground", "white")
+
+        # Also override the menubar text color (if possible)
+        menubar = tk.Menu(self.master, bg=BG_DARK, fg="white", activebackground=BG_DARK, activeforeground="white")
+        self.master.configure(menu=menubar)
+
+    def update_label_colors(self):
+        """
+        Updates the colors of labels for Late and Undertime calculations based on the theme.
+        """
+        if self.current_theme == "flatly":  # Light mode
+            text_color = "#000000"  # Black
+        else:  # Dark mode
+            text_color = "#FFFFFF"  # White
+
+        # Update the foreground color of the labels
+        self.label_morning_late.config(foreground=text_color)
+        self.label_morning_late_deduction.config(foreground=text_color)
+        self.label_afternoon_undertime.config(foreground=text_color)
+        self.label_afternoon_undertime_deduction.config(foreground=text_color)
+
+    def change_theme(self, theme_name):
+        """
+        Switch between 'Light Mode' and 'Dark Mode' – using Apple Calculator color palettes.
+        """
+        self.current_theme = theme_name
+        if theme_name == "flatly":
+            # Light Mode
+            self.style.theme_use("flatly")
+            self.apply_apple_calculator_light_style()
+            logging.info("Theme changed to Light Mode (Apple Calculator style).")
+        else:
+            # Dark Mode
+            self.style.theme_use("darkly")
+            self.apply_apple_calculator_dark_style()
+            logging.info("Theme changed to Dark Mode (Apple Calculator style).")
+
+        # Update label colors based on the theme
+        self.update_label_colors()
+
+    # ------------------------------------------------------------------------
+    # REMAINING CODE: UNCHANGED FUNCTIONALITIES (just referencing the two themes)
+    # ------------------------------------------------------------------------
 
     def center_window(self):
         self.master.update_idletasks()
@@ -351,19 +577,30 @@ class DailyTimeRecordApp:
         theme_buttons_frame = ttkb.Frame(header_frame)
         theme_buttons_frame.pack(side="right", anchor="e")
 
-        self.button_light_mode = ttkb.Button(theme_buttons_frame, text="Light Mode",
-                                             command=lambda: self.change_theme("flatly"))
+        self.button_light_mode = ttkb.Button(
+            theme_buttons_frame,
+            text="Light Mode",
+            command=lambda: self.change_theme("flatly"),
+            style="Calc.TButton"
+        )
         self.button_light_mode.pack(side="left", padx=5)
         Tooltip(self.button_light_mode, "Switch to Light Mode")
 
-        self.button_dark_mode = ttkb.Button(theme_buttons_frame, text="Dark Mode",
-                                            command=lambda: self.change_theme("superhero"))
+        self.button_dark_mode = ttkb.Button(
+            theme_buttons_frame,
+            text="Dark Mode",
+            command=lambda: self.change_theme("superhero"),
+            style="Calc.TButton"
+        )
         self.button_dark_mode.pack(side="left", padx=5)
         Tooltip(self.button_dark_mode, "Switch to Dark Mode")
 
         self.fullscreen = False
-        self.button_fullscreen = ttkb.Button(theme_buttons_frame, text="Full Screen",
-                                             command=self.toggle_fullscreen)
+        self.button_fullscreen = ttkb.Button(
+            theme_buttons_frame, text="Full Screen",
+            command=self.toggle_fullscreen,
+            style="Calc.TButton"
+        )
         self.button_fullscreen.pack(side="left", padx=5)
         Tooltip(self.button_fullscreen, "Toggle Full Screen Mode")
 
@@ -388,8 +625,10 @@ class DailyTimeRecordApp:
 
         self.create_actual_time_input(left_morning_frame, "Actual Time In:", "morning_actual_time_in")
 
-        self.button_clear_morning = ttkb.Button(left_morning_frame, text="Clear Morning",
-                                                command=self.clear_morning)
+        self.button_clear_morning = ttkb.Button(
+            left_morning_frame, text="Clear Morning",
+            command=self.clear_morning, style="Calc.TButton"
+        )
         self.button_clear_morning.pack(anchor="w", pady=5)
         Tooltip(self.button_clear_morning, "Clear Morning Inputs")
 
@@ -400,7 +639,7 @@ class DailyTimeRecordApp:
             right_morning_frame,
             text="Late: 0 minutes",
             font=("Inter", 13, "bold"),
-            foreground="#000000"
+            foreground="#000000"  # or #FFFFFF if you want consistent color in both modes
         )
         self.label_morning_late.pack(anchor="center", pady=5)
 
@@ -432,8 +671,10 @@ class DailyTimeRecordApp:
 
         self.create_actual_time_input(left_afternoon_frame, "Actual Time Out:", "afternoon_actual_time_out")
 
-        self.button_clear_afternoon = ttkb.Button(left_afternoon_frame, text="Clear Afternoon",
-                                                  command=self.clear_afternoon)
+        self.button_clear_afternoon = ttkb.Button(
+            left_afternoon_frame, text="Clear Afternoon",
+            command=self.clear_afternoon, style="Calc.TButton"
+        )
         self.button_clear_afternoon.pack(anchor="w", pady=5)
         Tooltip(self.button_clear_afternoon, "Clear Afternoon Inputs")
 
@@ -471,7 +712,7 @@ class DailyTimeRecordApp:
             controls_frame,
             text="Calculate Deductions",
             command=self.calculate_deductions,
-            bootstyle="success"
+            style="CalcPrimary.TButton"
         )
         self.button_calculate.grid(row=0, column=0, padx=5, pady=5, sticky="ew")
         Tooltip(self.button_calculate, "Calculate deduction points based on input times")
@@ -480,7 +721,7 @@ class DailyTimeRecordApp:
             controls_frame,
             text="Save Record",
             command=self.save_record,
-            bootstyle="info"
+            style="Calc.TButton"
         )
         self.button_save.grid(row=0, column=1, padx=5, pady=5, sticky="ew")
         Tooltip(self.button_save, "Save the current day's record")
@@ -489,7 +730,7 @@ class DailyTimeRecordApp:
             controls_frame,
             text="Export History",
             command=self.export_history,
-            bootstyle="warning"
+            style="Calc.TButton"
         )
         self.button_export.grid(row=0, column=2, padx=5, pady=5, sticky="ew")
         Tooltip(self.button_export, "Export deduction history to CSV")
@@ -590,20 +831,18 @@ class DailyTimeRecordApp:
         Tooltip(self.search_to_month, "Select To Month")
         Tooltip(self.search_to_day, "Select To Day")
 
-        self.button_search = ttkb.Button(search_frame, text="Search", command=self.search_history)
+        self.button_search = ttkb.Button(search_frame, text="Search", command=self.search_history, style="Calc.TButton")
         self.button_search.pack(side="left", padx=5)
         Tooltip(self.button_search, "Search records within the selected date range")
 
-        self.button_reset = ttkb.Button(search_frame, text="Reset", command=lambda: self.populate_history(None))
+        self.button_reset = ttkb.Button(search_frame, text="Reset", command=lambda: self.populate_history(None), style="Calc.TButton")
         self.button_reset.pack(side="left", padx=5)
         Tooltip(self.button_reset, "Reset search filters")
 
-        # NEW "Select All" Button
-        self.button_select_all = ttkb.Button(search_frame, text="Select All", command=self.select_all_records)
+        self.button_select_all = ttkb.Button(search_frame, text="Select All", command=self.select_all_records, style="Calc.TButton")
         self.button_select_all.pack(side="left", padx=5)
         Tooltip(self.button_select_all, "Select all rows in the history")
 
-        # Use selectmode="extended" for multi-selection
         self.history_tree = ttk.Treeview(
             history_frame,
             columns=(
@@ -620,7 +859,6 @@ class DailyTimeRecordApp:
             selectmode="extended"
         )
 
-        # Set up headings
         self.history_tree.heading("Date", text="Date", command=lambda: self.sort_by_column("Date"))
         self.history_tree.heading("Morning Actual Time In", text="Actual Time In", command=lambda: self.sort_by_column("Morning Actual Time In"))
         self.history_tree.heading("Supposed Time In", text="Supposed Time In", command=lambda: self.sort_by_column("Supposed Time In"))
@@ -645,18 +883,14 @@ class DailyTimeRecordApp:
         self.history_tree.configure(yscroll=scrollbar.set)
         scrollbar.pack(side="right", fill="y")
 
-        # NEW: Bind <Delete> key to enable pressing Delete to remove multiple rows
         self.history_tree.bind("<Delete>", lambda e: self.delete_record())
-
-        # Right-click context menu
         self.history_tree.bind("<Button-3>", self.show_context_menu)
         self.context_menu = tk.Menu(self.master, tearoff=0)
         self.context_menu.add_command(label="Edit Record", command=self.edit_record)
         self.context_menu.add_command(label="Delete Record", command=self.delete_record)
 
-        # NEW: Keep track of sorting state for each column (True=ascending, False=descending)
         self.sort_states = {
-            "Date": False,  # We'll start with newest-first (descending date) as default
+            "Date": False,
             "Morning Actual Time In": True,
             "Supposed Time In": True,
             "Late Minutes": True,
@@ -666,28 +900,19 @@ class DailyTimeRecordApp:
             "Deduction Points": True
         }
 
-        self.populate_history()  # Populate with default sort (newest first for date)
+        self.populate_history()
 
-    # ----------- Sorting Logic -----------
     def sort_by_column(self, column_name):
-        """
-        Sort self.current_records based on the specified column.
-        Toggles ascending/descending each time you click the same column header.
-        """
         ascending = self.sort_states[column_name]
-        # Toggle the sort state for next time
         self.sort_states[column_name] = not ascending
 
-        # We define how to parse each column
         def parse_date(val):
-            # val is e.g. "2025-01-24"
             try:
                 return datetime.strptime(val, "%Y-%m-%d").date()
             except:
                 return datetime.min.date()
 
         def parse_time(val):
-            # val is e.g. "07:30 AM", or "--:-- --"
             if val.strip() == "--:-- --":
                 return time.min
             try:
@@ -707,7 +932,6 @@ class DailyTimeRecordApp:
             except:
                 return 0.0
 
-        # Key function depends on column
         if column_name == "Date":
             key_func = lambda r: parse_date(r["date"])
         elif column_name == "Morning Actual Time In":
@@ -725,19 +949,12 @@ class DailyTimeRecordApp:
         elif column_name == "Deduction Points":
             key_func = lambda r: parse_float(r.get("deduction_points", 0))
         else:
-            key_func = lambda r: r  # fallback no-op
+            key_func = lambda r: r
 
-        # Sort the current_records in place
-        # ascending = True => ascending sort
         self.current_records.sort(key=key_func, reverse=not ascending)
         self.populate_history(self.current_records)
 
-    # ----------- EVENT BINDINGS / UI LOGIC -----------
-
     def select_all_records(self):
-        """
-        Select all rows in the Treeview.
-        """
         for child in self.history_tree.get_children():
             self.history_tree.selection_add(child)
 
@@ -852,8 +1069,6 @@ class DailyTimeRecordApp:
         except Exception as e:
             logging.error(f"Error updating search to days: {e}")
 
-    # --------------- TIME INPUT CREATION & PARSING ---------------
-
     def create_actual_time_input(self, parent, label_text, attr_name):
         frame = ttkb.Frame(parent)
         frame.pack(fill="x", pady=5)
@@ -881,7 +1096,7 @@ class DailyTimeRecordApp:
         ampm_combo.pack(side="left", padx=(0, 5))
         Tooltip(ampm_combo, "Select AM or PM")
 
-        time_button = ttkb.Button(frame, text="Select Time", command=lambda: self.open_time_picker(attr_name))
+        time_button = ttkb.Button(frame, text="Select Time", command=lambda: self.open_time_picker(attr_name), style="Calc.TButton")
         time_button.pack(side="left", padx=2)
         Tooltip(time_button, "Open time picker")
 
@@ -968,8 +1183,6 @@ class DailyTimeRecordApp:
         except ValueError:
             return None
 
-    # --------------- CALCULATION + FLEXI TIME OUT LOGIC ---------------
-
     def calculate_time_difference(self, earlier_time, later_time):
         dt1 = datetime.combine(self.selected_date, earlier_time)
         dt2 = datetime.combine(self.selected_date, later_time)
@@ -1010,24 +1223,19 @@ class DailyTimeRecordApp:
             self.label_morning_late_deduction.config(text=f"Late Deduction: {late_deduction:.3f}")
             total_late_deduction = late_deduction
 
-            # NEW: Flexi logic for Suppose Time Out
+            # Flexi logic for Suppose Time Out
             day_name = self.current_day
             hour_min = morning_actual_time_in.hour * 60 + morning_actual_time_in.minute
 
             if day_name == "Monday":
-                # Monday: if <=7:30 => 4:30 PM, else 5:00 PM
-                if hour_min <= 450:  # 7:30am => 450 min after midnight
-                    supposed_time_out = time(16, 30)  # 4:30 PM
-                else:
-                    supposed_time_out = time(17, 0)   # 5:00 PM
-            else:
-                # Tuesday to Friday
-                # if <=7:30 => 4:30 PM
-                # elif <=8:00 => 5:00 PM
-                # else => 5:30 PM
-                if hour_min <= 450:  # <=7:30
+                if hour_min <= 450:  # 7:30am => 450
                     supposed_time_out = time(16, 30)
-                elif hour_min <= 480:  # <=8:00
+                else:
+                    supposed_time_out = time(17, 0)
+            else:
+                if hour_min <= 450:
+                    supposed_time_out = time(16, 30)
+                elif hour_min <= 480:
                     supposed_time_out = time(17, 0)
                 else:
                     supposed_time_out = time(17, 30)
@@ -1035,9 +1243,7 @@ class DailyTimeRecordApp:
             self.label_supposed_time_out.config(
                 text=f"Supposed Time Out: {supposed_time_out.strftime('%I:%M %p')}"
             )
-
         else:
-            # No morning => half-day absent
             self.label_morning_late.config(text="Late: 0 minutes")
             self.label_morning_late_deduction.config(text="Late Deduction: 0.000")
             supposed_time_out = None
@@ -1082,7 +1288,7 @@ class DailyTimeRecordApp:
         logging.info(
             f"Calculated Deductions. Late: {total_late_deduction}, "
             f"Undertime: {total_undertime_deduction}, "
-            f"Half-day(s): {half_day_deduction}, "
+            f"Half-day(s): {half_day_absences * 0.5}, "
             f"Total: {total_deduction}"
         )
 
@@ -1123,8 +1329,6 @@ class DailyTimeRecordApp:
         else:
             self.button_fullscreen.config(text="Full Screen")
             logging.info("Exited full-screen mode.")
-
-    # --------------- SAVE & EXPORT ---------------
 
     def save_record(self):
         try:
@@ -1180,7 +1384,6 @@ class DailyTimeRecordApp:
             "deduction_points": deduction_points
         }
 
-        # Check if there's already a record with the same date (not a strict replacement, just alert).
         existing_records = [record for record in self.records if record["date"] == date_str]
         if existing_records:
             add_record = messagebox.askyesno(
@@ -1196,7 +1399,6 @@ class DailyTimeRecordApp:
         messagebox.showinfo("Success", f"Record for {date_str} saved successfully.")
         logging.info(f"Record saved for {date_str}: {deduction_points} points.")
 
-        # Also update self.current_records to reflect the full dataset, then re-populate
         self.current_records = list(self.records)
         self.populate_history()
 
@@ -1227,7 +1429,6 @@ class DailyTimeRecordApp:
                     "Undertime Minutes",
                     "Deduction Points"
                 ])
-                # Sort by date ascending for CSV or as needed. Modify if you prefer another order.
                 for record in sorted(self.records, key=lambda x: x["date"]):
                     writer.writerow([
                         record["date"],
@@ -1245,20 +1446,13 @@ class DailyTimeRecordApp:
             messagebox.showerror("Export Failed", f"An error occurred while exporting:\n{e}")
             logging.error(f"Failed to export history: {e}")
 
-    # --------------- EDIT/DELETE MULTIPLE RECORDS ---------------
-
     def show_context_menu(self, event):
-        # Identify the row under right-click; but user can select multiple
         selected_item = self.history_tree.identify_row(event.y)
         if selected_item:
-            self.history_tree.selection_set(selected_item)  # ensure the row is selected
+            self.history_tree.selection_set(selected_item)
             self.context_menu.post(event.x_root, event.y_root)
 
     def edit_record(self):
-        """
-        Edit the selected record(s) – but we only support editing one record at a time
-        in the current example.
-        """
         selected_items = self.history_tree.selection()
         if len(selected_items) == 0:
             messagebox.showwarning("No Selection", "Please select a record to edit.")
@@ -1274,7 +1468,6 @@ class DailyTimeRecordApp:
         morning_in_str = values[1]
         afternoon_out_str = values[4]
 
-        # Find the underlying record
         record_index = None
         for i, record in enumerate(self.records):
             if record["date"] == date_str and record["morning_actual_time_in"] == morning_in_str \
@@ -1290,35 +1483,24 @@ class DailyTimeRecordApp:
         EditRecordDialog(self.master, record_to_edit, self.save_edited_record)
 
     def save_edited_record(self, updated_record):
-        """
-        Callback after user finishes editing the record. We recalculate its
-        late/undertime/deductions, then save.
-        """
         self.recalc_single_record(updated_record)
         self.save_records_to_file()
-        # Rebuild current records
         self.current_records = list(self.records)
         self.populate_history()
         messagebox.showinfo("Success", f"Record for {updated_record['date']} updated successfully.")
         logging.info(f"Record updated for {updated_record['date']} with new times.")
 
     def recalc_single_record(self, record):
-        """
-        Recompute late, undertime, and deduction points for a single record
-        after we've changed morning_actual_time_in or afternoon_actual_time_out.
-        """
         date_str = record["date"]
         dt = datetime.strptime(date_str, "%Y-%m-%d").date()
         day_name = dt.strftime("%A")
 
-        # Determine if morning was worked
         morning_in_str = record["morning_actual_time_in"]
         if morning_in_str and morning_in_str != "--:-- --":
             morning_time = self.str_to_time(morning_in_str)
             record["supposed_time_in"] = ALLOWED_TIMES.get(day_name, {}).get("supposed_time_in", "--:-- --").strftime("%I:%M %p") \
                 if ALLOWED_TIMES.get(day_name, {}).get("supposed_time_in", None) else "--:-- --"
 
-            # Calculate late
             try:
                 sup_in = datetime.strptime(record["supposed_time_in"], "%I:%M %p").time()
             except:
@@ -1331,7 +1513,6 @@ class DailyTimeRecordApp:
                 late_minutes = 0
             record["late_minutes"] = late_minutes
 
-            # Flexi Time Out
             hour_min = morning_time.hour * 60 + morning_time.minute
             if day_name == "Monday":
                 if hour_min <= 450:
@@ -1347,13 +1528,11 @@ class DailyTimeRecordApp:
                     s_out = time(17, 30)
             record["supposed_time_out"] = s_out.strftime("%I:%M %p")
         else:
-            # No morning
             record["morning_actual_time_in"] = "--:-- --"
             record["supposed_time_in"] = "--:-- --"
             record["late_minutes"] = 0
             record["supposed_time_out"] = "--:-- --"
 
-        # Determine if afternoon was worked
         afternoon_out_str = record["afternoon_actual_time_out"]
         if afternoon_out_str and afternoon_out_str != "--:-- --":
             afternoon_time = self.str_to_time(afternoon_out_str)
@@ -1368,30 +1547,22 @@ class DailyTimeRecordApp:
             record["afternoon_actual_time_out"] = "--:-- --"
             record["undertime_minutes"] = 0
 
-        # Now the half-day logic
         morning_absent = (record["morning_actual_time_in"] == "--:-- --")
         afternoon_absent = (record["afternoon_actual_time_out"] == "--:-- --")
-
         half_days = 0
         if morning_absent: half_days += 1
         if afternoon_absent: half_days += 1
-
         half_day_deduction = half_days * 0.5
 
-        # Recompute late deduction fraction
         late_ded = convert_time_diff_to_day_fraction(
             record["late_minutes"] // 60, record["late_minutes"] % 60
         )
         undertime_ded = convert_time_diff_to_day_fraction(
             record["undertime_minutes"] // 60, record["undertime_minutes"] % 60
         )
-
         record["deduction_points"] = round(late_ded + undertime_ded + half_day_deduction, 3)
 
     def str_to_time(self, time_str):
-        """
-        Convert a string like '07:30 AM' to a time object, or None if invalid.
-        """
         try:
             return datetime.strptime(time_str, "%I:%M %p").time()
         except:
@@ -1411,14 +1582,12 @@ class DailyTimeRecordApp:
         if not confirm:
             return
 
-        # Delete each selected item from self.records
         to_delete = []
         for item in selected_items:
             values = self.history_tree.item(item, 'values')
             date_str = values[0]
             morning_in_str = values[1]
             afternoon_out_str = values[4]
-            # find the first matching record
             idx_to_remove = None
             for i, record in enumerate(self.records):
                 if (record["date"] == date_str and
@@ -1429,12 +1598,10 @@ class DailyTimeRecordApp:
             if idx_to_remove is not None:
                 to_delete.append(idx_to_remove)
 
-        # Remove from self.records in reverse index order so we don't shift indexes
         for idx in sorted(to_delete, reverse=True):
             self.records.pop(idx)
 
         self.save_records_to_file()
-        # Rebuild current_records from updated self.records
         self.current_records = list(self.records)
         self.populate_history()
         messagebox.showinfo("Deleted", "Selected record(s) have been deleted.")
@@ -1461,15 +1628,12 @@ class DailyTimeRecordApp:
                 record for record in self.records
                 if from_date <= datetime.strptime(record["date"], "%Y-%m-%d").date() <= to_date
             ]
-            # We update current_records to the filtered list, then populate
             self.current_records = filtered_records
             self.populate_history(filtered_records)
             logging.info(f"Searched records from {from_date} to {to_date}.")
         except ValueError as e:
             messagebox.showerror("Invalid Input", f"Please ensure all search dates are selected correctly.\n{e}")
             logging.error(f"Error in search input: {e}")
-
-    # --------------- LOAD / SAVE FILE ---------------
 
     def load_records(self):
         if os.path.exists(DATA_FILE):
@@ -1490,7 +1654,6 @@ class DailyTimeRecordApp:
                             valid_records.append(record)
                     return valid_records
                 elif isinstance(data, dict):
-                    # old format
                     records = []
                     for date_str, ded_val in data.items():
                         records.append({
@@ -1531,27 +1694,14 @@ class DailyTimeRecordApp:
             logging.error(f"Error saving records: {e}")
 
     def populate_history(self, records=None):
-        """
-        Refresh the Treeview with the given records or the entire self.current_records
-        if records is None. Also applies the 'default' sort for Date = newest first if no column sort yet.
-        """
         for item in self.history_tree.get_children():
             self.history_tree.delete(item)
 
         if records is None:
-            # Use self.current_records if no explicit records given
             records = self.current_records
 
-        # If we are populating for the first time (or reset), ensure newest-first for Date
-        # Only do this if the user hasn't explicitly sorted by clicking a column yet for "Date".
-        # We'll assume the self.sort_states["Date"] is False => meaning descending is the default.
-        # If "Date" is the sorting column, do not forcibly re-sort now to avoid overriding user toggles.
-        # But if no columns have been clicked or no active sort, we do the default.
-        # We'll interpret that as: if records == self.records or self.current_records (full set),
-        # then we do the default sort. If it was from a user search, we also do the same by default.
-        # This is simpler to keep the logic consistent with your request.
+        # Default sort by date descending if user hasn't sorted columns:
         if records == self.current_records and not any(self.sort_states.values()):
-            # If somehow all are false, we'd do a default. But let's just do a quick descending date sort here:
             records = sorted(records, key=lambda x: x["date"], reverse=True)
 
         for record in records:
@@ -1566,34 +1716,6 @@ class DailyTimeRecordApp:
                 record["deduction_points"]
             ))
         logging.info("History populated in Treeview.")
-
-    # --------------- THEME MANAGEMENT ---------------
-
-    def change_theme(self, theme_name):
-        self.style.theme_use(theme_name)
-        self.current_theme = theme_name
-        logging.info(f"Theme changed to {theme_name}.")
-
-        if theme_name in ['superhero', 'darkly', 'cyborg', 'slate']:
-            self.set_dark_mode_fonts()
-        else:
-            self.set_light_mode_fonts()
-
-    def set_dark_mode_fonts(self):
-        for widget in self.master.winfo_children():
-            self.set_widget_foreground(widget, 'white')
-
-    def set_light_mode_fonts(self):
-        for widget in self.master.winfo_children():
-            self.set_widget_foreground(widget, 'black')
-
-    def set_widget_foreground(self, widget, color):
-        if isinstance(widget, (ttk.Label, tk.Label)):
-            widget.config(foreground=color)
-        for child in widget.winfo_children():
-            self.set_widget_foreground(child, color)
-
-    # --------------- HELP & ABOUT ---------------
 
     def show_help_dialog(self):
         help_window = tk.Toplevel(self.master)
@@ -1636,10 +1758,10 @@ Click each column header to toggle ascending/descending.
 3. Check 'Afternoon' if you worked in the afternoon; uncheck if absent.
 4. Enter Actual Time In / Out or click 'Select Time' to pick from a time picker.
 5. Click 'Calculate Deductions' to see Late / Undertime / Total points.
-6. Click 'Save Record' to store it. 
-7. 'Export History' => CSV. 
+6. Click 'Save Record' to store it.
+7. 'Export History' => CSV.
 8. In the History:
-   - Multi-select rows with Ctrl+Click or Shift+Click 
+   - Multi-select rows with Ctrl+Click or Shift+Click
    - Press 'Delete' key or right-click => 'Delete Record' to remove them.
    - 'Edit Record' modifies Actual Time In/Out only; deductions auto-recalc.
    - Click column headers to toggle ascending/descending sort.
@@ -1649,7 +1771,7 @@ Click each column header to toggle ascending/descending.
         label_guide.config(state="disabled")
         label_guide.pack(fill="both", expand=True, padx=10, pady=10)
 
-        if self.current_theme in ['superhero', 'darkly', 'cyborg', 'slate']:
+        if self.current_theme in ['superhero']:
             label_overview.config(fg="white")
             label_guide.config(fg="white")
         else:
@@ -1684,7 +1806,7 @@ Disclaimer: Use at your own risk. Keep data backups.
         label_about.config(state="disabled")
         label_about.pack(fill="both", expand=True)
 
-        if self.current_theme in ['superhero', 'darkly', 'cyborg', 'slate']:
+        if self.current_theme in ['superhero']:
             label_about.config(fg="white")
         else:
             label_about.config(fg="black")
@@ -1704,7 +1826,6 @@ Disclaimer: Use at your own risk. Keep data backups.
         pos_y = parent_y + (parent_height // 2) - (child_height // 2)
         child.geometry(f"+{pos_x}+{pos_y}")
 
-# --------------- EDIT RECORD DIALOG ---------------
 
 class EditRecordDialog:
     """
@@ -1719,11 +1840,9 @@ class EditRecordDialog:
         self.top.title("Edit Record")
         self.top.grab_set()
 
-        # Record info:
         date_lbl = ttk.Label(self.top, text=f"Date: {record_data['date']}", font=("Inter", 12, "bold"))
         date_lbl.pack(pady=5, anchor="w")
 
-        # Morning
         frame_morn = ttk.LabelFrame(self.top, text="Morning Actual Time In")
         frame_morn.pack(fill="x", expand=True, padx=10, pady=5)
 
@@ -1735,7 +1854,6 @@ class EditRecordDialog:
                                              command=lambda: self.pick_time(self.morning_var))
         self.btn_morning_picker.pack(side="left", padx=5, pady=5)
 
-        # Afternoon
         frame_after = ttk.LabelFrame(self.top, text="Afternoon Actual Time Out")
         frame_after.pack(fill="x", expand=True, padx=10, pady=5)
 
@@ -1747,7 +1865,6 @@ class EditRecordDialog:
                                                command=lambda: self.pick_time(self.afternoon_var))
         self.btn_afternoon_picker.pack(side="left", padx=5, pady=5)
 
-        # Buttons
         btn_frame = ttk.Frame(self.top)
         btn_frame.pack(pady=10)
 
@@ -1755,7 +1872,6 @@ class EditRecordDialog:
         ttk.Button(btn_frame, text="Cancel", command=self.on_cancel).pack(side="left", padx=5)
 
         self.center_dialog()
-
         self.top.protocol("WM_DELETE_WINDOW", self.on_cancel)
 
     def center_dialog(self):
@@ -1775,7 +1891,6 @@ class EditRecordDialog:
         self.top.geometry(f"+{pos_x}+{pos_y}")
 
     def pick_time(self, target_var):
-        # Attempt to parse existing time
         current_val = target_var.get().strip()
         time_obj = None
         if current_val != "--:-- --":
@@ -1794,7 +1909,6 @@ class EditRecordDialog:
             target_var.set(f"{hour_12:02}:{minute:02} {ampm}")
 
     def on_save(self):
-        # Just store them in the record_data, then call the callback
         self.record_data["morning_actual_time_in"] = self.morning_var.get().strip()
         self.record_data["afternoon_actual_time_out"] = self.afternoon_var.get().strip()
         self.callback_on_save(self.record_data)
@@ -1811,6 +1925,7 @@ def main():
     app = DailyTimeRecordApp(root)
     root.mainloop()
     logging.info("Application closed.")
+
 
 if __name__ == "__main__":
     main()
