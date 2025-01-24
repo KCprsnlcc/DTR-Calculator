@@ -1386,130 +1386,277 @@ class DailyTimeRecordApp:
 
     def show_help_dialog(self):
         """
-        Display the How to Use dialog.
+        Display the How to Use dialog with enhanced design and detailed information.
         """
         help_window = tk.Toplevel(self.master)
         help_window.title("How to Use - Daily Time Record")
         help_window.grab_set()  # Make the dialog modal
 
         # Set window size and position
-        help_window.geometry("600x400")
+        help_window.geometry("700x500")
         self.center_child_window(help_window)
 
-        # Create a frame for content with padding
-        frame = ttk.Frame(help_window, padding=10)
-        frame.pack(fill="both", expand=True)
+        # Create a notebook (tabbed interface) for organized sections
+        notebook = ttk.Notebook(help_window)
+        notebook.pack(fill="both", expand=True, padx=10, pady=10)
 
-        # Add a Text widget with scrollbars
-        text_area = tk.Text(frame, wrap="word", font=("Arial", 12))
-        text_area.pack(side="left", fill="both", expand=True)
+        # ----------------------------
+        # Tab 1: Overview
+        # ----------------------------
+        tab_overview = ttk.Frame(notebook)
+        notebook.add(tab_overview, text="Overview")
 
-        scrollbar = ttk.Scrollbar(frame, orient="vertical", command=text_area.yview)
-        scrollbar.pack(side="right", fill="y")
-        text_area.configure(yscrollcommand=scrollbar.set)
+        overview_content = """
+        Daily Time Record (DTR) Application - Overview
 
-        # Define help content
-        help_content = """
-        Daily Time Record (DTR) Application - How to Use
+        The DTR application is designed to help you efficiently track your daily work hours, calculate deductions based on lateness and undertime, and maintain a comprehensive history of your records. Whether you're managing your personal time or overseeing a team's attendance, this tool provides the necessary functionalities to streamline the process.
 
-        1. Date Selection:
-        - Year, Month, Day: Use the dropdown menus at the top to select the desired date.
-        - The selected day of the week will be displayed below the date selectors.
-
-        2. Time Entry:
-        - Morning:
-            - Time In: Enter the time you arrived in the morning.
-            - Time Out: Enter the time you left in the morning.
-        - Afternoon:
-            - Time In: Enter the time you arrived in the afternoon.
-            - Time Out: Enter the time you left in the afternoon.
-        - AM/PM: Select whether the time is in the AM or PM.
-
-        3. Time Picker:
-        - Click the Select Time button next to each time entry to open a time picker dialog.
-        - Choose the desired time, and the fields will be populated automatically.
-
-        4. Half Day:
-        - If you are taking a half day, check the **Half Day** checkbox.
-        - For a half day, fill in either the morning or afternoon time fields accordingly.
-
-        5. Calculating Deductions:
-        - After entering all necessary times, click "Calculate Deductions".
-        - The application will display any lateness or undertime, durations worked, and total deduction points.
-
-        6. Saving Records:
-        - Click **Save Record** to save the current day's deductions.
-        - If a record for the selected date already exists, you will be prompted to add another record for that date.
-
-        7. Exporting History:
-        - Click **Export History** to export all records to a CSV file for external analysis or record-keeping.
-
-        8. Deduction History:
-        - View all saved records in the "Deduction History" section.
-        - Right-click on any record to "Edit" or "Delete" it.
-
-        9. Theme Switching:
-        - Use the "Light Mode" and "Dark Mode" buttons at the top to switch between themes.
-        - Font colors will adjust automatically to ensure readability.
-
-        10. Full-Screen Mode:
-        - Click the "Full Screen" button to toggle full-screen mode for an immersive experience.
-
-        Tips:
-        - Ensure all time entries are valid to avoid calculation errors.
-        - Regularly export your history to keep backups of your records.
-
-        For further assistance, please refer to the user manual or contact support.
+        Key Features:
+        - Date Selection: Easily select dates to log your time records.
+        - Time Entry: Input your morning and afternoon check-in and check-out times.
+        - Deduction Calculation: Automatically calculate deductions based on predefined rules.
+        - Half-Day Management: Option to log half-day absences.
+        - Record Saving and Exporting: Save your records and export them for external use.
+        - Theme Customization: Switch between light and dark modes to suit your preference.
+        - Full-Screen Mode: Toggle full-screen for an immersive experience.
         """
 
-        # Insert help content into the Text widget
-        text_area.insert("1.0", help_content)
-        text_area.config(state="disabled")  # Make the text read-only
+        label_overview = tk.Text(tab_overview, wrap="word", font=("Arial", 12), bg=help_window.cget("bg"), borderwidth=0)
+        label_overview.insert("1.0", overview_content)
+        label_overview.config(state="disabled")  # Make the text read-only
+        label_overview.pack(fill="both", expand=True, padx=10, pady=10)
+
+        # ----------------------------
+        # Tab 2: Step-by-Step Guide
+        # ----------------------------
+        tab_guide = ttk.Frame(notebook)
+        notebook.add(tab_guide, text="Step-by-Step Guide")
+
+        guide_content = """
+        Step-by-Step Guide
+
+        1. Selecting a Date:
+           - Use the dropdown menus at the top to select the desired year, month, and day.
+           - The application will display the corresponding day of the week.
+
+        2. Entering Time Records:
+           - Morning:
+             - Time In: Enter the time you arrived in the morning using the provided fields or the time picker.
+             - Time Out: Enter the time you left in the morning.
+           - Afternoon:
+             - Time In: Enter the time you arrived in the afternoon.
+             - Time Out: Enter the time you left in the afternoon.
+           - Use the "Select Time" button to open a convenient time picker dialog for accurate time selection.
+
+        3. Managing Half Days:
+           - If you're taking a half day, check the "Half Day" checkbox.
+           - Depending on your selection, fill in either the morning or afternoon time fields accordingly.
+           - The application will automatically adjust calculations based on your input.
+
+        4. Calculating Deductions:
+           - After entering your times, click the Calculate Deductions button.
+           - The application will display any lateness, undertime, and the total deduction points based on your input.
+
+        5. Saving Your Record:
+           - Once satisfied with the calculations, click "Save Record" to store your daily entry.
+           - You can have multiple records per date if necessary.
+
+        6. Exporting Your History:
+           - To export your deduction history, click "Export History".
+           - Choose the desired location and file format (CSV recommended) to save your records externally.
+
+        7. Viewing and Managing History:
+           - All saved records are displayed in the "Deduction History" section.
+           - Use the search functionality to filter records by date range.
+           - Right-click on any record to "Edit" or "Delete" it as needed.
+
+        8. Customizing Appearance:
+           - Switch between "Light Mode" and "Dark Mode" using the respective buttons for better visibility.
+           - Toggle "Full-Screen Mode" for an enhanced viewing experience.
+
+        Tips:
+        - Ensure all time entries are accurate to avoid incorrect deductions.
+        - Regularly export your history to maintain backups of your records.
+        - Utilize the search feature to quickly access specific records.
+        """
+
+        label_guide = tk.Text(tab_guide, wrap="word", font=("Arial", 12), bg=help_window.cget("bg"), borderwidth=0)
+        label_guide.insert("1.0", guide_content)
+        label_guide.config(state="disabled")  # Make the text read-only
+        label_guide.pack(fill="both", expand=True, padx=10, pady=10)
+
+        # ----------------------------
+        # Tab 3: FAQs
+        # ----------------------------
+        tab_faq = ttk.Frame(notebook)
+        notebook.add(tab_faq, text="FAQs")
+
+        faq_content = """
+        Frequently Asked Questions (FAQs)
+
+        1. How do I handle multiple check-ins and check-outs in a single day?
+        - The application allows multiple records per date. Simply select the same date and add another record as needed.
+
+        2. What should I do if I forget to log my time?
+        - Contact your supervisor or the HR department to make necessary adjustments to your records.
+
+        3. Can I customize the allowed working hours?
+        - Currently, allowed working hours are predefined. Future updates may include customization options.
+
+        4. How do I reset the search filters in the Deduction History?
+        - Click the "Reset" button in the "Deduction History" section to clear all search filters and view all records.
+
+        5. Is my data securely stored?"
+        - Yes, all records are stored locally in a JSON file (`dtr_records.json`). Ensure you back up this file regularly.
+
+        6. How can I change the application's theme?
+        - Use the "Light Mode" and "Dark Mode" buttons located at the top-right corner of the application window.
+
+        7. Who do I contact for support or feedback?
+        - For support or feedback, please reach out to kcpersonalacc@gmail.com.
+
+        If your question isn't listed here, please refer to the user manual or contact support for further assistance.
+        """
+
+        label_faq = tk.Text(tab_faq, wrap="word", font=("Arial", 12), bg=help_window.cget("bg"), borderwidth=0)
+        label_faq.insert("1.0", faq_content)
+        label_faq.config(state="disabled")  # Make the text read-only
+        label_faq.pack(fill="both", expand=True, padx=10, pady=10)
+
+        # ----------------------------
+        # Tab 4: Tips and Best Practices
+        # ----------------------------
+        tab_tips = ttk.Frame(notebook)
+        notebook.add(tab_tips, text="Tips & Best Practices")
+
+        tips_content = """
+        Tips and Best Practices
+
+        - Regular Logging: Make it a habit to log your time daily to ensure accuracy and prevent data loss.
+        - Backup Your Data: Periodically export and back up your deduction history to avoid accidental data loss.
+        - Review Deductions: Regularly review your deduction points to understand your attendance patterns.
+        - Use Shortcuts: Utilize the time picker for faster and more accurate time entries.
+        - Stay Organized: Keep your records well-organized by maintaining consistent date formats and naming conventions.
+        - Customize Settings: Explore theme options to find a visual setup that reduces eye strain and enhances usability.
+        - Seek Feedback: If you encounter issues or have suggestions, don't hesitate to provide feedback to improve the application.
+        """
+
+        label_tips = tk.Text(tab_tips, wrap="word", font=("Arial", 12), bg=help_window.cget("bg"), borderwidth=0)
+        label_tips.insert("1.0", tips_content)
+        label_tips.config(state="disabled")  # Make the text read-only
+        label_tips.pack(fill="both", expand=True, padx=10, pady=10)
+
+        # ----------------------------
+        # Tab 5: Contact Support
+        # ----------------------------
+        tab_contact = ttk.Frame(notebook)
+        notebook.add(tab_contact, text="Contact Support")
+
+        contact_content = """s
+        Contact Support
+
+        If you need assistance or have any questions about the Daily Time Record (DTR) application, please feel free to reach out to our support team.
+
+        Email: kcpersonalacc@gmail.com
+
+        Phone: +6399-4995-3785
+
+        Social Media:
+        - Github: [@KCprsnlcc](https://github.com/KCprsnlcc/DTR-Calculator)
+        - Facebook: [Khadaffe Abubakar Sulaiman](https://facebook.com/Daff.Sulaiman/)
+        - YouTube: [Khadaffe Sulaiman](https://youtube.com/@khadaffesulaiman463/)
+
+        We strive to respond to all inquiries within 24 hours during business days. Your feedback helps us improve and serve you better!
+        """
+
+        label_contact = tk.Text(tab_contact, wrap="word", font=("Arial", 12), bg=help_window.cget("bg"), borderwidth=0)
+        label_contact.insert("1.0", contact_content)
+        label_contact.config(state="disabled")  # Make the text read-only
+        label_contact.pack(fill="both", expand=True, padx=10, pady=10)
 
         # Adjust font colors based on current theme
         if self.current_theme in ['superhero', 'darkly', 'cyborg', 'slate']:
-            text_area.config(bg="#2e2e2e", fg="white", insertbackground="white")
+            label_overview.config(fg="white")
+            label_guide.config(fg="white")
+            label_faq.config(fg="white")
+            label_tips.config(fg="white")
+            label_contact.config(fg="white")
         else:
-            text_area.config(bg="white", fg="black", insertbackground="black")
+            label_overview.config(fg="black")
+            label_guide.config(fg="black")
+            label_faq.config(fg="black")
+            label_tips.config(fg="black")
+            label_contact.config(fg="black")
 
     def show_about_dialog(self):
         """
-        Display the About dialog.
+        Display the About dialog with enhanced design and detailed information.
         """
         about_window = tk.Toplevel(self.master)
         about_window.title("About - Daily Time Record")
         about_window.grab_set()  # Make the dialog modal
 
         # Set window size and position
-        about_window.geometry("400x200")
+        about_window.geometry("500x400")
         self.center_child_window(about_window)
 
         # Create a frame for content with padding
-        frame = ttk.Frame(about_window, padding=10)
+        frame = ttk.Frame(about_window, padding=20)
         frame.pack(fill="both", expand=True)
 
-        # Add About content
+        # ----------------------------
+        # Application Logo (Optional)
+        # ----------------------------
+        # Uncomment and replace 'path_to_logo.png' with your logo's path if available
+        # try:
+        #     logo = tk.PhotoImage(file="path_to_logo.png")
+        #     logo_label = ttk.Label(frame, image=logo)
+        #     logo_label.image = logo  # Keep a reference
+        #     logo_label.pack(pady=10)
+        # except Exception as e:
+        #     logging.warning(f"Logo not found or failed to load: {e}")
+
+        # ----------------------------
+        # About Content
+        # ----------------------------
         about_content = """
         Daily Time Record (DTR) Application
 
         Version: 2.0
 
-        Developed by: KCprsnlcc
+        Release Date: January 24, 2025
+
+        Developed By: KCprsnlcc
 
         Purpose:
-        This application helps track daily work times, calculate deduction points based on lateness and undertime, and maintain a history of records for easy management.
+        The DTR application is crafted to simplify the process of tracking daily work hours, calculating deductions for lateness and undertime, and maintaining a comprehensive history of records. It is an essential tool for individuals and organizations aiming to enhance productivity and ensure accurate time management.
 
-        © 2025 Department of Health. All rights reserved.
+        Acknowledgments:
+        - Open-Source Libraries: Utilizing the power of Tkinter and ttkbootstrap for a responsive and modern interface.
+        - Community Support: Special thanks to the developer community for continuous support and contributions.
+
+        Contact Information:
+        For any queries, support, or feedback, please contact us at kcpersonalacc@gmail.com.
+
+        Follow Us:
+        - Github: [@KCprsnlcc](https://github.com/KCprsnlcc/DTR-Calculator)
+        - Facebook: [Khadaffe Abubakar Sulaiman](https://facebook.com/Daff.Sulaiman/)
+        - YouTube: [Khadaffe Sulaiman](https://youtube.com/@khadaffesulaiman463/)
+
+        Legal Disclaimer:
+        While every effort has been made to ensure the accuracy and reliability of the DTR application, the developers are not liable for any discrepancies or issues arising from its use. Users are encouraged to back up their data regularly.
         """
 
-        label = ttk.Label(frame, text=about_content, justify="center", font=("Arial", 12))
-        label.pack(fill="both", expand=True)
+        label_about = tk.Text(frame, wrap="word", font=("Arial", 12), bg=about_window.cget("bg"), borderwidth=0)
+        label_about.insert("1.0", about_content)
+        label_about.config(state="disabled")  # Make the text read-only
+        label_about.pack(fill="both", expand=True)
 
         # Adjust font colors based on current theme
         if self.current_theme in ['superhero', 'darkly', 'cyborg', 'slate']:
-            label.config(foreground="white")
+            label_about.config(fg="white")
         else:
-            label.config(foreground="black")
+            label_about.config(fg="black")
 
     def display_welcome_message(self):
         """

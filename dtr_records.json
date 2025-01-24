@@ -38,5 +38,21 @@
         "undertime_afternoon": 20,
         "duration_morning": 239,
         "duration_afternoon": 251
+    },
+    {
+        "date": "2025-01-27",
+        "deduction_points": 0.25,
+        "late_morning": 60,
+        "undertime_afternoon": 60,
+        "duration_morning": 151,
+        "duration_afternoon": 210
+    },
+    {
+        "date": "2025-01-27",
+        "deduction_points": 0.125,
+        "late_morning": 0,
+        "undertime_afternoon": 60,
+        "duration_morning": 646,
+        "duration_afternoon": 210
     }
 ]

@@ -291,3 +291,106 @@
 2025-01-24 08:55:25,966 - INFO - Morning lateness: 0.022 points
 2025-01-24 08:55:25,966 - INFO - Afternoon undertime: 0.125 points
 2025-01-24 08:55:25,966 - INFO - Total deduction calculated: 0.147 points
+2025-01-24 09:01:59,084 - INFO - Application started.
+2025-01-24 09:01:59,349 - INFO - Loaded records as list of dictionaries.
+2025-01-24 09:01:59,537 - INFO - History populated in Treeview.
+2025-01-24 09:06:54,334 - INFO - Afternoon undertime: 1.0 points
+2025-01-24 09:06:54,334 - INFO - Total deduction calculated: 1.0 points
+2025-01-24 09:06:58,511 - INFO - Afternoon undertime: 0.125 points
+2025-01-24 09:06:58,513 - INFO - Total deduction calculated: 0.125 points
+2025-01-24 09:07:06,377 - INFO - Afternoon undertime: 0.125 points
+2025-01-24 09:07:06,378 - INFO - Total deduction calculated: 0.125 points
+2025-01-24 09:09:12,899 - INFO - Afternoon undertime: 0.125 points
+2025-01-24 09:09:12,899 - INFO - Total deduction calculated: 0.125 points
+2025-01-24 09:09:17,389 - INFO - Afternoon undertime: 0.125 points
+2025-01-24 09:09:17,389 - INFO - Total deduction calculated: 0.125 points
+2025-01-24 09:09:22,141 - INFO - Afternoon undertime: 0.125 points
+2025-01-24 09:09:22,141 - INFO - Total deduction calculated: 0.125 points
+2025-01-24 09:09:47,311 - INFO - Total deduction calculated: 0.0 points
+2025-01-24 09:09:53,311 - INFO - Afternoon undertime: 0.125 points
+2025-01-24 09:09:53,311 - INFO - Total deduction calculated: 0.125 points
+2025-01-24 09:10:33,850 - INFO - Afternoon undertime: 0.125 points
+2025-01-24 09:10:33,850 - INFO - Total deduction calculated: 0.125 points
+2025-01-24 09:10:51,007 - INFO - Total deduction calculated: 0.0 points
+2025-01-24 09:10:55,878 - INFO - Afternoon undertime: 0.06 points
+2025-01-24 09:10:55,878 - INFO - Total deduction calculated: 0.06 points
+2025-01-24 09:11:20,831 - INFO - Afternoon undertime: 0.125 points
+2025-01-24 09:11:20,834 - INFO - Total deduction calculated: 0.125 points
+2025-01-24 09:11:39,776 - INFO - Afternoon undertime: 0.125 points
+2025-01-24 09:11:39,776 - INFO - Total deduction calculated: 0.125 points
+2025-01-24 09:11:54,628 - INFO - Afternoon undertime: 0.125 points
+2025-01-24 09:11:54,633 - INFO - Total deduction calculated: 0.125 points
+2025-01-24 09:12:28,841 - INFO - Afternoon undertime: 0.125 points
+2025-01-24 09:12:28,841 - INFO - Total deduction calculated: 0.125 points
+2025-01-24 09:13:31,063 - INFO - Afternoon undertime: 0.125 points
+2025-01-24 09:13:31,063 - INFO - Total deduction calculated: 0.125 points
+2025-01-24 09:21:53,807 - INFO - Total deduction calculated: 0.0 points
+2025-01-24 09:23:08,143 - INFO - Morning lateness: 0.125 points
+2025-01-24 09:23:08,145 - INFO - Total deduction calculated: 0.125 points
+2025-01-24 09:23:11,694 - INFO - Morning lateness: 0.125 points
+2025-01-24 09:23:11,694 - INFO - Total deduction calculated: 0.125 points
+2025-01-24 09:33:15,974 - INFO - History populated in Treeview.
+2025-01-24 09:33:15,975 - INFO - Date changed to 2025-01-23
+2025-01-24 09:33:36,126 - INFO - History populated in Treeview.
+2025-01-24 09:33:36,126 - INFO - Date changed to 2025-01-24
+2025-01-24 09:34:02,459 - INFO - Morning lateness: 0.125 points
+2025-01-24 09:34:02,459 - INFO - Afternoon undertime: 0.125 points
+2025-01-24 09:34:02,460 - INFO - Total deduction calculated: 0.25 points
+2025-01-24 09:34:07,665 - INFO - History populated in Treeview.
+2025-01-24 09:34:07,665 - INFO - Date changed to 2025-01-28
+2025-01-24 09:34:10,223 - INFO - History populated in Treeview.
+2025-01-24 09:34:10,224 - INFO - Date changed to 2025-01-27
+2025-01-24 09:34:47,072 - INFO - Records saved successfully as list of dictionaries.
+2025-01-24 09:34:48,875 - INFO - Record saved for 2025-01-27: 0.25 points.
+2025-01-24 09:34:48,875 - INFO - History populated in Treeview.
+2025-01-24 09:34:49,599 - INFO - Afternoon undertime: 0.125 points
+2025-01-24 09:34:49,599 - INFO - Total deduction calculated: 0.125 points
+2025-01-24 09:34:56,753 - INFO - Records saved successfully as list of dictionaries.
+2025-01-24 09:34:57,472 - INFO - Record saved for 2025-01-27: 0.125 points.
+2025-01-24 09:34:57,472 - INFO - History populated in Treeview.
+2025-01-24 09:35:13,236 - INFO - History exported to C:/Users/kcper/OneDrive/Documents/January 24.csv
+2025-01-24 09:44:13,892 - INFO - Application closed.
+2025-01-24 10:27:47,930 - INFO - Application started.
+2025-01-24 10:27:48,289 - INFO - Loaded records as list of dictionaries.
+2025-01-24 10:27:48,526 - INFO - History populated in Treeview.
+2025-01-24 10:30:26,112 - INFO - Half Day selected.
+2025-01-24 10:30:27,827 - INFO - Full Day selected.
+2025-01-24 10:30:49,974 - INFO - Afternoon undertime: 1.0 points
+2025-01-24 10:30:49,974 - INFO - Total deduction calculated: 1.0 points
+2025-01-24 10:31:00,095 - INFO - Afternoon undertime: 0.125 points
+2025-01-24 10:31:00,095 - INFO - Total deduction calculated: 0.125 points
+2025-01-24 10:31:11,535 - INFO - Afternoon undertime: 0.125 points
+2025-01-24 10:31:11,535 - INFO - Total deduction calculated: 0.125 points
+2025-01-24 10:31:12,598 - INFO - Afternoon undertime: 0.125 points
+2025-01-24 10:31:12,598 - INFO - Total deduction calculated: 0.125 points
+2025-01-24 10:31:12,815 - INFO - Afternoon undertime: 0.125 points
+2025-01-24 10:31:12,815 - INFO - Total deduction calculated: 0.125 points
+2025-01-24 10:31:21,533 - INFO - Afternoon undertime: 0.125 points
+2025-01-24 10:31:21,533 - INFO - Total deduction calculated: 0.125 points
+2025-01-24 10:33:10,894 - INFO - Theme changed to flatly.
+2025-01-24 10:33:13,770 - INFO - Application closed.
+2025-01-24 10:33:53,457 - INFO - Application started.
+2025-01-24 10:33:53,624 - INFO - Loaded records as list of dictionaries.
+2025-01-24 10:33:53,860 - INFO - History populated in Treeview.
+2025-01-24 10:34:37,179 - INFO - Afternoon undertime: 0.125 points
+2025-01-24 10:34:37,179 - INFO - Total deduction calculated: 0.125 points
+2025-01-24 10:35:24,121 - INFO - Half Day selected.
+2025-01-24 10:35:26,266 - INFO - Half Day afternoon absence: 0.5 points
+2025-01-24 10:35:26,266 - INFO - Total deduction calculated: 0.5 points
+2025-01-24 10:35:27,890 - INFO - Half Day afternoon absence: 0.5 points
+2025-01-24 10:35:27,890 - INFO - Total deduction calculated: 0.5 points
+2025-01-24 10:35:31,917 - INFO - User chose not to add another record for 2025-01-24.
+2025-01-24 10:35:54,716 - INFO - Theme changed to superhero.
+2025-01-24 10:36:06,557 - INFO - Entered full-screen mode.
+2025-01-24 10:36:09,113 - INFO - Exited full-screen mode.
+2025-01-24 10:36:25,365 - INFO - Application closed.
+2025-01-24 10:40:34,702 - INFO - Application started.
+2025-01-24 10:40:34,859 - INFO - Loaded records as list of dictionaries.
+2025-01-24 10:40:34,969 - INFO - History populated in Treeview.
+2025-01-24 11:01:59,477 - INFO - Application started.
+2025-01-24 11:01:59,647 - INFO - Loaded records as list of dictionaries.
+2025-01-24 11:01:59,767 - INFO - History populated in Treeview.
+2025-01-24 11:03:35,492 - INFO - Application started.
+2025-01-24 11:03:35,649 - INFO - Loaded records as list of dictionaries.
+2025-01-24 11:03:35,800 - INFO - History populated in Treeview.
+2025-01-24 11:04:01,134 - INFO - Application closed.
