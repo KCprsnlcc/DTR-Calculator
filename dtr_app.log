@@ -202,3 +202,92 @@
 2025-01-24 00:21:50,172 - INFO - Theme changed to superhero.
 2025-01-24 00:21:51,182 - INFO - Theme changed to flatly.
 2025-01-24 00:22:08,168 - INFO - Application closed.
+2025-01-24 07:05:52,074 - INFO - Application started.
+2025-01-24 07:07:28,053 - INFO - Application started.
+2025-01-24 07:07:28,189 - INFO - Loaded records as list of dictionaries.
+2025-01-24 07:10:22,954 - INFO - Application started.
+2025-01-24 07:10:23,131 - INFO - Loaded records as list of dictionaries.
+2025-01-24 07:12:14,309 - INFO - Application started.
+2025-01-24 07:12:14,522 - INFO - Loaded records as list of dictionaries.
+2025-01-24 07:12:17,680 - INFO - Application started.
+2025-01-24 07:12:17,810 - INFO - Loaded records as list of dictionaries.
+2025-01-24 08:35:55,136 - INFO - Application started.
+2025-01-24 08:35:55,428 - INFO - Loaded records as list of dictionaries.
+2025-01-24 08:35:55,582 - INFO - History populated in Treeview.
+2025-01-24 08:37:19,186 - INFO - Half Day selected.
+2025-01-24 08:37:19,952 - INFO - Full Day selected.
+2025-01-24 08:37:46,827 - WARNING - Incomplete time fields for full day.
+2025-01-24 08:38:29,269 - INFO - Half Day selected.
+2025-01-24 08:38:33,279 - INFO - Half Day Morning lateness: 0.02 points
+2025-01-24 08:38:33,279 - INFO - Half Day afternoon absence: 0.5 points
+2025-01-24 08:38:33,280 - INFO - Total deduction calculated: 0.52 points
+2025-01-24 08:38:48,349 - INFO - Records saved successfully as list of dictionaries.
+2025-01-24 08:38:50,534 - INFO - Record saved for 2025-01-24: 0.52 points.
+2025-01-24 08:38:50,535 - INFO - History populated in Treeview.
+2025-01-24 08:39:15,481 - INFO - History exported to C:/Users/kcper/OneDrive/Documents/Jan 24.csv
+2025-01-24 08:39:24,236 - INFO - Full Day selected.
+2025-01-24 08:39:29,299 - WARNING - Incomplete time fields for full day.
+2025-01-24 08:39:31,674 - INFO - Half Day selected.
+2025-01-24 08:40:27,543 - INFO - Half Day afternoon absence: 0.5 points
+2025-01-24 08:40:27,545 - INFO - Total deduction calculated: 0.5 points
+2025-01-24 08:40:43,280 - INFO - Full Day selected.
+2025-01-24 08:41:20,518 - INFO - Afternoon undertime: 0.04 points
+2025-01-24 08:41:20,519 - INFO - Total deduction calculated: 0.04 points
+2025-01-24 08:42:22,312 - INFO - Records saved successfully as list of dictionaries.
+2025-01-24 08:42:23,715 - INFO - Record saved for 2025-01-24: 0.04 points.
+2025-01-24 08:42:23,716 - INFO - History populated in Treeview.
+2025-01-24 08:43:28,892 - INFO - Total deduction calculated: 0.0 points
+2025-01-24 08:43:50,562 - INFO - Half Day selected.
+2025-01-24 08:44:24,161 - INFO - History populated in Treeview.
+2025-01-24 08:44:24,161 - INFO - Date changed to 2025-01-23
+2025-01-24 08:44:27,601 - INFO - Half Day afternoon absence: 0.5 points
+2025-01-24 08:44:27,603 - INFO - Total deduction calculated: 0.5 points
+2025-01-24 08:44:42,838 - INFO - Full Day selected.
+2025-01-24 08:44:48,692 - INFO - Total deduction calculated: 0.0 points
+2025-01-24 08:44:56,557 - INFO - Total deduction calculated: 0.0 points
+2025-01-24 08:45:06,726 - INFO - Afternoon undertime: 0.125 points
+2025-01-24 08:45:06,726 - INFO - Total deduction calculated: 0.125 points
+2025-01-24 08:46:17,043 - INFO - Afternoon undertime: 0.125 points
+2025-01-24 08:46:17,046 - INFO - Total deduction calculated: 0.125 points
+2025-01-24 08:48:04,975 - INFO - Half Day selected.
+2025-01-24 08:48:16,840 - INFO - Half Day Afternoon undertime: 0.125 points
+2025-01-24 08:48:16,840 - INFO - Half Day morning absence: 0.5 points
+2025-01-24 08:48:16,840 - INFO - Total deduction calculated: 0.625 points
+2025-01-24 08:48:18,327 - INFO - Half Day Afternoon undertime: 0.125 points
+2025-01-24 08:48:18,327 - INFO - Half Day morning absence: 0.5 points
+2025-01-24 08:48:18,327 - INFO - Total deduction calculated: 0.625 points
+2025-01-24 08:48:19,213 - INFO - Half Day Afternoon undertime: 0.125 points
+2025-01-24 08:48:19,213 - INFO - Half Day morning absence: 0.5 points
+2025-01-24 08:48:19,213 - INFO - Total deduction calculated: 0.625 points
+2025-01-24 08:48:20,073 - INFO - Half Day Afternoon undertime: 0.125 points
+2025-01-24 08:48:20,073 - INFO - Half Day morning absence: 0.5 points
+2025-01-24 08:48:20,073 - INFO - Total deduction calculated: 0.625 points
+2025-01-24 08:48:20,580 - INFO - Half Day Afternoon undertime: 0.125 points
+2025-01-24 08:48:20,580 - INFO - Half Day morning absence: 0.5 points
+2025-01-24 08:48:20,580 - INFO - Total deduction calculated: 0.625 points
+2025-01-24 08:48:21,860 - INFO - Full Day selected.
+2025-01-24 08:48:25,554 - WARNING - Incomplete time fields for full day.
+2025-01-24 08:48:31,723 - WARNING - Incomplete time fields for full day.
+2025-01-24 08:51:19,077 - INFO - Half Day selected.
+2025-01-24 08:51:20,082 - INFO - Half Day Afternoon undertime: 0.125 points
+2025-01-24 08:51:20,082 - INFO - Half Day morning absence: 0.5 points
+2025-01-24 08:51:20,082 - INFO - Total deduction calculated: 0.625 points
+2025-01-24 08:52:55,322 - INFO - Full Day selected.
+2025-01-24 08:52:56,502 - INFO - Half Day selected.
+2025-01-24 08:52:57,254 - INFO - Full Day selected.
+2025-01-24 08:53:00,748 - WARNING - Incomplete time fields for full day.
+2025-01-24 08:53:48,186 - INFO - Morning lateness: 0.022 points
+2025-01-24 08:53:48,186 - INFO - Afternoon undertime: 0.125 points
+2025-01-24 08:53:48,186 - INFO - Total deduction calculated: 0.147 points
+2025-01-24 08:54:06,472 - INFO - Morning lateness: 0.022 points
+2025-01-24 08:54:06,473 - INFO - Afternoon undertime: 0.125 points
+2025-01-24 08:54:06,473 - INFO - Total deduction calculated: 0.147 points
+2025-01-24 08:54:36,732 - INFO - Morning lateness: 0.022 points
+2025-01-24 08:54:36,732 - INFO - Afternoon undertime: 0.125 points
+2025-01-24 08:54:36,734 - INFO - Total deduction calculated: 0.147 points
+2025-01-24 08:54:55,574 - INFO - Morning lateness: 0.022 points
+2025-01-24 08:54:55,574 - INFO - Afternoon undertime: 0.125 points
+2025-01-24 08:54:55,574 - INFO - Total deduction calculated: 0.147 points
+2025-01-24 08:55:25,966 - INFO - Morning lateness: 0.022 points
+2025-01-24 08:55:25,966 - INFO - Afternoon undertime: 0.125 points
+2025-01-24 08:55:25,966 - INFO - Total deduction calculated: 0.147 points

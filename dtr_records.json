@@ -22,5 +22,21 @@
         "undertime_afternoon": 0,
         "duration_morning": 123,
         "duration_afternoon": 0
+    },
+    {
+        "date": "2025-01-24",
+        "deduction_points": 0.52,
+        "late_morning": 10,
+        "undertime_afternoon": 0,
+        "duration_morning": 201,
+        "duration_afternoon": 0
+    },
+    {
+        "date": "2025-01-24",
+        "deduction_points": 0.04,
+        "late_morning": 0,
+        "undertime_afternoon": 20,
+        "duration_morning": 239,
+        "duration_afternoon": 251
     }
 ]

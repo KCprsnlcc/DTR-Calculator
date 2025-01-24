@@ -1410,52 +1410,52 @@ class DailyTimeRecordApp:
 
         # Define help content
         help_content = """
-        **Daily Time Record (DTR) Application - How to Use**
+        Daily Time Record (DTR) Application - How to Use
 
-        **1. Date Selection:**
-        - **Year, Month, Day:** Use the dropdown menus at the top to select the desired date.
+        1. Date Selection:
+        - Year, Month, Day: Use the dropdown menus at the top to select the desired date.
         - The selected day of the week will be displayed below the date selectors.
 
-        **2. Time Entry:**
-        - **Morning:**
-            - **Time In:** Enter the time you arrived in the morning.
-            - **Time Out:** Enter the time you left in the morning.
-        - **Afternoon:**
-            - **Time In:** Enter the time you arrived in the afternoon.
-            - **Time Out:** Enter the time you left in the afternoon.
-        - **AM/PM:** Select whether the time is in the AM or PM.
+        2. Time Entry:
+        - Morning:
+            - Time In: Enter the time you arrived in the morning.
+            - Time Out: Enter the time you left in the morning.
+        - Afternoon:
+            - Time In: Enter the time you arrived in the afternoon.
+            - Time Out: Enter the time you left in the afternoon.
+        - AM/PM: Select whether the time is in the AM or PM.
 
-        **3. Time Picker:**
-        - Click the **Select Time** button next to each time entry to open a time picker dialog.
+        3. Time Picker:
+        - Click the Select Time button next to each time entry to open a time picker dialog.
         - Choose the desired time, and the fields will be populated automatically.
 
-        **4. Half Day:**
+        4. Half Day:
         - If you are taking a half day, check the **Half Day** checkbox.
         - For a half day, fill in either the morning or afternoon time fields accordingly.
 
-        **5. Calculating Deductions:**
-        - After entering all necessary times, click **Calculate Deductions**.
+        5. Calculating Deductions:
+        - After entering all necessary times, click "Calculate Deductions".
         - The application will display any lateness or undertime, durations worked, and total deduction points.
 
-        **6. Saving Records:**
+        6. Saving Records:
         - Click **Save Record** to save the current day's deductions.
         - If a record for the selected date already exists, you will be prompted to add another record for that date.
 
-        **7. Exporting History:**
+        7. Exporting History:
         - Click **Export History** to export all records to a CSV file for external analysis or record-keeping.
 
-        **8. Deduction History:**
-        - View all saved records in the **Deduction History** section.
-        - Right-click on any record to **Edit** or **Delete** it.
+        8. Deduction History:
+        - View all saved records in the "Deduction History" section.
+        - Right-click on any record to "Edit" or "Delete" it.
 
-        **9. Theme Switching:**
-        - Use the **Light Mode** and **Dark Mode** buttons at the top to switch between themes.
+        9. Theme Switching:
+        - Use the "Light Mode" and "Dark Mode" buttons at the top to switch between themes.
         - Font colors will adjust automatically to ensure readability.
 
-        **10. Full-Screen Mode:**
-        - Click the **Full Screen** button to toggle full-screen mode for an immersive experience.
+        10. Full-Screen Mode:
+        - Click the "Full Screen" button to toggle full-screen mode for an immersive experience.
 
-        **Tips:**
+        Tips:
         - Ensure all time entries are valid to avoid calculation errors.
         - Regularly export your history to keep backups of your records.
 
@@ -1490,16 +1490,16 @@ class DailyTimeRecordApp:
 
         # Add About content
         about_content = """
-        **Daily Time Record (DTR) Application**
+        Daily Time Record (DTR) Application
 
         Version: 2.0
 
-        Developed by: Your Company Name
+        Developed by: KCprsnlcc
 
         Purpose:
         This application helps track daily work times, calculate deduction points based on lateness and undertime, and maintain a history of records for easy management.
 
-        © 2025 Your Company Name. All rights reserved.
+        © 2025 Department of Health. All rights reserved.
         """
 
         label = ttk.Label(frame, text=about_content, justify="center", font=("Arial", 12))
