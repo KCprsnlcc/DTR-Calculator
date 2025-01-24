@@ -603,3 +603,152 @@
 2025-01-24 14:19:07,976 - INFO - Loaded records as list of dictionaries.
 2025-01-24 14:19:08,214 - INFO - History populated in Treeview.
 2025-01-24 14:19:14,748 - INFO - Application closed.
+2025-01-24 14:21:39,340 - INFO - Application started.
+2025-01-24 14:21:39,556 - INFO - Loaded records as list of dictionaries.
+2025-01-24 14:21:39,666 - INFO - History populated in Treeview.
+2025-01-24 14:26:27,993 - INFO - Application started.
+2025-01-24 14:26:28,086 - INFO - Loaded records as list of dictionaries.
+2025-01-24 14:26:28,166 - INFO - History populated in Treeview.
+2025-01-24 14:26:35,494 - WARNING - Invalid Actual Time In for Morning.
+2025-01-24 14:26:52,125 - ERROR - Supposed Time In is not set.
+2025-01-24 14:27:00,848 - INFO - Calculated Deductions - Late: 1410 min, Undertime: 0 min, Total: 1.062 points.
+2025-01-24 14:27:09,164 - INFO - Calculated Deductions - Late: 0 min, Undertime: 0 min, Total: 0.006 points.
+2025-01-24 14:27:15,575 - INFO - Calculated Deductions - Late: 5 min, Undertime: 0 min, Total: 0.014 points.
+2025-01-24 14:27:23,086 - INFO - Calculated Deductions - Late: 5 min, Undertime: 0 min, Total: 0.014 points.
+2025-01-24 14:27:28,429 - INFO - Calculated Deductions - Late: 5 min, Undertime: 0 min, Total: 0.014 points.
+2025-01-24 14:27:29,060 - INFO - Calculated Deductions - Late: 5 min, Undertime: 0 min, Total: 0.014 points.
+2025-01-24 14:27:30,706 - INFO - Calculated Deductions - Late: 5 min, Undertime: 0 min, Total: 0.014 points.
+2025-01-24 14:27:44,980 - INFO - Application closed.
+2025-01-24 14:27:54,445 - INFO - Application started.
+2025-01-24 14:27:54,547 - INFO - Loaded records as list of dictionaries.
+2025-01-24 14:27:54,604 - INFO - History populated in Treeview.
+2025-01-24 14:28:36,938 - ERROR - Supposed Time In is not set.
+2025-01-24 14:28:41,169 - INFO - Calculated Deductions - Late: 30 min, Undertime: 60 min, Total: 0.181 points.
+2025-01-24 14:28:55,198 - INFO - Calculated Deductions - Late: 30 min, Undertime: 1439 min, Total: 1.179 points.
+2025-01-24 14:28:59,127 - INFO - Calculated Deductions - Late: 30 min, Undertime: 0 min, Total: 0.056 points.
+2025-01-24 14:29:07,400 - INFO - Calculated Deductions - Late: 1350 min, Undertime: 1320 min, Total: 2.056 points.
+2025-01-24 14:29:15,813 - INFO - Application closed.
+2025-01-24 14:29:59,102 - INFO - Application started.
+2025-01-24 14:29:59,199 - INFO - Loaded records as list of dictionaries.
+2025-01-24 14:29:59,269 - INFO - History populated in Treeview.
+2025-01-24 14:52:15,228 - INFO - Application started.
+2025-01-24 14:52:15,326 - INFO - Loaded records as list of dictionaries.
+2025-01-24 14:52:15,390 - INFO - History populated in Treeview.
+2025-01-24 14:52:18,782 - INFO - Application closed.
+2025-01-24 14:52:35,927 - INFO - Application started.
+2025-01-24 14:52:36,028 - INFO - Loaded records as list of dictionaries.
+2025-01-24 14:52:36,087 - INFO - History populated in Treeview.
+2025-01-24 15:33:41,195 - INFO - Calculated Deductions - Late: 1410 min, Undertime: 0 min, Total: 1.056 points.
+2025-01-24 15:42:35,040 - INFO - Theme changed to superhero.
+2025-01-24 15:42:37,805 - INFO - Theme changed to flatly.
+2025-01-24 15:43:43,583 - INFO - Application closed.
+2025-01-24 15:44:02,545 - INFO - Application started.
+2025-01-24 15:44:02,657 - INFO - Loaded records as list of dictionaries.
+2025-01-24 15:44:02,733 - INFO - History populated in Treeview.
+2025-01-24 15:44:57,095 - INFO - No deductions to save.
+2025-01-24 15:48:17,360 - INFO - Application started.
+2025-01-24 15:48:17,461 - INFO - Loaded records as list of dictionaries.
+2025-01-24 15:48:17,524 - INFO - History populated in Treeview.
+2025-01-24 15:48:22,120 - INFO - Application closed.
+2025-01-24 15:54:00,227 - INFO - Application started.
+2025-01-24 15:54:00,353 - INFO - Loaded records as list of dictionaries.
+2025-01-24 15:54:00,422 - INFO - History populated in Treeview.
+2025-01-24 15:54:32,623 - INFO - Application started.
+2025-01-24 15:54:32,723 - INFO - Loaded records as list of dictionaries.
+2025-01-24 15:56:16,394 - INFO - Application started.
+2025-01-24 15:56:16,498 - INFO - Loaded records as list of dictionaries.
+2025-01-24 15:56:16,564 - INFO - History populated in Treeview.
+2025-01-24 15:56:28,738 - INFO - Application closed.
+2025-01-24 15:56:32,038 - INFO - Application started.
+2025-01-24 15:56:32,141 - INFO - Loaded records as list of dictionaries.
+2025-01-24 15:56:32,201 - INFO - History populated in Treeview.
+2025-01-24 15:56:57,056 - WARNING - Invalid Actual Time In for Morning.
+2025-01-24 15:58:51,400 - INFO - Application started.
+2025-01-24 15:58:51,508 - INFO - Loaded records as list of dictionaries.
+2025-01-24 15:58:51,569 - INFO - History populated in Treeview.
+2025-01-24 16:00:36,874 - INFO - Calculated Deductions - Late: 1439 min, Undertime: 0 min, Total: 1.123 points.
+2025-01-24 16:03:54,046 - INFO - Calculated Deductions - Late: 0 min, Undertime: 0 min, Total: 0.0 points.
+2025-01-24 16:04:11,542 - INFO - Calculated Deductions - Late: 0 min, Undertime: 30 min, Total: 0.056 points.
+2025-01-24 16:04:18,476 - INFO - Calculated Deductions - Late: 0 min, Undertime: 25 min, Total: 0.046 points.
+2025-01-24 16:04:20,551 - INFO - Calculated Deductions - Late: 0 min, Undertime: 1420 min, Total: 1.083 points.
+2025-01-24 16:10:11,021 - INFO - Application closed.
+2025-01-24 16:15:06,074 - INFO - Application started.
+2025-01-24 16:15:06,180 - INFO - Loaded records as list of dictionaries.
+2025-01-24 16:15:06,244 - INFO - History populated in Treeview.
+2025-01-24 16:15:23,790 - INFO - Calculated Deductions - Late: 0 min => 0.0, Undertime: 0 min => 0.0, Total: 0.0.
+2025-01-24 16:15:25,343 - INFO - Calculated Deductions - Late: 0 min => 0.0, Undertime: 0 min => 0.0, Total: 0.0.
+2025-01-24 16:15:26,359 - INFO - Calculated Deductions - Late: 0 min => 0.0, Undertime: 0 min => 0.0, Total: 0.0.
+2025-01-24 16:15:27,195 - INFO - Calculated Deductions - Late: 0 min => 0.0, Undertime: 0 min => 0.0, Total: 0.0.
+2025-01-24 16:15:37,687 - INFO - Calculated Deductions - Late: 0 min => 0.0, Undertime: 0 min => 0.0, Total: 0.0.
+2025-01-24 16:15:38,151 - INFO - Calculated Deductions - Late: 0 min => 0.0, Undertime: 0 min => 0.0, Total: 0.0.
+2025-01-24 16:15:38,339 - INFO - Calculated Deductions - Late: 0 min => 0.0, Undertime: 0 min => 0.0, Total: 0.0.
+2025-01-24 16:15:38,536 - INFO - Calculated Deductions - Late: 0 min => 0.0, Undertime: 0 min => 0.0, Total: 0.0.
+2025-01-24 16:15:38,742 - INFO - Calculated Deductions - Late: 0 min => 0.0, Undertime: 0 min => 0.0, Total: 0.0.
+2025-01-24 16:15:38,944 - INFO - Calculated Deductions - Late: 0 min => 0.0, Undertime: 0 min => 0.0, Total: 0.0.
+2025-01-24 16:15:39,139 - INFO - Calculated Deductions - Late: 0 min => 0.0, Undertime: 0 min => 0.0, Total: 0.0.
+2025-01-24 16:15:39,327 - INFO - Calculated Deductions - Late: 0 min => 0.0, Undertime: 0 min => 0.0, Total: 0.0.
+2025-01-24 16:15:52,791 - INFO - Calculated Deductions - Late: 0 min => 0.0, Undertime: 0 min => 0.0, Total: 0.0.
+2025-01-24 16:15:52,975 - INFO - Calculated Deductions - Late: 0 min => 0.0, Undertime: 0 min => 0.0, Total: 0.0.
+2025-01-24 16:15:53,201 - INFO - Calculated Deductions - Late: 0 min => 0.0, Undertime: 0 min => 0.0, Total: 0.0.
+2025-01-24 16:15:53,436 - INFO - Calculated Deductions - Late: 0 min => 0.0, Undertime: 0 min => 0.0, Total: 0.0.
+2025-01-24 16:15:53,649 - INFO - Calculated Deductions - Late: 0 min => 0.0, Undertime: 0 min => 0.0, Total: 0.0.
+2025-01-24 16:15:53,867 - INFO - Calculated Deductions - Late: 0 min => 0.0, Undertime: 0 min => 0.0, Total: 0.0.
+2025-01-24 16:16:11,599 - INFO - Calculated Deductions - Late: 30 min => 0.056, Undertime: 56 min => 0.117, Total: 0.173.
+2025-01-24 16:16:18,329 - INFO - Calculated Deductions - Late: 30 min => 0.056, Undertime: 116 min => 0.242, Total: 0.298.
+2025-01-24 16:17:14,670 - INFO - Application closed.
+2025-01-24 16:17:17,566 - INFO - Application started.
+2025-01-24 16:17:17,688 - INFO - Loaded records as list of dictionaries.
+2025-01-24 16:17:17,791 - INFO - History populated in Treeview.
+2025-01-24 16:17:51,371 - INFO - Application started.
+2025-01-24 16:17:51,480 - INFO - Loaded records as list of dictionaries.
+2025-01-24 16:17:51,549 - INFO - History populated in Treeview.
+2025-01-24 16:19:21,578 - INFO - Application started.
+2025-01-24 16:19:21,680 - INFO - Loaded records as list of dictionaries.
+2025-01-24 16:19:21,745 - INFO - History populated in Treeview.
+2025-01-24 16:20:10,087 - INFO - Application started.
+2025-01-24 16:20:10,202 - INFO - Loaded records as list of dictionaries.
+2025-01-24 16:20:17,603 - INFO - Application started.
+2025-01-24 16:20:17,700 - INFO - Loaded records as list of dictionaries.
+2025-01-24 16:20:29,138 - INFO - Application started.
+2025-01-24 16:20:29,244 - INFO - Loaded records as list of dictionaries.
+2025-01-24 16:20:29,326 - INFO - History populated in Treeview.
+2025-01-24 16:20:38,579 - INFO - Application closed.
+2025-01-24 16:21:13,998 - INFO - Application started.
+2025-01-24 16:21:14,104 - INFO - Loaded records as list of dictionaries.
+2025-01-24 16:21:14,167 - INFO - History populated in Treeview.
+2025-01-24 16:21:23,005 - INFO - Application closed.
+2025-01-24 16:21:32,384 - INFO - Application started.
+2025-01-24 16:21:32,487 - INFO - Loaded records as list of dictionaries.
+2025-01-24 16:21:32,543 - INFO - History populated in Treeview.
+2025-01-24 16:21:39,968 - INFO - Application closed.
+2025-01-24 16:21:50,807 - INFO - Application started.
+2025-01-24 16:21:50,918 - INFO - Loaded records as list of dictionaries.
+2025-01-24 16:21:50,985 - INFO - History populated in Treeview.
+2025-01-24 16:22:03,621 - INFO - Cleared Morning inputs.
+2025-01-24 16:22:58,764 - INFO - Application started.
+2025-01-24 16:22:58,862 - INFO - Loaded records as list of dictionaries.
+2025-01-24 16:22:58,923 - INFO - History populated in Treeview.
+2025-01-24 16:23:02,915 - INFO - Application closed.
+2025-01-24 16:23:11,892 - INFO - Application started.
+2025-01-24 16:23:12,005 - INFO - Loaded records as list of dictionaries.
+2025-01-24 16:23:12,070 - INFO - History populated in Treeview.
+2025-01-24 16:23:16,676 - INFO - Application closed.
+2025-01-24 16:24:28,427 - INFO - Application started.
+2025-01-24 16:24:28,532 - INFO - Loaded records as list of dictionaries.
+2025-01-24 16:24:28,589 - INFO - History populated in Treeview.
+2025-01-24 16:24:33,164 - INFO - Application closed.
+2025-01-24 16:24:40,032 - INFO - Application started.
+2025-01-24 16:24:40,137 - INFO - Loaded records as list of dictionaries.
+2025-01-24 16:24:40,199 - INFO - History populated in Treeview.
+2025-01-24 16:24:48,357 - INFO - Application closed.
+2025-01-24 16:24:55,754 - INFO - Application started.
+2025-01-24 16:24:55,865 - INFO - Loaded records as list of dictionaries.
+2025-01-24 16:24:55,931 - INFO - History populated in Treeview.
+2025-01-24 16:26:38,248 - INFO - Application started.
+2025-01-24 16:26:38,360 - INFO - Loaded records as list of dictionaries.
+2025-01-24 16:26:38,436 - INFO - History populated in Treeview.
+2025-01-24 16:26:44,842 - INFO - Application closed.
+2025-01-24 16:26:55,328 - INFO - Application started.
+2025-01-24 16:26:55,447 - INFO - Loaded records as list of dictionaries.
+2025-01-24 16:26:55,515 - INFO - History populated in Treeview.
+2025-01-24 16:27:02,750 - INFO - Application closed.

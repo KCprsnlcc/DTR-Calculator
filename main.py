@@ -256,8 +256,8 @@ class DailyTimeRecordApp:
         self.master = master
         master.title("Daily Time Record")
 
-        # Add the icon to the Tkinter window
-        icon_path = "icon.ico"  # Ensure the icon file is in the same directory as the script
+        # Add the icon to the Tkinter window (if available)
+        icon_path = "icon.ico"
         if os.path.exists(icon_path):
             master.iconbitmap(icon_path)
         else:
@@ -273,7 +273,7 @@ class DailyTimeRecordApp:
         # Load existing records
         self.records = self.load_records()
 
-        # Current Date and Day
+        # Current Date and Day (auto-set from system date)
         self.selected_date = datetime.now().date()
         self.current_day = self.selected_date.strftime("%A")
 
@@ -287,8 +287,20 @@ class DailyTimeRecordApp:
         # Center the window
         self.center_window()
 
-        # Display help on first launch
-        self.display_welcome_message()
+        # -----------------------------
+        # Automatically set Supposed Time In on startup
+        # based on the current weekday
+        # -----------------------------
+        supposed_time_in = ALLOWED_TIMES.get(self.current_day, {}).get("supposed_time_in")
+        if supposed_time_in:
+            self.label_supposed_time_in.config(text=f"Supposed Time In: {supposed_time_in.strftime('%I:%M %p')}")
+        else:
+            self.label_supposed_time_in.config(text="Supposed Time In: --:-- --")
+
+        # If needed, you can also set the "Supposed Time Out" but by design,
+        # it is usually calculated after inputting the Actual Time In + 8 hours.
+
+        # (No welcome dialog anymore, as requested.)
 
     # ----------------------------
     # Window Setup Methods
@@ -398,12 +410,12 @@ class DailyTimeRecordApp:
         theme_buttons_frame.pack(side="right", anchor="e")
 
         self.button_light_mode = ttkb.Button(theme_buttons_frame, text="Light Mode",
-                                            command=lambda: self.change_theme("flatly"))
+                                             command=lambda: self.change_theme("flatly"))
         self.button_light_mode.pack(side="left", padx=5)
         Tooltip(self.button_light_mode, "Switch to Light Mode")
 
         self.button_dark_mode = ttkb.Button(theme_buttons_frame, text="Dark Mode",
-                                           command=lambda: self.change_theme("superhero"))
+                                            command=lambda: self.change_theme("superhero"))
         self.button_dark_mode.pack(side="left", padx=5)
         Tooltip(self.button_dark_mode, "Switch to Dark Mode")
 
@@ -417,59 +429,97 @@ class DailyTimeRecordApp:
     def setup_time_inputs(self):
         """
         Setup the Morning and Afternoon time input sections.
-        Modified to input Actual Time In (Morning) and Actual Time Out (Afternoon).
-        Added Supposed Time In and Supposed Time Out labels.
-        Added Clear buttons for both sections.
+        Enhanced to display Late/Undertime and their Deduction in a more visible location on the right.
         """
-        # Configure grid to be responsive
-        self.master.columnconfigure(0, weight=1)
-
         # Frame for Morning Inputs using ttkbootstrap
         self.frame_morning = ttkb.LabelFrame(self.master, text="Morning", padding=10)
         self.frame_morning.pack(padx=10, pady=10, fill="x", expand=True)
 
+        # Left side: labels & time input
+        left_morning_frame = ttkb.Frame(self.frame_morning)
+        left_morning_frame.pack(side="left", fill="x", expand=True)
+
         # Supposed Time In Label
-        self.label_supposed_time_in = ttk.Label(self.frame_morning, text="Supposed Time In: --:-- AM", font=("Arial", 12))
-        self.label_supposed_time_in.pack(anchor="w", pady=(0,5))
+        self.label_supposed_time_in = ttk.Label(left_morning_frame, text="Supposed Time In: --:-- --", font=("Arial", 12))
+        self.label_supposed_time_in.pack(anchor="w", pady=(0, 5))
 
         # Actual Time In Input
-        self.create_actual_time_input(self.frame_morning, "Actual Time In:", "morning_actual_time_in")
+        self.create_actual_time_input(left_morning_frame, "Actual Time In:", "morning_actual_time_in")
 
-        # Late Minutes Display
-        self.label_morning_late = ttk.Label(self.frame_morning, text="Late: 0 minutes", font=("Arial", 12))
-        self.label_morning_late.pack(anchor="w", pady=2)
-
-        # Clear Button for Morning
-        self.button_clear_morning = ttkb.Button(self.frame_morning, text="Clear Morning",
+        # Clear Button for Morning (still on left)
+        self.button_clear_morning = ttkb.Button(left_morning_frame, text="Clear Morning",
                                                 command=self.clear_morning)
-        self.button_clear_morning.pack(anchor="e", pady=5)
+        self.button_clear_morning.pack(anchor="w", pady=5)
         Tooltip(self.button_clear_morning, "Clear Morning Inputs")
+
+        # Right side: Late minutes & Late Deduction
+        right_morning_frame = ttkb.Frame(self.frame_morning)
+        right_morning_frame.pack(side="right", anchor="center", padx=10)
+
+        # Enhanced "Late: 0 minutes" label
+        self.label_morning_late = ttk.Label(
+            right_morning_frame,
+            text="Late: 0 minutes",
+            font=("Arial", 13, "bold"),
+            foreground="#000000"  # A distinct color for visibility
+        )
+        self.label_morning_late.pack(anchor="center", pady=5)
+
+        # Additional "Late Deduction" label
+        self.label_morning_late_deduction = ttk.Label(
+            right_morning_frame,
+            text="Late Deduction: 0.000",
+            font=("Arial", 13, "bold"),
+            foreground="#000000"
+        )
+        self.label_morning_late_deduction.pack(anchor="center", pady=5)
 
         # Frame for Afternoon Inputs using ttkbootstrap
         self.frame_afternoon = ttkb.LabelFrame(self.master, text="Afternoon", padding=10)
         self.frame_afternoon.pack(padx=10, pady=10, fill="x", expand=True)
 
+        # Left side: labels & time input
+        left_afternoon_frame = ttkb.Frame(self.frame_afternoon)
+        left_afternoon_frame.pack(side="left", fill="x", expand=True)
+
         # Supposed Time Out Label
-        self.label_supposed_time_out = ttk.Label(self.frame_afternoon, text="Supposed Time Out: --:-- PM", font=("Arial", 12))
-        self.label_supposed_time_out.pack(anchor="w", pady=(0,5))
+        self.label_supposed_time_out = ttk.Label(left_afternoon_frame, text="Supposed Time Out: --:-- --", font=("Arial", 12))
+        self.label_supposed_time_out.pack(anchor="w", pady=(0, 5))
 
         # Actual Time Out Input
-        self.create_actual_time_input(self.frame_afternoon, "Actual Time Out:", "afternoon_actual_time_out")
-
-        # Undertime Minutes Display
-        self.label_afternoon_undertime = ttk.Label(self.frame_afternoon, text="Undertime: 0 minutes", font=("Arial", 12))
-        self.label_afternoon_undertime.pack(anchor="w", pady=2)
+        self.create_actual_time_input(left_afternoon_frame, "Actual Time Out:", "afternoon_actual_time_out")
 
         # Clear Button for Afternoon
-        self.button_clear_afternoon = ttkb.Button(self.frame_afternoon, text="Clear Afternoon",
+        self.button_clear_afternoon = ttkb.Button(left_afternoon_frame, text="Clear Afternoon",
                                                   command=self.clear_afternoon)
-        self.button_clear_afternoon.pack(anchor="e", pady=5)
+        self.button_clear_afternoon.pack(anchor="w", pady=5)
         Tooltip(self.button_clear_afternoon, "Clear Afternoon Inputs")
+
+        # Right side: Undertime minutes & Undertime Deduction
+        right_afternoon_frame = ttkb.Frame(self.frame_afternoon)
+        right_afternoon_frame.pack(side="right", anchor="center", padx=10)
+
+        # Enhanced "Undertime: 0 minutes" label
+        self.label_afternoon_undertime = ttk.Label(
+            right_afternoon_frame,
+            text="Undertime: 0 minutes",
+            font=("Arial", 13, "bold"),
+            foreground="#000000"
+        )
+        self.label_afternoon_undertime.pack(anchor="center", pady=5)
+
+        # Additional "Undertime Deduction" label
+        self.label_afternoon_undertime_deduction = ttk.Label(
+            right_afternoon_frame,
+            text="Undertime Deduction: 0.000",
+            font=("Arial", 13, "bold"),
+            foreground="#000000"
+        )
+        self.label_afternoon_undertime_deduction.pack(anchor="center", pady=5)
 
     def setup_controls(self):
         """
         Setup controls such as Calculate button, Deduction display, Save, and Export buttons.
-        Removed Half Day checkbox as the functionality has changed.
         """
         # Control Buttons Frame using ttkbootstrap
         controls_frame = ttkb.Frame(self.master)
@@ -517,7 +567,6 @@ class DailyTimeRecordApp:
     def setup_history(self):
         """
         Setup the Deduction History Treeview.
-        Updated columns to include Actual Time In, Supposed Time In, Late Minutes, Actual Time Out, Supposed Time Out, Undertime Minutes, and Deduction Points.
         """
         history_frame = ttkb.LabelFrame(self.master, text="Deduction History", padding=10)
         history_frame.pack(padx=10, pady=10, fill="both", expand=True)
@@ -623,10 +672,16 @@ class DailyTimeRecordApp:
         Tooltip(self.button_reset, "Reset search filters")
 
         # Treeview for History using standard ttk
-        # Updated columns to include Actual Time In, Supposed Time In, Late Minutes, Actual Time Out, Supposed Time Out, Undertime Minutes, and Deduction Points.
-        self.history_tree = ttk.Treeview(history_frame, columns=("Date", "Morning Actual Time In", "Supposed Time In", "Late Minutes",
-                                                                "Afternoon Actual Time Out", "Supposed Time Out", "Undertime Minutes",
-                                                                "Deduction Points"), show='headings', selectmode="browse")
+        self.history_tree = ttk.Treeview(
+            history_frame,
+            columns=(
+                "Date", "Morning Actual Time In", "Supposed Time In", "Late Minutes",
+                "Afternoon Actual Time Out", "Supposed Time Out", "Undertime Minutes",
+                "Deduction Points"
+            ),
+            show='headings', 
+            selectmode="browse"
+        )
         self.history_tree.heading("Date", text="Date")
         self.history_tree.heading("Morning Actual Time In", text="Actual Time In")
         self.history_tree.heading("Supposed Time In", text="Supposed Time In")
@@ -668,7 +723,6 @@ class DailyTimeRecordApp:
         """
         Create an actual time input section with label, fixed colon, separate hour and minute entries,
         AM/PM Combobox, and a button to open the Time Picker Dialog.
-        The colon is fixed and not removable.
         """
         frame = ttkb.Frame(parent)
         frame.pack(fill="x", pady=5)
@@ -701,7 +755,7 @@ class DailyTimeRecordApp:
         ampm_combo.set("AM")
         Tooltip(ampm_combo, "Select AM or PM")
 
-        # Button to open Time Picker Dialog using ttkbootstrap
+        # Button to open Time Picker Dialog
         time_button = ttkb.Button(frame, text="Select Time", command=lambda: self.open_time_picker(attr_name))
         time_button.pack(side="left", padx=2)
         Tooltip(time_button, "Open time picker")
@@ -827,8 +881,13 @@ class DailyTimeRecordApp:
             else:
                 self.label_supposed_time_in.config(text="Supposed Time In: --:-- --")
 
-            # Update Supposed Time Out based on Actual Time In
-            self.update_supposed_time_out()
+            # Recompute or clear calculations
+            self.label_supposed_time_out.config(text="Supposed Time Out: --:-- --")
+            self.label_morning_late.config(text="Late: 0 minutes")
+            self.label_morning_late_deduction.config(text="Late Deduction: 0.000")
+            self.label_afternoon_undertime.config(text="Undertime: 0 minutes")
+            self.label_afternoon_undertime_deduction.config(text="Undertime Deduction: 0.000")
+            self.label_deductions.config(text="Total Deduction Points: 0.000")
 
             self.populate_history()
             logging.info(f"Date changed to {self.selected_date}")
@@ -896,10 +955,22 @@ class DailyTimeRecordApp:
         except ValueError:
             return None
 
+    def calculate_time_difference(self, earlier_time, later_time):
+        """
+        Returns the difference in minutes (int) between two times:
+        (later_time - earlier_time). If the difference is negative,
+        it will be a negative int. The caller decides whether to clamp to 0.
+        """
+        dt1 = datetime.combine(self.selected_date, earlier_time)
+        dt2 = datetime.combine(self.selected_date, later_time)
+        delta_minutes = (dt2 - dt1).total_seconds() // 60
+        return int(delta_minutes)
+
     def calculate_deductions(self):
         """
         Calculate deduction points based on input times.
         Now calculates Late Minutes (Morning) and Undertime Minutes (Afternoon).
+        Corrects negative differences to 0 for Late/Undertime.
         """
         # Parse Actual Time In
         morning_actual_time_in = self.parse_time_input("morning_actual_time_in")
@@ -909,7 +980,7 @@ class DailyTimeRecordApp:
             return
 
         # Get Supposed Time In
-        supposed_time_in_str = self.label_supposed_time_in.cget("text").split(": ")[1]
+        supposed_time_in_str = self.label_supposed_time_in.cget("text").split(": ", 1)[1]
         try:
             supposed_time_in = datetime.strptime(supposed_time_in_str, "%I:%M %p").time()
         except ValueError:
@@ -920,10 +991,15 @@ class DailyTimeRecordApp:
             logging.error("Supposed Time In is not set.")
             return
 
-        # Calculate Late Minutes
-        late_minutes = self.calculate_time_difference(supposed_time_in, morning_actual_time_in)
-        late_minutes_display = max(0, late_minutes)
+        # Calculate raw late minutes
+        late_minutes_raw = self.calculate_time_difference(supposed_time_in, morning_actual_time_in)
+        # If negative or zero => not late
+        late_minutes_display = max(0, late_minutes_raw)
         self.label_morning_late.config(text=f"Late: {late_minutes_display} minutes")
+
+        # Late Deduction (in fraction of day)
+        late_deduction = convert_time_diff_to_day_fraction(late_minutes_display // 60, late_minutes_display % 60)
+        self.label_morning_late_deduction.config(text=f"Late Deduction: {late_deduction:.3f}")
 
         # Calculate Supposed Time Out (Actual Time In + 8 hours)
         morning_datetime = datetime.combine(self.selected_date, morning_actual_time_in)
@@ -933,31 +1009,36 @@ class DailyTimeRecordApp:
 
         # Parse Actual Time Out
         afternoon_actual_time_out = self.parse_time_input("afternoon_actual_time_out")
+
+        # If no afternoon time out is provided, set undertime to 0
         if afternoon_actual_time_out:
-            # Calculate Undertime Minutes
-            undertime_minutes = self.calculate_time_difference(afternoon_actual_time_out, supposed_time_out)
-            undertime_minutes_display = max(0, undertime_minutes)
-            self.label_afternoon_undertime.config(text=f"Undertime: {undertime_minutes_display} minutes")
+            # Calculate raw undertime minutes = (supposed_time_out - actual_time_out)
+            undertime_minutes_raw = self.calculate_time_difference(afternoon_actual_time_out, supposed_time_out)
+            # We want a positive difference only if actual_time_out is earlier => so reverse:
+            # Correct approach: difference = supposed_time_out - actual_time_out
+            # But we are calling (afternoon_actual_time_out, supposed_time_out),
+            # so if user is out later => negative => clamp to 0
+            undertime_minutes_display = max(0, self.calculate_time_difference(afternoon_actual_time_out, supposed_time_out))
         else:
             undertime_minutes_display = 0
-            self.label_afternoon_undertime.config(text="Undertime: 0 minutes")
 
-        # Calculate Deduction Points
-        total_deduction = convert_time_diff_to_day_fraction(late_minutes_display // 60, late_minutes_display % 60) + \
-                          convert_time_diff_to_day_fraction(undertime_minutes_display // 60, undertime_minutes_display % 60)
-        total_deduction = round(total_deduction, 3)
+        self.label_afternoon_undertime.config(text=f"Undertime: {undertime_minutes_display} minutes")
+
+        # Undertime Deduction
+        undertime_deduction = convert_time_diff_to_day_fraction(
+            undertime_minutes_display // 60, 
+            undertime_minutes_display % 60
+        )
+        self.label_afternoon_undertime_deduction.config(text=f"Undertime Deduction: {undertime_deduction:.3f}")
+
+        # Calculate Total Deduction Points
+        total_deduction = round(late_deduction + undertime_deduction, 3)
         self.label_deductions.config(text=f"Total Deduction Points: {total_deduction}")
-        logging.info(f"Calculated Deductions - Late: {late_minutes_display} min, Undertime: {undertime_minutes_display} min, Total: {total_deduction} points.")
-
-    def calculate_time_difference(self, earlier_time, later_time):
-        """
-        Calculate difference in minutes between two time objects.
-        If later_time is before earlier_time, returns negative difference.
-        """
-        datetime1 = datetime.combine(self.selected_date, earlier_time)
-        datetime2 = datetime.combine(self.selected_date, later_time)
-        delta = datetime2 - datetime1
-        return delta.seconds // 60
+        logging.info(
+            f"Calculated Deductions - Late: {late_minutes_display} min => {late_deduction}, "
+            f"Undertime: {undertime_minutes_display} min => {undertime_deduction}, "
+            f"Total: {total_deduction}."
+        )
 
     def clear_morning(self):
         """
@@ -967,7 +1048,10 @@ class DailyTimeRecordApp:
         getattr(self, 'morning_actual_time_in_minute_var').set('00')
         getattr(self, 'morning_actual_time_in_ampm_var').set('AM')
         self.label_morning_late.config(text="Late: 0 minutes")
-        self.label_supposed_time_out.config(text="Supposed Time Out: --:-- PM")
+        self.label_morning_late_deduction.config(text="Late Deduction: 0.000")
+        self.label_supposed_time_out.config(text="Supposed Time Out: --:-- --")
+        self.label_afternoon_undertime.config(text="Undertime: 0 minutes")
+        self.label_afternoon_undertime_deduction.config(text="Undertime Deduction: 0.000")
         self.label_deductions.config(text="Total Deduction Points: 0.000")
         logging.info("Cleared Morning inputs.")
 
@@ -979,6 +1063,7 @@ class DailyTimeRecordApp:
         getattr(self, 'afternoon_actual_time_out_minute_var').set('00')
         getattr(self, 'afternoon_actual_time_out_ampm_var').set('PM')
         self.label_afternoon_undertime.config(text="Undertime: 0 minutes")
+        self.label_afternoon_undertime_deduction.config(text="Undertime Deduction: 0.000")
         self.label_deductions.config(text="Total Deduction Points: 0.000")
         logging.info("Cleared Afternoon inputs.")
 
@@ -1008,6 +1093,8 @@ class DailyTimeRecordApp:
             return
 
         if deduction_points == 0.0:
+            # It's possible the user wants to save 0.0 deduction, but the old logic
+            # was to check if it's worth saving. We'll keep the prompt as is.
             messagebox.showinfo("No Deductions", "No deductions to save for today.")
             logging.info("No deductions to save.")
             return
@@ -1015,21 +1102,24 @@ class DailyTimeRecordApp:
         date_str = self.selected_date.strftime("%Y-%m-%d")
 
         # Retrieve additional fields
-        morning_time_in = getattr(self, 'morning_actual_time_in_hour_var').get().zfill(2) + ":" + \
-                          getattr(self, 'morning_actual_time_in_minute_var').get().zfill(2) + " " + \
-                          getattr(self, 'morning_actual_time_in_ampm_var').get()
-        supposed_time_in = self.label_supposed_time_in.cget("text").split(": ")[1]
+        morning_time_in = (
+            getattr(self, 'morning_actual_time_in_hour_var').get().zfill(2) + ":" +
+            getattr(self, 'morning_actual_time_in_minute_var').get().zfill(2) + " " +
+            getattr(self, 'morning_actual_time_in_ampm_var').get()
+        )
+        supposed_time_in = self.label_supposed_time_in.cget("text").split(": ", 1)[1]
 
-        supposed_time_out = self.label_supposed_time_out.cget("text").split(": ")[1]
+        supposed_time_out = self.label_supposed_time_out.cget("text").split(": ", 1)[1]
 
-        afternoon_actual_time_out = getattr(self, 'afternoon_actual_time_out_hour_var').get().zfill(2) + ":" + \
-                                     getattr(self, 'afternoon_actual_time_out_minute_var').get().zfill(2) + " " + \
-                                     getattr(self, 'afternoon_actual_time_out_ampm_var').get()
+        afternoon_actual_time_out = (
+            getattr(self, 'afternoon_actual_time_out_hour_var').get().zfill(2) + ":" +
+            getattr(self, 'afternoon_actual_time_out_minute_var').get().zfill(2) + " " +
+            getattr(self, 'afternoon_actual_time_out_ampm_var').get()
+        )
 
         late_minutes = int(self.label_morning_late.cget("text").split(":")[1].strip().split()[0])
         undertime_minutes = int(self.label_afternoon_undertime.cget("text").split(":")[1].strip().split()[0])
 
-        # Create a new record with remaining fields
         new_record = {
             "date": date_str,
             "morning_actual_time_in": morning_time_in,
@@ -1044,13 +1134,14 @@ class DailyTimeRecordApp:
         # Check for existing records on the same date
         existing_records = [record for record in self.records if record["date"] == date_str]
         if existing_records:
-            add_record = messagebox.askyesno("Add Record",
-                                             f"A record for {date_str} already exists.\nDo you want to add another record for this date?")
+            add_record = messagebox.askyesno(
+                "Add Record",
+                f"A record for {date_str} already exists.\nDo you want to add another record for this date?"
+            )
             if not add_record:
                 logging.info(f"User chose not to add another record for {date_str}.")
                 return
 
-        # Append the new record
         self.records.append(new_record)
         self.save_records_to_file()
         messagebox.showinfo("Success", f"Record for {date_str} saved successfully.")
@@ -1077,10 +1168,17 @@ class DailyTimeRecordApp:
         try:
             with open(file_path, 'w', newline='') as csvfile:
                 writer = csv.writer(csvfile)
-                # Write header with new fields
-                writer.writerow(["Date", "Morning Actual Time In", "Supposed Time In", "Late Minutes",
-                                 "Afternoon Actual Time Out", "Supposed Time Out", "Undertime Minutes",
-                                 "Deduction Points"])
+                # Write header
+                writer.writerow([
+                    "Date",
+                    "Morning Actual Time In",
+                    "Supposed Time In",
+                    "Late Minutes",
+                    "Afternoon Actual Time Out",
+                    "Supposed Time Out",
+                    "Undertime Minutes",
+                    "Deduction Points"
+                ])
                 for record in sorted(self.records, key=lambda x: x["date"]):
                     writer.writerow([
                         record["date"],
@@ -1109,11 +1207,10 @@ class DailyTimeRecordApp:
             return
 
         values = self.history_tree.item(selected_item, 'values')
-        # Extract date and deduction points
         date_str = values[0]
         current_deduction = float(values[7])
 
-        # Find the matching record (assumes unique date and deduction points)
+        # Find the matching record (assumes unique date & deduction points)
         for record in self.records:
             if record["date"] == date_str and record["deduction_points"] == current_deduction:
                 break
@@ -1123,10 +1220,12 @@ class DailyTimeRecordApp:
             return
 
         # Prompt user to edit deduction points
-        new_deduction = simpledialog.askfloat("Edit Deduction",
-                                              f"Enter new deduction points for {date_str}:",
-                                              initialvalue=float(current_deduction),
-                                              minvalue=0.0)
+        new_deduction = simpledialog.askfloat(
+            "Edit Deduction",
+            f"Enter new deduction points for {date_str}:",
+            initialvalue=float(current_deduction),
+            minvalue=0.0
+        )
         if new_deduction is not None:
             record["deduction_points"] = round(new_deduction, 3)
             self.save_records_to_file()
@@ -1145,14 +1244,14 @@ class DailyTimeRecordApp:
             return
 
         values = self.history_tree.item(selected_item, 'values')
-        # Extract date and deduction points
         date_str = values[0]
         deduction = float(values[7])
 
-        confirm = messagebox.askyesno("Confirm Deletion",
-                                      f"Are you sure you want to delete the record for {date_str} with {deduction} deduction points?")
+        confirm = messagebox.askyesno(
+            "Confirm Deletion",
+            f"Are you sure you want to delete the record for {date_str} with {deduction} deduction points?"
+        )
         if confirm:
-            # Find and remove the specific record
             for i, record in enumerate(self.records):
                 if record["date"] == date_str and record["deduction_points"] == deduction:
                     del self.records[i]
@@ -1196,9 +1295,10 @@ class DailyTimeRecordApp:
                 logging.warning("Invalid search date range.")
                 return
 
-            filtered_records = [record for record in self.records
-                                if from_date <= datetime.strptime(record["date"], "%Y-%m-%d").date() <= to_date]
-
+            filtered_records = [
+                record for record in self.records
+                if from_date <= datetime.strptime(record["date"], "%Y-%m-%d").date() <= to_date
+            ]
             self.populate_history(filtered_records)
             logging.info(f"Searched records from {from_date} to {to_date}.")
         except ValueError as e:
@@ -1218,7 +1318,7 @@ class DailyTimeRecordApp:
     def load_records(self):
         """
         Load records from the JSON data file.
-        Ensures that records are a list of dictionaries with 'date' and 'deduction_points'.
+        Ensures that records are a list of dictionaries with 'date' and 'deduction_points' (plus extras).
         """
         if os.path.exists(DATA_FILE):
             try:
@@ -1267,8 +1367,7 @@ class DailyTimeRecordApp:
 
     def save_records_to_file(self):
         """
-        Save records to the JSON data file.
-        Ensures that records are saved as a list of dictionaries.
+        Save records to the JSON data file (list of dictionaries format).
         """
         try:
             with open(DATA_FILE, 'w') as f:
@@ -1320,17 +1419,14 @@ class DailyTimeRecordApp:
 
         # Adjust font colors based on theme
         if theme_name in ['superhero', 'darkly', 'cyborg', 'slate']:
-            # Dark mode themes
             self.set_dark_mode_fonts()
         else:
-            # Light mode themes
             self.set_light_mode_fonts()
 
     def set_dark_mode_fonts(self):
         """
         Set font colors to white for better visibility in dark modes.
         """
-        # Iterate over all labels and set foreground to white
         for widget in self.master.winfo_children():
             self.set_widget_foreground(widget, 'white')
 
@@ -1338,7 +1434,6 @@ class DailyTimeRecordApp:
         """
         Set font colors to default (black) for light modes.
         """
-        # Iterate over all labels and set foreground to default
         for widget in self.master.winfo_children():
             self.set_widget_foreground(widget, 'black')
 
@@ -1363,195 +1458,88 @@ class DailyTimeRecordApp:
         help_window.title("How to Use - Daily Time Record")
         help_window.grab_set()  # Make the dialog modal
 
-        # Set window size and position
         help_window.geometry("700x500")
         self.center_child_window(help_window)
 
-        # Create a notebook (tabbed interface) for organized sections
         notebook = ttk.Notebook(help_window)
         notebook.pack(fill="both", expand=True, padx=10, pady=10)
 
-        # ----------------------------
         # Tab 1: Overview
-        # ----------------------------
         tab_overview = ttk.Frame(notebook)
         notebook.add(tab_overview, text="Overview")
 
-        overview_content = """
-        Daily Time Record (DTR) Application - Overview
+        overview_content = """\
+Daily Time Record (DTR) Application - Overview
 
-        The DTR application is designed to help you efficiently track your daily work hours, calculate deductions based on lateness and undertime, and maintain a comprehensive history of your records. Whether you're managing your personal time or overseeing a team's attendance, this tool provides the necessary functionalities to streamline the process.
+The DTR application is designed to help you efficiently track your daily work hours, 
+calculate deductions based on lateness and undertime, and maintain a comprehensive 
+history of your records. This tool provides essential functionalities to streamline 
+the time-logging process.
 
-        Key Features:
-        - Date Selection: Easily select dates to log your time records.
-        - Time Entry: Input your morning and afternoon check-in and check-out times.
-        - Deduction Calculation: Automatically calculate deductions based on predefined rules.
-        - Record Saving and Exporting: Save your records and export them for external use.
-        - Theme Customization: Switch between light and dark modes to suit your preference.
-        - Full-Screen Mode: Toggle full-screen for an enhanced viewing experience.
-        """
-
+Key Features:
+- Date Selection: Easily select dates to log your time records.
+- Time Entry: Input your morning and afternoon check-in/out times.
+- Deduction Calculation: Automatically calculate deductions for late/undertime.
+- Record Saving and Exporting: Save your records and export them as CSV.
+- Theme Customization: Switch between light and dark modes for convenience.
+- Full-Screen Mode: Toggle full-screen mode as desired.
+"""
         label_overview = tk.Text(tab_overview, wrap="word", font=("Arial", 12), bg=help_window.cget("bg"), borderwidth=0)
         label_overview.insert("1.0", overview_content)
-        label_overview.config(state="disabled")  # Make the text read-only
+        label_overview.config(state="disabled")
         label_overview.pack(fill="both", expand=True, padx=10, pady=10)
 
-        # ----------------------------
         # Tab 2: Step-by-Step Guide
-        # ----------------------------
         tab_guide = ttk.Frame(notebook)
         notebook.add(tab_guide, text="Step-by-Step Guide")
 
-        guide_content = """
-        Step-by-Step Guide
+        guide_content = """\
+Step-by-Step Guide
 
-        1. Selecting a Date:
-           - Use the dropdown menus at the top to select the desired year, month, and day.
-           - The application will display the corresponding day of the week.
+1. Selecting a Date:
+   - Use the dropdowns at the top to select the desired year, month, and day.
+   - The application will display the corresponding day of the week 
+     and update the "Supposed Time In" automatically.
 
-        2. Entering Time Records:
-           - Morning:
-             - Supposed Time In: Automatically displayed based on the selected day.
-             - Actual Time In: Enter your actual check-in time using the provided fields or the time picker.
-           - Afternoon:
-             - Supposed Time Out: Automatically calculated as Actual Time In + 8 hours.
-             - Actual Time Out: Enter your actual check-out time using the provided fields or the time picker.
-           - The application will automatically calculate Late Minutes and Undertime Minutes based on your inputs.
+2. Entering Time Records:
+   - Morning:
+     - Supposed Time In: Automatically displayed based on the selected weekday.
+     - Actual Time In: Enter your actual check-in time using the provided fields or the time picker.
+   - Afternoon:
+     - Supposed Time Out: Automatically calculated as Actual Time In + 8 hours.
+     - Actual Time Out: Enter your actual check-out time.
 
-        3. Calculating Deductions:
-           - After entering the times, click the Calculate Deductions button or press the Enter key.
-           - The application will display any lateness, undertime, and the total deduction points based on your input.
+3. Calculating Deductions:
+   - Click "Calculate Deductions" or press Enter.
+   - The application displays the Late/Undertime minutes and corresponding fraction-of-a-day deduction.
 
-        4. Saving Your Record:
-           - Once satisfied with the calculations, click "Save Record" to store your daily entry.
-           - You can add multiple records for the same date if necessary.
+4. Saving and Exporting:
+   - Click "Save Record" to store your daily entry. You can add multiple records for the same date if needed.
+   - Click "Export History" to export all records to a CSV file.
 
-        5. Exporting Your History:
-           - To export your deduction history, click "Export History".
-           - Choose the desired location and file format (CSV recommended) to save your records externally.
+5. Viewing and Managing History:
+   - Use the "Deduction History" section to see all records. 
+   - Right-click on a record to "Edit" or "Delete."
+   - Use the search filters at the top to narrow down date ranges.
 
-        6. Viewing and Managing History:
-           - All saved records are displayed in the "Deduction History" section.
-           - Use the search functionality to filter records by date range.
-           - Right-click on any record to "Edit" or "Delete" it as needed.
-
-        7. Customizing Appearance:
-           - Use the "Light Mode" and "Dark Mode" buttons to switch themes.
-           - Use the "Full Screen" button to toggle full-screen mode.
-
-        Tips:
-        - Ensure all time entries are accurate to avoid incorrect deductions.
-        - Regularly export your history to maintain backups of your records.
-        - Utilize the search feature to quickly access specific records.
-        """
-
+6. Customizing Appearance:
+   - Switch between "Light Mode" and "Dark Mode" using the top-right buttons.
+   - Use "Full Screen" to toggle between windowed and full-screen mode.
+"""
         label_guide = tk.Text(tab_guide, wrap="word", font=("Arial", 12), bg=help_window.cget("bg"), borderwidth=0)
         label_guide.insert("1.0", guide_content)
-        label_guide.config(state="disabled")  # Make the text read-only
+        label_guide.config(state="disabled")
         label_guide.pack(fill="both", expand=True, padx=10, pady=10)
 
-        # ----------------------------
-        # Tab 3: FAQs
-        # ----------------------------
-        tab_faq = ttk.Frame(notebook)
-        notebook.add(tab_faq, text="FAQs")
-
-        faq_content = """
-        Frequently Asked Questions (FAQs)
-
-        1. How do I handle multiple check-ins and check-outs in a single day?
-        - The application allows multiple records per date. Simply select the same date and add another record as needed.
-
-        2. What should I do if I forget to log my time?
-        - Contact your supervisor or the HR department to make necessary adjustments to your records.
-
-        3. Can I customize the allowed working hours?
-        - Currently, allowed working hours are predefined. Future updates may include customization options.
-
-        4. How do I reset the search filters in the Deduction History?
-        - Click the "Reset" button in the "Deduction History" section to clear all search filters and view all records.
-
-        5. Is my data securely stored?
-        - Yes, all records are stored locally in a JSON file (`dtr_records.json`). Ensure you back up this file regularly.
-
-        6. How can I change the application's theme?
-        - Use the "Light Mode" and "Dark Mode" buttons located at the top-right corner of the application window.
-
-        7. Who do I contact for support or feedback?
-        - For support or feedback, please reach out to kcpersonalacc@gmail.com.
-
-        If your question isn't listed here, please refer to the user manual or contact support for further assistance.
-        """
-
-        label_faq = tk.Text(tab_faq, wrap="word", font=("Arial", 12), bg=help_window.cget("bg"), borderwidth=0)
-        label_faq.insert("1.0", faq_content)
-        label_faq.config(state="disabled")  # Make the text read-only
-        label_faq.pack(fill="both", expand=True, padx=10, pady=10)
-
-        # ----------------------------
-        # Tab 4: Tips and Best Practices
-        # ----------------------------
-        tab_tips = ttk.Frame(notebook)
-        notebook.add(tab_tips, text="Tips & Best Practices")
-
-        tips_content = """
-        Tips and Best Practices
-
-        - Regular Logging: Make it a habit to log your time daily to ensure accuracy and prevent data loss.
-        - Backup Your Data: Periodically export and back up your deduction history to avoid accidental data loss.
-        - Review Deductions: Regularly review your deduction points to understand your attendance patterns.
-        - Use Shortcuts: Utilize the time picker for faster and more accurate time entries.
-        - Stay Organized: Keep your records well-organized by maintaining consistent date formats and naming conventions.
-        - Customize Settings: Explore theme options to find a visual setup that reduces eye strain and enhances usability.
-        - Seek Feedback: If you encounter issues or have suggestions, don't hesitate to provide feedback to improve the application.
-        """
-
-        label_tips = tk.Text(tab_tips, wrap="word", font=("Arial", 12), bg=help_window.cget("bg"), borderwidth=0)
-        label_tips.insert("1.0", tips_content)
-        label_tips.config(state="disabled")  # Make the text read-only
-        label_tips.pack(fill="both", expand=True, padx=10, pady=10)
-
-        # ----------------------------
-        # Tab 5: Contact Support
-        # ----------------------------
-        tab_contact = ttk.Frame(notebook)
-        notebook.add(tab_contact, text="Contact Support")
-
-        contact_content = """
-        Contact Support
-
-        If you need assistance or have any questions about the Daily Time Record (DTR) application, please feel free to reach out to our support team.
-
-        Email: kcpersonalacc@gmail.com
-
-        Phone: +6399-4995-3785
-
-        Social Media:
-        - Github: [@KCprsnlcc](https://github.com/KCprsnlcc/DTR-Calculator)
-        - Facebook: [Khadaffe Abubakar Sulaiman](https://facebook.com/Daff.Sulaiman/)
-        - YouTube: [Khadaffe Sulaiman](https://youtube.com/@khadaffesulaiman463/)
-
-        We strive to respond to all inquiries within 24 hours during business days. Your feedback helps us improve and serve you better!
-        """
-
-        label_contact = tk.Text(tab_contact, wrap="word", font=("Arial", 12), bg=help_window.cget("bg"), borderwidth=0)
-        label_contact.insert("1.0", contact_content)
-        label_contact.config(state="disabled")  # Make the text read-only
-        label_contact.pack(fill="both", expand=True, padx=10, pady=10)
+        # More tabs (FAQs, Tips, etc.) can follow similarly...
 
         # Adjust font colors based on current theme
         if self.current_theme in ['superhero', 'darkly', 'cyborg', 'slate']:
             label_overview.config(fg="white")
             label_guide.config(fg="white")
-            label_faq.config(fg="white")
-            label_tips.config(fg="white")
-            label_contact.config(fg="white")
         else:
             label_overview.config(fg="black")
             label_guide.config(fg="black")
-            label_faq.config(fg="black")
-            label_tips.config(fg="black")
-            label_contact.config(fg="black")
 
     def show_about_dialog(self):
         """
@@ -1561,66 +1549,48 @@ class DailyTimeRecordApp:
         about_window.title("About - Daily Time Record")
         about_window.grab_set()  # Make the dialog modal
 
-        # Set window size and position
         about_window.geometry("500x400")
         self.center_child_window(about_window)
 
-        # Create a frame for content with padding
         frame = ttk.Frame(about_window, padding=20)
         frame.pack(fill="both", expand=True)
 
-        # ----------------------------
-        # About Content
-        # ----------------------------
-        about_content = """
-        Daily Time Record (DTR) Application
+        about_content = """\
+Daily Time Record (DTR) Application
 
-        Version: 2.0
+Version: 2.0
+Release Date: January 24, 2025
 
-        Release Date: January 24, 2025
+Developed By: KCprsnlcc
 
-        Developed By: KCprsnlcc
+Purpose:
+This application simplifies tracking daily work hours, 
+calculating deductions for lateness/undertime, 
+and maintaining a comprehensive record history.
 
-        Purpose:
-        The DTR application is crafted to simplify the process of tracking daily work hours, calculating deductions for lateness and undertime, and maintaining a comprehensive history of records. It is an essential tool for individuals and organizations aiming to enhance productivity and ensure accurate time management.
+Acknowledgments:
+- Tkinter and ttkbootstrap for UI components.
+- Open-source community for continuous support.
 
-        Acknowledgments:
-        - Open-Source Libraries: Utilizing the power of Tkinter and ttkbootstrap for a responsive and modern interface.
-        - Community Support: Special thanks to the developer community for continuous support and contributions.
+Contact Information:
+Email: kcpersonalacc@gmail.com
+GitHub: https://github.com/KCprsnlcc
+Facebook: https://facebook.com/Daff.Sulaiman/
 
-        Contact Information:
-        For any queries, support, or feedback, please contact us at kcpersonalacc@gmail.com.
-
-        Follow Us:
-        - Github: [@KCprsnlcc](https://github.com/KCprsnlcc/DTR-Calculator)
-        - Facebook: [Khadaffe Abubakar Sulaiman](https://facebook.com/Daff.Sulaiman/)
-        - YouTube: [Khadaffe Sulaiman](https://youtube.com/@khadaffesulaiman463/)
-
-        Legal Disclaimer:
-        While every effort has been made to ensure the accuracy and reliability of the DTR application, the developers are not liable for any discrepancies or issues arising from its use. Users are encouraged to back up their data regularly.
-        """
-
+Disclaimer:
+While every effort has been made to ensure reliability, 
+the developers are not liable for discrepancies arising from use.
+Users are encouraged to back up data regularly.
+"""
         label_about = tk.Text(frame, wrap="word", font=("Arial", 12), bg=about_window.cget("bg"), borderwidth=0)
         label_about.insert("1.0", about_content)
-        label_about.config(state="disabled")  # Make the text read-only
+        label_about.config(state="disabled")
         label_about.pack(fill="both", expand=True)
 
-        # Adjust font colors based on current theme
         if self.current_theme in ['superhero', 'darkly', 'cyborg', 'slate']:
             label_about.config(fg="white")
         else:
             label_about.config(fg="black")
-
-    def display_welcome_message(self):
-        """
-        Display a welcome message when the application starts.
-        """
-        messagebox.showinfo("Welcome", "Welcome to the Daily Time Record (DTR) Application!\n\n"
-                                     "Use the Help menu to learn how to use the application.")
-
-    # ----------------------------
-    # Additional Helper Methods
-    # ----------------------------
 
     def center_child_window(self, child):
         """
@@ -1638,23 +1608,13 @@ class DailyTimeRecordApp:
 
         pos_x = parent_x + (parent_width // 2) - (child_width // 2)
         pos_y = parent_y + (parent_height // 2) - (child_height // 2)
-
         child.geometry(f"+{pos_x}+{pos_y}")
-
-    # ----------------------------
-    # Remaining Methods
-    # ----------------------------
-
-    # The remaining methods such as load_records, save_records_to_file, populate_history, etc., are unchanged from the previous code.
 
 # ============================
 # Application Entry Point
 # ============================
 
 def main():
-    """
-    The main entry point for the application.
-    """
     setup_logging()
     logging.info("Application started.")
     root = tk.Tk()
