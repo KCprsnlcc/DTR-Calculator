@@ -144,7 +144,7 @@ class Tooltip:
 
 class TimePickerDialog:
     """
-    A dialog for selecting time (Hour, Minute, AM/PM).
+    A dialog for selecting time (Hour, Minute, AM/PM) with dropdowns (Combobox).
     """
     def __init__(self, parent, initial_time=None, title="Select Time"):
         self.parent = parent
@@ -164,22 +164,44 @@ class TimePickerDialog:
             minute = 0
             ampm = "AM"
 
+        # Hour
         ttk.Label(self.top, text="Hour:").grid(row=0, column=0, padx=10, pady=5, sticky="e")
-        self.hour_var = tk.StringVar(value=str(hour))
-        self.hour_spin = ttk.Spinbox(self.top, from_=1, to=12, textvariable=self.hour_var, width=5, state="readonly")
-        self.hour_spin.grid(row=0, column=1, padx=10, pady=5)
+        self.hour_var = tk.StringVar(value=str(hour).zfill(2))
+        self.hour_combo = ttk.Combobox(
+            self.top,
+            textvariable=self.hour_var,
+            values=[f"{h:02d}" for h in range(1, 13)],  # 01..12
+            state="readonly",
+            width=5
+        )
+        self.hour_combo.grid(row=0, column=1, padx=10, pady=5, sticky="w")
 
+        # Minute
         ttk.Label(self.top, text="Minute:").grid(row=1, column=0, padx=10, pady=5, sticky="e")
         self.minute_var = tk.StringVar(value=f"{minute:02}")
-        self.minute_spin = ttk.Spinbox(self.top, from_=0, to=59, textvariable=self.minute_var, width=5, format="%02.0f", state="readonly")
-        self.minute_spin.grid(row=1, column=1, padx=10, pady=5)
+        self.minute_combo = ttk.Combobox(
+            self.top,
+            textvariable=self.minute_var,
+            values=[f"{m:02d}" for m in range(0, 60)],  # 00..59
+            state="readonly",
+            width=5
+        )
+        self.minute_combo.grid(row=1, column=1, padx=10, pady=5, sticky="w")
 
+        # AM/PM
         ttk.Label(self.top, text="AM/PM:").grid(row=2, column=0, padx=10, pady=5, sticky="e")
         self.ampm_var = tk.StringVar(value=ampm)
-        self.ampm_combo = ttk.Combobox(self.top, textvariable=self.ampm_var, values=["AM", "PM"], state="readonly", width=3)
-        self.ampm_combo.grid(row=2, column=1, padx=10, pady=5)
+        self.ampm_combo = ttk.Combobox(
+            self.top,
+            textvariable=self.ampm_var,
+            values=["AM", "PM"],
+            state="readonly",
+            width=3
+        )
+        self.ampm_combo.grid(row=2, column=1, padx=10, pady=5, sticky="w")
         self.ampm_combo.current(0 if ampm == "AM" else 1)
 
+        # Buttons
         button_frame = ttk.Frame(self.top)
         button_frame.grid(row=3, column=0, columnspan=2, pady=10)
 
@@ -361,10 +383,17 @@ class DailyTimeRecordApp:
         # Scrollbar
         self.style.configure("Vertical.TScrollbar", background=BG_FRAME)
 
+        # Entries: text in black, background white
+        self.style.configure(
+            "TEntry",
+            foreground=FG_TEXT,
+            fieldbackground="#FFFFFF"
+        )
+
         # (Optional) Menu bar overrides in Light
         self.master.option_add('*Menu.tearOff', False)
-        # This might not always be respected on all OS's, but we try:
-        self.master.configure(menu=tk.Menu(self.master, bg=BG_LIGHT, fg=FG_TEXT))
+        # Force black foreground in text-based widgets if needed
+        self.master.option_add("*foreground", "black")
 
     def apply_apple_calculator_dark_style(self):
         """
@@ -446,8 +475,14 @@ class DailyTimeRecordApp:
 
         self.style.configure("Vertical.TScrollbar", background=BG_FRAME)
 
+        # Entries: text in white, background = BG_FRAME or dark
+        self.style.configure(
+            "TEntry",
+            foreground=FG_TEXT,
+            fieldbackground=BG_FRAME
+        )
+
         # Force any possible link or accent text to white
-        # (This helps override “dark blue” in some ttkbootstrap themes.)
         self.master.option_add("*foreground", "white")
 
         # Also override the menubar text color (if possible)
@@ -489,7 +524,7 @@ class DailyTimeRecordApp:
         self.update_label_colors()
 
     # ------------------------------------------------------------------------
-    # REMAINING CODE: UNCHANGED FUNCTIONALITIES (just referencing the two themes)
+    # Remaining code below with minimal modifications to incorporate new styles
     # ------------------------------------------------------------------------
 
     def center_window(self):
@@ -639,7 +674,7 @@ class DailyTimeRecordApp:
             right_morning_frame,
             text="Late: 0 minutes",
             font=("Inter", 13, "bold"),
-            foreground="#000000"  # or #FFFFFF if you want consistent color in both modes
+            foreground="#000000"
         )
         self.label_morning_late.pack(anchor="center", pady=5)
 
@@ -1077,7 +1112,7 @@ class DailyTimeRecordApp:
         label.pack(side="left", padx=5)
 
         hour_var = tk.StringVar(value='00')
-        hour_entry = ttk.Entry(frame, textvariable=hour_var, width=3, justify='center')
+        hour_entry = ttk.Entry(frame, textvariable=hour_var, width=3, justify='center', style="TEntry")
         hour_entry.pack(side="left", padx=(0, 2))
         Tooltip(hour_entry, "Enter hours (01-12)")
         self.register_time_validation(hour_entry, hour_var, part='hour')
@@ -1086,7 +1121,7 @@ class DailyTimeRecordApp:
         colon_label.pack(side="left")
 
         minute_var = tk.StringVar(value='00')
-        minute_entry = ttk.Entry(frame, textvariable=minute_var, width=3, justify='center')
+        minute_entry = ttk.Entry(frame, textvariable=minute_var, width=3, justify='center', style="TEntry")
         minute_entry.pack(side="left", padx=(2, 5))
         Tooltip(minute_entry, "Enter minutes (00-59)")
         self.register_time_validation(minute_entry, minute_var, part='minute')
@@ -1120,15 +1155,23 @@ class DailyTimeRecordApp:
         def validate(*args):
             value = var.get()
             if part == 'hour':
-                if not value.isdigit() or not (1 <= int(value) <= 12):
+                # valid hours: 01..12
+                try:
+                    if not (1 <= int(value) <= 12):
+                        entry.config(foreground='red')
+                    else:
+                        entry.config(foreground='black' if self.current_theme == 'flatly' else 'white')
+                except ValueError:
                     entry.config(foreground='red')
-                else:
-                    entry.config(foreground='black')
             elif part == 'minute':
-                if not value.isdigit() or not (0 <= int(value) <= 59):
+                # valid minutes: 00..59
+                try:
+                    if not (0 <= int(value) <= 59):
+                        entry.config(foreground='red')
+                    else:
+                        entry.config(foreground='black' if self.current_theme == 'flatly' else 'white')
+                except ValueError:
                     entry.config(foreground='red')
-                else:
-                    entry.config(foreground='black')
 
         var.trace_add('write', validate)
 
@@ -1847,7 +1890,7 @@ class EditRecordDialog:
         frame_morn.pack(fill="x", expand=True, padx=10, pady=5)
 
         self.morning_var = tk.StringVar(value=record_data.get("morning_actual_time_in", "--:-- --"))
-        self.morning_entry = ttk.Entry(frame_morn, textvariable=self.morning_var, width=20)
+        self.morning_entry = ttk.Entry(frame_morn, textvariable=self.morning_var, width=20, style="TEntry")
         self.morning_entry.pack(side="left", padx=5, pady=5)
 
         self.btn_morning_picker = ttk.Button(frame_morn, text="Pick Time",
@@ -1858,7 +1901,7 @@ class EditRecordDialog:
         frame_after.pack(fill="x", expand=True, padx=10, pady=5)
 
         self.afternoon_var = tk.StringVar(value=record_data.get("afternoon_actual_time_out", "--:-- --"))
-        self.afternoon_entry = ttk.Entry(frame_after, textvariable=self.afternoon_var, width=20)
+        self.afternoon_entry = ttk.Entry(frame_after, textvariable=self.afternoon_var, width=20, style="TEntry")
         self.afternoon_entry.pack(side="left", padx=5, pady=5)
 
         self.btn_afternoon_picker = ttk.Button(frame_after, text="Pick Time",
