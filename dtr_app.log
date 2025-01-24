@@ -774,3 +774,17 @@
 2025-01-24 16:33:12,439 - INFO - History populated in Treeview.
 2025-01-24 16:34:44,494 - INFO - Application started.
 2025-01-24 16:34:44,593 - INFO - Loaded records as list of dictionaries.
+2025-01-24 16:49:43,830 - INFO - Application started.
+2025-01-24 16:49:44,011 - INFO - History populated in Treeview.
+2025-01-24 16:50:30,884 - INFO - Calculated Deductions. Late: 0.056, Undertime: 0.0, Half-day(s): 0.5, Total: 0.556
+2025-01-24 16:51:34,950 - INFO - Calculated Deductions. Late: 0.056, Undertime: 1.0, Half-day(s): 0.0, Total: 1.056
+2025-01-24 16:51:39,833 - INFO - Calculated Deductions. Late: 0.056, Undertime: 1.0, Half-day(s): 0.0, Total: 1.056
+2025-01-24 16:51:58,613 - INFO - Records saved successfully.
+2025-01-24 16:52:00,332 - INFO - Record saved for 2025-01-24: 1.056 points.
+2025-01-24 16:52:00,333 - INFO - History populated in Treeview.
+2025-01-24 16:52:12,610 - INFO - History populated in Treeview.
+2025-01-24 16:52:12,618 - INFO - Date changed to 2025-01-27
+2025-01-24 16:52:26,911 - INFO - Calculated Deductions. Late: 0.125, Undertime: 0.0, Half-day(s): 0.5, Total: 0.625
+2025-01-24 16:52:35,837 - INFO - Calculated Deductions. Late: 0.125, Undertime: 0.0, Half-day(s): 0.5, Total: 0.625
+2025-01-24 16:52:39,139 - INFO - Calculated Deductions. Late: 0.25, Undertime: 0.0, Half-day(s): 0.5, Total: 0.75
+2025-01-24 16:57:03,562 - INFO - Application closed.
