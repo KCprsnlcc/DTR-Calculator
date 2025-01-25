@@ -110,5 +110,15 @@
         "supposed_time_out": "05:30 pm",
         "undertime_minutes": 0,
         "deduction_points": 0.556
+    },
+    {
+        "date": "2025-01-25",
+        "morning_actual_time_in": "00:00 AM",
+        "supposed_time_in": "--:-- --",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "00:00 AM",
+        "supposed_time_out": "--:-- --",
+        "undertime_minutes": 0,
+        "deduction_points": 0.0
     }
 ]

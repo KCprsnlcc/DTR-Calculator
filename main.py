@@ -141,16 +141,20 @@ class Tooltip:
             self.tipwindow.destroy()
         self.tipwindow = None
 
-
 class TimePickerDialog:
     """
     A dialog for selecting time (Hour, Minute, AM/PM) with dropdowns (Combobox).
+    Overrideredirect to remove window buttons.
     """
     def __init__(self, parent, initial_time=None, title="Select Time"):
         self.parent = parent
         self.top = tk.Toplevel(parent)
         self.top.title(title)
         self.top.grab_set()  # Make the dialog modal
+
+        # Remove standard window decorations:
+        self.top.overrideredirect(True)
+
         self.selected_time = None
 
         if initial_time:
