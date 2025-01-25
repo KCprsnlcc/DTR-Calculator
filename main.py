@@ -63,7 +63,6 @@ HALF_DAY_TIMES = {
     "Friday": time(8, 30)
 }
 
-
 def convert_time_diff_to_day_fraction(hours, minutes):
     """
     Convert hours/minutes difference into a fraction of a day (up to 8 hours).
@@ -72,7 +71,6 @@ def convert_time_diff_to_day_fraction(hours, minutes):
     minutes = max(0, min(minutes, 60))
     day_fraction = HOURS_TO_DAY.get(hours, 0.0) + MINUTES_TO_DAY.get(minutes, 0.0)
     return round(day_fraction, 3)
-
 
 def setup_logging():
     """
@@ -83,7 +81,6 @@ def setup_logging():
         level=logging.INFO,
         format='%(asctime)s - %(levelname)s - %(message)s'
     )
-
 
 class Tooltip:
     """
@@ -141,7 +138,6 @@ class Tooltip:
         if self.tipwindow:
             self.tipwindow.destroy()
         self.tipwindow = None
-
 
 class TimePickerDialog:
     """
@@ -255,7 +251,6 @@ class TimePickerDialog:
     def show(self):
         self.top.wait_window()
         return self.selected_time
-
 
 class DailyTimeRecordApp:
     """
@@ -538,7 +533,7 @@ class DailyTimeRecordApp:
         def refresh_entry(widget):
             current_fg = widget.cget("foreground")
             if current_fg != 'red':
-                widget.config(foreground=normal_color)
+                widget.configure(foreground=normal_color)
 
         # A small helper to refresh any Combobox
         def refresh_combo(widget):
@@ -604,6 +599,12 @@ class DailyTimeRecordApp:
         help_menu.add_command(label="About", command=self.show_about_dialog)
         Tooltip(help_menu, "Help and information")
 
+        # Ensure menubar colors are updated based on the initial theme
+        if self.current_theme == "flatly":
+            self.menubar.config(bg="#FFFFFF", fg="#000000", activebackground="#F2F2F2", activeforeground="#000000")
+        else:
+            self.menubar.config(bg="#2E2E2E", fg="#FFFFFF", activebackground="#3C3C3C", activeforeground="#FFFFFF")
+
     def setup_header(self):
         header_frame = ttkb.Frame(self.master)
         header_frame.pack(fill="x", pady=10, padx=10)
@@ -614,13 +615,13 @@ class DailyTimeRecordApp:
         date_selection_frame = ttk.Frame(labels_frame)
         date_selection_frame.pack(pady=5, anchor="w")
 
+        # Updated year range from 1900 to 2125
         ttk.Label(date_selection_frame, text="Year:").grid(row=0, column=0, padx=5, pady=2, sticky="e")
-        current_year = datetime.now().year
         self.year_var = tk.StringVar()
         self.year_combo = ttk.Combobox(
             date_selection_frame,
             textvariable=self.year_var,
-            values=[str(year) for year in range(current_year - 5, current_year + 6)],
+            values=[str(year) for year in range(1900, 2126)],  # 1900-2125
             state="readonly",
             width=5
         )
@@ -833,12 +834,12 @@ class DailyTimeRecordApp:
         search_frame.pack(fill="x", pady=5)
 
         ttk.Label(search_frame, text="From Year:").pack(side="left", padx=5)
-        current_year = datetime.now().year
+        # Updated year range from 1900 to 2125
         self.search_from_year_var = tk.StringVar()
         self.search_from_year = ttk.Combobox(
             search_frame,
             textvariable=self.search_from_year_var,
-            values=[str(year) for year in range(current_year - 5, current_year + 6)],
+            values=[str(year) for year in range(1900, 2126)],  # 1900-2125
             state="readonly",
             width=5
         )
@@ -877,7 +878,7 @@ class DailyTimeRecordApp:
         self.search_to_year = ttk.Combobox(
             search_frame,
             textvariable=self.search_to_year_var,
-            values=[str(year) for year in range(current_year - 5, current_year + 6)],
+            values=[str(year) for year in range(1900, 2126)],  # 1900-2125
             state="readonly",
             width=5
         )
@@ -961,7 +962,7 @@ class DailyTimeRecordApp:
         self.history_tree.heading("Undertime Minutes", text="Undertime (min)", command=lambda: self.sort_by_column("Undertime Minutes"))
         self.history_tree.heading("Deduction Points", text="Deduction Points", command=lambda: self.sort_by_column("Deduction Points"))
 
-        self.history_tree.pack(fill="both", expand=True)
+        self.history_tree.pack(fill="both", expand=True, side="left")
 
         self.history_tree.column("Date", width=100, anchor="center")
         self.history_tree.column("Morning Actual Time In", width=120, anchor="center")
@@ -972,10 +973,11 @@ class DailyTimeRecordApp:
         self.history_tree.column("Undertime Minutes", width=120, anchor="center")
         self.history_tree.column("Deduction Points", width=120, anchor="center")
 
-        scrollbar = ttk.Scrollbar(history_frame, orient="vertical", command=self.history_tree.yview)
+        scrollbar = ttk.Scrollbar(history_frame, orient="vertical", command=self.history_tree.yview, style="Vertical.TScrollbar")
         self.history_tree.configure(yscroll=scrollbar.set)
         scrollbar.pack(side="right", fill="y")
 
+        # Bindings
         self.history_tree.bind("<Delete>", lambda e: self.delete_record())
         self.history_tree.bind("<Control-a>", lambda e: self.select_all_records())  # ----- Added Ctrl+A Binding -----
         self.history_tree.bind("<Control-A>", lambda e: self.select_all_records())  # Ensure both cases
@@ -1167,23 +1169,41 @@ class DailyTimeRecordApp:
                 # valid hours: 01..12
                 try:
                     if not (1 <= int(value) <= 12):
-                        entry.config(foreground='red')
+                        # Apply error style
+                        self.apply_error_style(entry)
                     else:
-                        # revert to black/white depending on theme
-                        entry.config(foreground='black' if self.current_theme == 'flatly' else 'white')
+                        # Revert to normal style based on theme
+                        self.apply_normal_style(entry)
                 except ValueError:
-                    entry.config(foreground='red')
+                    self.apply_error_style(entry)
             elif part == 'minute':
                 # valid minutes: 00..59
                 try:
                     if not (0 <= int(value) <= 59):
-                        entry.config(foreground='red')
+                        # Apply error style
+                        self.apply_error_style(entry)
                     else:
-                        entry.config(foreground='black' if self.current_theme == 'flatly' else 'white')
+                        # Revert to normal style based on theme
+                        self.apply_normal_style(entry)
                 except ValueError:
-                    entry.config(foreground='red')
+                    self.apply_error_style(entry)
 
         var.trace_add('write', validate)
+
+    def apply_error_style(self, widget):
+        """
+        Apply a red foreground to indicate invalid input.
+        """
+        widget.configure(foreground="red")
+
+    def apply_normal_style(self, widget):
+        """
+        Revert the foreground color based on the current theme.
+        """
+        if self.current_theme == 'flatly':
+            widget.configure(foreground="black")
+        else:
+            widget.configure(foreground="white")
 
     def create_time_input_key_release(self, var, part='hour'):
         def on_key_release(event):
@@ -1440,8 +1460,18 @@ class DailyTimeRecordApp:
             "deduction_points": deduction_points
         }
 
-        # Insert the new record at the top of the list
-        self.records.insert(0, new_record)
+        # Check for existing records for the same date
+        existing_records = [record for record in self.records if record["date"] == date_str]
+        if existing_records:
+            add_record = messagebox.askyesno(
+                "Add Record",
+                f"A record for {date_str} already exists.\nDo you want to add another record for this date?"
+            )
+            if not add_record:
+                logging.info(f"User chose not to add another record for {date_str}.")
+                return
+
+        self.records.insert(0, new_record)  # Insert at the top
 
         self.save_records_to_file()
         messagebox.showinfo("Success", f"Record for {date_str} saved successfully.")
@@ -1895,18 +1925,9 @@ Disclaimer: Use at your own risk. Keep data backups.
 
         child.geometry(f"+{pos_x}+{pos_y}")
 
-    # ------------------------------------------------------------------------
-    # EDIT RECORD DIALOG CLASS
-    # ------------------------------------------------------------------------
-
-    # The EditRecordDialog class is implemented below.
-
-    # ------------------------------------------------------------------------
-    # MAIN APPLICATION LOGIC
-    # ------------------------------------------------------------------------
-
-    # All main logic methods have been implemented above.
-
+# ------------------------------------------------------------------------
+# EDIT RECORD DIALOG CLASS
+# ------------------------------------------------------------------------
 
 class EditRecordDialog:
     """
@@ -1931,8 +1952,8 @@ class EditRecordDialog:
         self.morning_entry = ttk.Entry(frame_morn, textvariable=self.morning_var, width=20, style="TEntry")
         self.morning_entry.pack(side="left", padx=5, pady=5)
 
-        self.btn_morning_picker = ttk.Button(frame_morn, text="Pick Time",
-                                             command=lambda: self.pick_time(self.morning_var))
+        self.btn_morning_picker = ttkb.Button(frame_morn, text="Pick Time",
+                                             command=lambda: self.pick_time(self.morning_var), style="Calc.TButton")
         self.btn_morning_picker.pack(side="left", padx=5, pady=5)
 
         frame_after = ttk.LabelFrame(self.top, text="Afternoon Actual Time Out")
@@ -1942,8 +1963,8 @@ class EditRecordDialog:
         self.afternoon_entry = ttk.Entry(frame_after, textvariable=self.afternoon_var, width=20, style="TEntry")
         self.afternoon_entry.pack(side="left", padx=5, pady=5)
 
-        self.btn_afternoon_picker = ttk.Button(frame_after, text="Pick Time",
-                                               command=lambda: self.pick_time(self.afternoon_var))
+        self.btn_afternoon_picker = ttkb.Button(frame_after, text="Pick Time",
+                                               command=lambda: self.pick_time(self.afternoon_var), style="Calc.TButton")
         self.btn_afternoon_picker.pack(side="left", padx=5, pady=5)
 
         btn_frame = ttk.Frame(self.top)
@@ -2006,7 +2027,6 @@ def main():
     app = DailyTimeRecordApp(root)
     root.mainloop()
     logging.info("Application closed.")
-
 
 if __name__ == "__main__":
     main()
