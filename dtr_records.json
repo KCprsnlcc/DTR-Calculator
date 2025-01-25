@@ -1,11 +1,1241 @@
 [
     {
-        "date": "2025-01-25",
-        "morning_actual_time_in": "00:00 AM",
+        "date": "2025-01-06",
+        "morning_actual_time_in": "08:05 AM",
+        "supposed_time_in": "08:00 AM",
+        "late_minutes": 5,
+        "afternoon_actual_time_out": "05:00 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 0,
+        "deduction_points": 0.005
+    },
+    {
+        "date": "2025-01-07",
+        "morning_actual_time_in": "08:30 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "04:45 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 15,
+        "deduction_points": 0.025
+    },
+    {
+        "date": "2025-01-08",
+        "morning_actual_time_in": "--:-- --",
         "supposed_time_in": "--:-- --",
         "late_minutes": 0,
-        "afternoon_actual_time_out": "00:00 AM",
+        "afternoon_actual_time_out": "--:-- --",
         "supposed_time_out": "--:-- --",
+        "undertime_minutes": 0,
+        "deduction_points": 1.0
+    },
+    {
+        "date": "2025-01-09",
+        "morning_actual_time_in": "08:20 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "05:15 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 0,
+        "deduction_points": 0.0
+    },
+    {
+        "date": "2025-01-10",
+        "morning_actual_time_in": "08:45 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 15,
+        "afternoon_actual_time_out": "04:50 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 10,
+        "deduction_points": 0.035
+    },
+    {
+        "date": "2025-01-13",
+        "morning_actual_time_in": "08:00 AM",
+        "supposed_time_in": "08:00 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "05:00 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 0,
+        "deduction_points": 0.0
+    },
+    {
+        "date": "2025-01-14",
+        "morning_actual_time_in": "08:25 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "04:55 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 5,
+        "deduction_points": 0.005
+    },
+    {
+        "date": "2025-01-15",
+        "morning_actual_time_in": "--:-- --",
+        "supposed_time_in": "--:-- --",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "--:-- --",
+        "supposed_time_out": "--:-- --",
+        "undertime_minutes": 0,
+        "deduction_points": 1.0
+    },
+    {
+        "date": "2025-01-16",
+        "morning_actual_time_in": "08:10 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "05:05 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 0,
+        "deduction_points": 0.0
+    },
+    {
+        "date": "2025-01-17",
+        "morning_actual_time_in": "08:35 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 5,
+        "afternoon_actual_time_out": "04:55 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 5,
+        "deduction_points": 0.015
+    },
+    {
+        "date": "2025-01-20",
+        "morning_actual_time_in": "08:00 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "05:00 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 0,
+        "deduction_points": 0.0
+    },
+    {
+        "date": "2025-01-21",
+        "morning_actual_time_in": "08:40 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 10,
+        "afternoon_actual_time_out": "04:50 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 10,
+        "deduction_points": 0.02
+    },
+    {
+        "date": "2025-01-22",
+        "morning_actual_time_in": "08:15 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "05:10 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 0,
+        "deduction_points": 0.0
+    },
+    {
+        "date": "2025-01-23",
+        "morning_actual_time_in": "--:-- --",
+        "supposed_time_in": "--:-- --",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "05:00 PM",
+        "supposed_time_out": "--:-- --",
+        "undertime_minutes": 0,
+        "deduction_points": 0.5
+    },
+    {
+        "date": "2025-01-24",
+        "morning_actual_time_in": "08:28 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "05:00 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 0,
+        "deduction_points": 0.0
+    },
+    {
+        "date": "2025-01-27",
+        "morning_actual_time_in": "08:32 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 2,
+        "afternoon_actual_time_out": "04:58 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 2,
+        "deduction_points": 0.004
+    },
+    {
+        "date": "2025-01-28",
+        "morning_actual_time_in": "08:00 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "05:00 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 0,
+        "deduction_points": 0.0
+    },
+    {
+        "date": "2025-01-29",
+        "morning_actual_time_in": "08:45 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 15,
+        "afternoon_actual_time_out": "04:40 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 20,
+        "deduction_points": 0.05
+    },
+    {
+        "date": "2025-01-30",
+        "morning_actual_time_in": "08:20 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "--:-- --",
+        "supposed_time_out": "--:-- --",
+        "undertime_minutes": 0,
+        "deduction_points": 0.5
+    },
+    {
+        "date": "2025-02-03",
+        "morning_actual_time_in": "08:10 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "05:05 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 0,
+        "deduction_points": 0.0
+    },
+    {
+        "date": "2025-02-04",
+        "morning_actual_time_in": "08:35 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 5,
+        "afternoon_actual_time_out": "04:50 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 10,
+        "deduction_points": 0.015
+    },
+    {
+        "date": "2025-02-05",
+        "morning_actual_time_in": "08:25 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "05:00 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 0,
+        "deduction_points": 0.0
+    },
+    {
+        "date": "2025-02-06",
+        "morning_actual_time_in": "--:-- --",
+        "supposed_time_in": "--:-- --",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "--:-- --",
+        "supposed_time_out": "--:-- --",
+        "undertime_minutes": 0,
+        "deduction_points": 1.0
+    },
+    {
+        "date": "2025-02-07",
+        "morning_actual_time_in": "08:15 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "04:55 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 5,
+        "deduction_points": 0.005
+    },
+    {
+        "date": "2025-02-10",
+        "morning_actual_time_in": "08:30 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "05:00 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 0,
+        "deduction_points": 0.0
+    },
+    {
+        "date": "2025-02-11",
+        "morning_actual_time_in": "08:50 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 20,
+        "afternoon_actual_time_out": "04:40 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 20,
+        "deduction_points": 0.045
+    },
+    {
+        "date": "2025-02-12",
+        "morning_actual_time_in": "08:05 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "05:10 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 0,
+        "deduction_points": 0.0
+    },
+    {
+        "date": "2025-02-13",
+        "morning_actual_time_in": "--:-- --",
+        "supposed_time_in": "--:-- --",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "05:00 PM",
+        "supposed_time_out": "--:-- --",
+        "undertime_minutes": 0,
+        "deduction_points": 0.5
+    },
+    {
+        "date": "2025-02-14",
+        "morning_actual_time_in": "08:22 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "05:00 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 0,
+        "deduction_points": 0.0
+    },
+    {
+        "date": "2025-02-17",
+        "morning_actual_time_in": "08:40 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 10,
+        "afternoon_actual_time_out": "04:50 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 10,
+        "deduction_points": 0.02
+    },
+    {
+        "date": "2025-02-18",
+        "morning_actual_time_in": "08:00 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "05:00 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 0,
+        "deduction_points": 0.0
+    },
+    {
+        "date": "2025-02-19",
+        "morning_actual_time_in": "08:35 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 5,
+        "afternoon_actual_time_out": "04:55 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 5,
+        "deduction_points": 0.015
+    },
+    {
+        "date": "2025-02-20",
+        "morning_actual_time_in": "08:10 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "05:10 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 0,
+        "deduction_points": 0.0
+    },
+    {
+        "date": "2025-02-21",
+        "morning_actual_time_in": "--:-- --",
+        "supposed_time_in": "--:-- --",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "--:-- --",
+        "supposed_time_out": "--:-- --",
+        "undertime_minutes": 0,
+        "deduction_points": 1.0
+    },
+    {
+        "date": "2025-02-24",
+        "morning_actual_time_in": "08:25 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "04:50 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 10,
+        "deduction_points": 0.01
+    },
+    {
+        "date": "2025-02-25",
+        "morning_actual_time_in": "08:30 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "05:00 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 0,
+        "deduction_points": 0.0
+    },
+    {
+        "date": "2025-02-26",
+        "morning_actual_time_in": "08:55 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 25,
+        "afternoon_actual_time_out": "04:30 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 30,
+        "deduction_points": 0.07
+    },
+    {
+        "date": "2025-02-27",
+        "morning_actual_time_in": "08:15 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "05:05 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 0,
+        "deduction_points": 0.0
+    },
+    {
+        "date": "2025-02-28",
+        "morning_actual_time_in": "--:-- --",
+        "supposed_time_in": "--:-- --",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "04:45 PM",
+        "supposed_time_out": "--:-- --",
+        "undertime_minutes": 0,
+        "deduction_points": 0.5
+    },
+    {
+        "date": "2025-03-03",
+        "morning_actual_time_in": "08:05 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "05:00 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 0,
+        "deduction_points": 0.0
+    },
+    {
+        "date": "2025-03-04",
+        "morning_actual_time_in": "08:40 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 10,
+        "afternoon_actual_time_out": "04:55 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 5,
+        "deduction_points": 0.015
+    },
+    {
+        "date": "2025-03-05",
+        "morning_actual_time_in": "08:20 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "05:10 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 0,
+        "deduction_points": 0.0
+    },
+    {
+        "date": "2025-03-06",
+        "morning_actual_time_in": "08:50 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 20,
+        "afternoon_actual_time_out": "04:40 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 20,
+        "deduction_points": 0.05
+    },
+    {
+        "date": "2025-03-07",
+        "morning_actual_time_in": "08:10 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "05:00 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 0,
+        "deduction_points": 0.0
+    },
+    {
+        "date": "2025-03-10",
+        "morning_actual_time_in": "--:-- --",
+        "supposed_time_in": "--:-- --",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "--:-- --",
+        "supposed_time_out": "--:-- --",
+        "undertime_minutes": 0,
+        "deduction_points": 1.0
+    },
+    {
+        "date": "2025-03-11",
+        "morning_actual_time_in": "08:30 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "05:00 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 0,
+        "deduction_points": 0.0
+    },
+    {
+        "date": "2025-03-12",
+        "morning_actual_time_in": "08:25 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "04:55 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 5,
+        "deduction_points": 0.005
+    },
+    {
+        "date": "2025-03-13",
+        "morning_actual_time_in": "08:15 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "05:15 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 0,
+        "deduction_points": 0.0
+    },
+    {
+        "date": "2025-03-14",
+        "morning_actual_time_in": "08:45 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 15,
+        "afternoon_actual_time_out": "04:50 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 10,
+        "deduction_points": 0.035
+    },
+    {
+        "date": "2025-03-17",
+        "morning_actual_time_in": "08:00 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "05:00 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 0,
+        "deduction_points": 0.0
+    },
+    {
+        "date": "2025-03-18",
+        "morning_actual_time_in": "08:35 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 5,
+        "afternoon_actual_time_out": "04:45 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 15,
+        "deduction_points": 0.02
+    },
+    {
+        "date": "2025-03-19",
+        "morning_actual_time_in": "08:05 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "05:10 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 0,
+        "deduction_points": 0.0
+    },
+    {
+        "date": "2025-03-20",
+        "morning_actual_time_in": "08:30 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "05:00 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 0,
+        "deduction_points": 0.0
+    },
+    {
+        "date": "2025-03-21",
+        "morning_actual_time_in": "08:50 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 20,
+        "afternoon_actual_time_out": "04:35 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 25,
+        "deduction_points": 0.07
+    },
+    {
+        "date": "2025-03-24",
+        "morning_actual_time_in": "08:20 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "05:00 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 0,
+        "deduction_points": 0.0
+    },
+    {
+        "date": "2025-03-25",
+        "morning_actual_time_in": "--:-- --",
+        "supposed_time_in": "--:-- --",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "--:-- --",
+        "supposed_time_out": "--:-- --",
+        "undertime_minutes": 0,
+        "deduction_points": 1.0
+    },
+    {
+        "date": "2025-03-26",
+        "morning_actual_time_in": "08:30 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "05:00 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 0,
+        "deduction_points": 0.0
+    },
+    {
+        "date": "2025-03-27",
+        "morning_actual_time_in": "08:30 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "05:10 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 0,
+        "deduction_points": 0.0
+    },
+    {
+        "date": "2025-03-28",
+        "morning_actual_time_in": "08:25 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "04:55 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 5,
+        "deduction_points": 0.005
+    },
+    {
+        "date": "2025-03-31",
+        "morning_actual_time_in": "08:15 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "05:20 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 0,
+        "deduction_points": 0.0
+    },
+    {
+        "date": "2025-04-01",
+        "morning_actual_time_in": "08:35 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 5,
+        "afternoon_actual_time_out": "04:45 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 15,
+        "deduction_points": 0.02
+    },
+    {
+        "date": "2025-04-02",
+        "morning_actual_time_in": "08:05 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "05:05 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 0,
+        "deduction_points": 0.0
+    },
+    {
+        "date": "2025-04-03",
+        "morning_actual_time_in": "08:30 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "05:00 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 0,
+        "deduction_points": 0.0
+    },
+    {
+        "date": "2025-04-04",
+        "morning_actual_time_in": "08:55 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 25,
+        "afternoon_actual_time_out": "04:25 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 35,
+        "deduction_points": 0.1
+    },
+    {
+        "date": "2025-04-07",
+        "morning_actual_time_in": "08:20 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "05:00 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 0,
+        "deduction_points": 0.0
+    },
+    {
+        "date": "2025-04-08",
+        "morning_actual_time_in": "08:40 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 10,
+        "afternoon_actual_time_out": "04:50 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 10,
+        "deduction_points": 0.02
+    },
+    {
+        "date": "2025-04-09",
+        "morning_actual_time_in": "08:10 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "05:10 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 0,
+        "deduction_points": 0.0
+    },
+    {
+        "date": "2025-04-10",
+        "morning_actual_time_in": "--:-- --",
+        "supposed_time_in": "--:-- --",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "--:-- --",
+        "supposed_time_out": "--:-- --",
+        "undertime_minutes": 0,
+        "deduction_points": 1.0
+    },
+    {
+        "date": "2025-04-11",
+        "morning_actual_time_in": "08:30 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "05:00 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 0,
+        "deduction_points": 0.0
+    },
+    {
+        "date": "2025-04-14",
+        "morning_actual_time_in": "08:30 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "05:10 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 0,
+        "deduction_points": 0.0
+    },
+    {
+        "date": "2025-04-15",
+        "morning_actual_time_in": "08:35 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 5,
+        "afternoon_actual_time_out": "04:45 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 15,
+        "deduction_points": 0.02
+    },
+    {
+        "date": "2025-04-16",
+        "morning_actual_time_in": "08:05 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "05:05 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 0,
+        "deduction_points": 0.0
+    },
+    {
+        "date": "2025-04-17",
+        "morning_actual_time_in": "08:30 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "05:00 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 0,
+        "deduction_points": 0.0
+    },
+    {
+        "date": "2025-04-18",
+        "morning_actual_time_in": "08:25 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "04:55 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 5,
+        "deduction_points": 0.005
+    },
+    {
+        "date": "2025-04-21",
+        "morning_actual_time_in": "08:15 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "05:20 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 0,
+        "deduction_points": 0.0
+    },
+    {
+        "date": "2025-04-22",
+        "morning_actual_time_in": "08:45 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 15,
+        "afternoon_actual_time_out": "04:50 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 10,
+        "deduction_points": 0.035
+    },
+    {
+        "date": "2025-04-23",
+        "morning_actual_time_in": "08:00 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "05:00 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 0,
+        "deduction_points": 0.0
+    },
+    {
+        "date": "2025-04-24",
+        "morning_actual_time_in": "08:35 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 5,
+        "afternoon_actual_time_out": "04:40 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 20,
+        "deduction_points": 0.025
+    },
+    {
+        "date": "2025-04-25",
+        "morning_actual_time_in": "08:10 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "05:10 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 0,
+        "deduction_points": 0.0
+    },
+    {
+        "date": "2025-04-28",
+        "morning_actual_time_in": "--:-- --",
+        "supposed_time_in": "--:-- --",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "--:-- --",
+        "supposed_time_out": "--:-- --",
+        "undertime_minutes": 0,
+        "deduction_points": 1.0
+    },
+    {
+        "date": "2025-04-29",
+        "morning_actual_time_in": "08:30 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "05:00 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 0,
+        "deduction_points": 0.0
+    },
+    {
+        "date": "2025-04-30",
+        "morning_actual_time_in": "08:30 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "05:10 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 0,
+        "deduction_points": 0.0
+    },
+    {
+        "date": "2025-05-01",
+        "morning_actual_time_in": "08:30 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "05:00 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 0,
+        "deduction_points": 0.0
+    },
+    {
+        "date": "2025-05-02",
+        "morning_actual_time_in": "08:50 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 20,
+        "afternoon_actual_time_out": "04:30 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 30,
+        "deduction_points": 0.1
+    },
+    {
+        "date": "2025-05-05",
+        "morning_actual_time_in": "08:20 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "05:00 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 0,
+        "deduction_points": 0.0
+    },
+    {
+        "date": "2025-05-06",
+        "morning_actual_time_in": "08:40 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 10,
+        "afternoon_actual_time_out": "04:45 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 15,
+        "deduction_points": 0.02
+    },
+    {
+        "date": "2025-05-07",
+        "morning_actual_time_in": "08:05 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "05:05 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 0,
+        "deduction_points": 0.0
+    },
+    {
+        "date": "2025-05-08",
+        "morning_actual_time_in": "08:30 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "05:00 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 0,
+        "deduction_points": 0.0
+    },
+    {
+        "date": "2025-05-09",
+        "morning_actual_time_in": "08:25 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "04:55 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 5,
+        "deduction_points": 0.005
+    },
+    {
+        "date": "2025-05-12",
+        "morning_actual_time_in": "08:15 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "05:20 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 0,
+        "deduction_points": 0.0
+    },
+    {
+        "date": "2025-05-13",
+        "morning_actual_time_in": "08:45 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 15,
+        "afternoon_actual_time_out": "04:50 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 10,
+        "deduction_points": 0.035
+    },
+    {
+        "date": "2025-05-14",
+        "morning_actual_time_in": "08:00 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "05:00 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 0,
+        "deduction_points": 0.0
+    },
+    {
+        "date": "2025-05-15",
+        "morning_actual_time_in": "08:35 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 5,
+        "afternoon_actual_time_out": "04:40 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 20,
+        "deduction_points": 0.025
+    },
+    {
+        "date": "2025-05-16",
+        "morning_actual_time_in": "08:10 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "05:10 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 0,
+        "deduction_points": 0.0
+    },
+    {
+        "date": "2025-05-19",
+        "morning_actual_time_in": "--:-- --",
+        "supposed_time_in": "--:-- --",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "--:-- --",
+        "supposed_time_out": "--:-- --",
+        "undertime_minutes": 0,
+        "deduction_points": 1.0
+    },
+    {
+        "date": "2025-05-20",
+        "morning_actual_time_in": "08:30 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "05:00 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 0,
+        "deduction_points": 0.0
+    },
+    {
+        "date": "2025-05-21",
+        "morning_actual_time_in": "08:30 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "05:10 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 0,
+        "deduction_points": 0.0
+    },
+    {
+        "date": "2025-05-22",
+        "morning_actual_time_in": "08:25 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "04:55 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 5,
+        "deduction_points": 0.005
+    },
+    {
+        "date": "2025-05-23",
+        "morning_actual_time_in": "08:15 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "05:20 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 0,
+        "deduction_points": 0.0
+    },
+    {
+        "date": "2025-05-26",
+        "morning_actual_time_in": "08:45 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 15,
+        "afternoon_actual_time_out": "04:50 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 10,
+        "deduction_points": 0.035
+    },
+    {
+        "date": "2025-05-27",
+        "morning_actual_time_in": "08:00 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "05:00 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 0,
+        "deduction_points": 0.0
+    },
+    {
+        "date": "2025-05-28",
+        "morning_actual_time_in": "08:35 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 5,
+        "afternoon_actual_time_out": "04:40 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 20,
+        "deduction_points": 0.025
+    },
+    {
+        "date": "2025-05-29",
+        "morning_actual_time_in": "08:10 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "05:10 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 0,
+        "deduction_points": 0.0
+    },
+    {
+        "date": "2025-06-02",
+        "morning_actual_time_in": "08:30 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "05:00 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 0,
+        "deduction_points": 0.0
+    },
+    {
+        "date": "2025-06-03",
+        "morning_actual_time_in": "08:50 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 20,
+        "afternoon_actual_time_out": "04:30 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 30,
+        "deduction_points": 0.1
+    },
+    {
+        "date": "2025-06-04",
+        "morning_actual_time_in": "08:20 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "05:00 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 0,
+        "deduction_points": 0.0
+    },
+    {
+        "date": "2025-06-05",
+        "morning_actual_time_in": "08:40 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 10,
+        "afternoon_actual_time_out": "04:45 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 15,
+        "deduction_points": 0.02
+    },
+    {
+        "date": "2025-06-06",
+        "morning_actual_time_in": "08:05 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "05:05 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 0,
+        "deduction_points": 0.0
+    },
+    {
+        "date": "2025-06-09",
+        "morning_actual_time_in": "08:30 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "05:00 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 0,
+        "deduction_points": 0.0
+    },
+    {
+        "date": "2025-06-10",
+        "morning_actual_time_in": "08:25 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "04:55 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 5,
+        "deduction_points": 0.005
+    },
+    {
+        "date": "2025-06-11",
+        "morning_actual_time_in": "08:15 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "05:20 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 0,
+        "deduction_points": 0.0
+    },
+    {
+        "date": "2025-06-12",
+        "morning_actual_time_in": "08:45 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 15,
+        "afternoon_actual_time_out": "04:50 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 10,
+        "deduction_points": 0.035
+    },
+    {
+        "date": "2025-06-13",
+        "morning_actual_time_in": "08:00 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "05:00 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 0,
+        "deduction_points": 0.0
+    },
+    {
+        "date": "2025-06-16",
+        "morning_actual_time_in": "08:35 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 5,
+        "afternoon_actual_time_out": "04:40 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 20,
+        "deduction_points": 0.025
+    },
+    {
+        "date": "2025-06-17",
+        "morning_actual_time_in": "08:10 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "05:10 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 0,
+        "deduction_points": 0.0
+    },
+    {
+        "date": "2025-06-18",
+        "morning_actual_time_in": "--:-- --",
+        "supposed_time_in": "--:-- --",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "--:-- --",
+        "supposed_time_out": "--:-- --",
+        "undertime_minutes": 0,
+        "deduction_points": 1.0
+    },
+    {
+        "date": "2025-06-19",
+        "morning_actual_time_in": "08:30 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "05:00 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 0,
+        "deduction_points": 0.0
+    },
+    {
+        "date": "2025-06-20",
+        "morning_actual_time_in": "08:30 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "05:10 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 0,
+        "deduction_points": 0.0
+    },
+    {
+        "date": "2025-06-23",
+        "morning_actual_time_in": "08:25 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "04:55 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 5,
+        "deduction_points": 0.005
+    },
+    {
+        "date": "2025-06-24",
+        "morning_actual_time_in": "08:15 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "05:20 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 0,
+        "deduction_points": 0.0
+    },
+    {
+        "date": "2025-06-25",
+        "morning_actual_time_in": "08:45 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 15,
+        "afternoon_actual_time_out": "04:50 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 10,
+        "deduction_points": 0.035
+    },
+    {
+        "date": "2025-06-26",
+        "morning_actual_time_in": "08:00 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "05:00 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 0,
+        "deduction_points": 0.0
+    },
+    {
+        "date": "2025-06-27",
+        "morning_actual_time_in": "08:35 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 5,
+        "afternoon_actual_time_out": "04:40 PM",
+        "supposed_time_out": "05:00 PM",
+        "undertime_minutes": 20,
+        "deduction_points": 0.025
+    },
+    {
+        "date": "2025-06-30",
+        "morning_actual_time_in": "08:10 AM",
+        "supposed_time_in": "08:30 AM",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "05:10 PM",
+        "supposed_time_out": "05:00 PM",
         "undertime_minutes": 0,
         "deduction_points": 0.0
     }
