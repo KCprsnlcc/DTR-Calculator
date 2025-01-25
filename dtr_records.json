@@ -1,5 +1,55 @@
 [
     {
+        "date": "2025-01-25",
+        "morning_actual_time_in": "00:00 AM",
+        "supposed_time_in": "--:-- --",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "00:00 AM",
+        "supposed_time_out": "--:-- --",
+        "undertime_minutes": 0,
+        "deduction_points": 0.0
+    },
+    {
+        "date": "2025-01-25",
+        "morning_actual_time_in": "00:00 AM",
+        "supposed_time_in": "--:-- --",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "00:00 AM",
+        "supposed_time_out": "--:-- --",
+        "undertime_minutes": 0,
+        "deduction_points": 0.0
+    },
+    {
+        "date": "2025-01-25",
+        "morning_actual_time_in": "00:00 AM",
+        "supposed_time_in": "--:-- --",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "00:00 AM",
+        "supposed_time_out": "--:-- --",
+        "undertime_minutes": 0,
+        "deduction_points": 0.0
+    },
+    {
+        "date": "2025-01-25",
+        "morning_actual_time_in": "00:00 AM",
+        "supposed_time_in": "--:-- --",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "00:00 AM",
+        "supposed_time_out": "--:-- --",
+        "undertime_minutes": 0,
+        "deduction_points": 0.0
+    },
+    {
+        "date": "2025-01-25",
+        "morning_actual_time_in": "00:00 AM",
+        "supposed_time_in": "--:-- --",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "00:00 AM",
+        "supposed_time_out": "--:-- --",
+        "undertime_minutes": 0,
+        "deduction_points": 0.0
+    },
+    {
         "date": "2025-01-24",
         "deduction_points": 0.04,
         "late_morning": 0,
@@ -128,6 +178,16 @@
         "late_minutes": 0,
         "afternoon_actual_time_out": "06:00 PM",
         "supposed_time_out": "05:30 pm",
+        "undertime_minutes": 0,
+        "deduction_points": 0.0
+    },
+    {
+        "date": "2025-01-25",
+        "morning_actual_time_in": "00:00 AM",
+        "supposed_time_in": "--:-- --",
+        "late_minutes": 0,
+        "afternoon_actual_time_out": "00:00 AM",
+        "supposed_time_out": "--:-- --",
         "undertime_minutes": 0,
         "deduction_points": 0.0
     }

@@ -532,7 +532,7 @@ class DailyTimeRecordApp:
         Re-apply correct foreground colors to all relevant Entry/Combobox
         after a theme switch, preserving 'red' for invalid input.
         """
-        normal_color = "black" if self.current_theme == "flatly" else "white"
+        normal_color = "black" if self.current_theme == 'flatly' else "white"
 
         # A small helper to refresh any TEntry
         def refresh_entry(widget):
@@ -569,7 +569,7 @@ class DailyTimeRecordApp:
 
         if theme_name == "flatly":
             self.apply_apple_calculator_light_style()
-        elif theme_name in ["superhero"]:
+        elif theme_name in ["superhero", "darkly"]:
             self.apply_apple_calculator_dark_style()
         else:
             # Handle other themes if necessary
@@ -978,13 +978,13 @@ class DailyTimeRecordApp:
 
         self.sort_states = {
             "Date": False,
-            "Morning Actual Time In": True,
-            "Supposed Time In": True,
-            "Late Minutes": True,
-            "Afternoon Actual Time Out": True,
-            "Supposed Time Out": True,
-            "Undertime Minutes": True,
-            "Deduction Points": True
+            "Morning Actual Time In": False,
+            "Supposed Time In": False,
+            "Late Minutes": False,
+            "Afternoon Actual Time Out": False,
+            "Supposed Time Out": False,
+            "Undertime Minutes": False,
+            "Deduction Points": False
         }
 
         self.populate_history()
@@ -997,6 +997,7 @@ class DailyTimeRecordApp:
         if state == "disabled":
             getattr(self, 'morning_actual_time_in_hour_var').set('00')
             getattr(self, 'morning_actual_time_in_minute_var').set('00')
+            getattr(self, 'morning_actual_time_in_ampm_var').set('AM')
         self.morning_actual_time_in_hour_entry.config(state=state)
         self.morning_actual_time_in_minute_entry.config(state=state)
         self.morning_actual_time_in_ampm_combo.config(state=state)
@@ -1009,6 +1010,7 @@ class DailyTimeRecordApp:
         if state == "disabled":
             getattr(self, 'afternoon_actual_time_out_hour_var').set('00')
             getattr(self, 'afternoon_actual_time_out_minute_var').set('00')
+            getattr(self, 'afternoon_actual_time_out_ampm_var').set('PM')
         self.afternoon_actual_time_out_hour_entry.config(state=state)
         self.afternoon_actual_time_out_minute_entry.config(state=state)
         self.afternoon_actual_time_out_ampm_combo.config(state=state)
@@ -1430,17 +1432,11 @@ class DailyTimeRecordApp:
             "deduction_points": deduction_points
         }
 
-        existing_records = [record for record in self.records if record["date"] == date_str]
-        if existing_records:
-            add_record = messagebox.askyesno(
-                "Add Record",
-                f"A record for {date_str} already exists.\nDo you want to add another record for this date?"
-            )
-            if not add_record:
-                logging.info(f"User chose not to add another record for {date_str}.")
-                return
+        # Removed duplicate record confirmation dialog
 
-        self.records.append(new_record)
+        # Insert the new record at the top of the list
+        self.records.insert(0, new_record)
+
         self.save_records_to_file()
         messagebox.showinfo("Success", f"Record for {date_str} saved successfully.")
         logging.info(f"Record saved for {date_str}: {deduction_points} points.")
@@ -1475,7 +1471,7 @@ class DailyTimeRecordApp:
                     "Undertime Minutes",
                     "Deduction Points"
                 ])
-                for record in sorted(self.records, key=lambda x: x["date"]):
+                for record in sorted(self.records, key=lambda x: x["date"], reverse=True):
                     writer.writerow([
                         record["date"],
                         record.get("morning_actual_time_in", "--:-- --"),
@@ -1547,15 +1543,15 @@ class DailyTimeRecordApp:
         morning_in_str = record["morning_actual_time_in"]
         if morning_in_str and morning_in_str != "--:-- --":
             morning_time = self.str_to_time(morning_in_str)
-            record["supposed_time_in"] = ALLOWED_TIMES.get(day_name, {}).get("supposed_time_in", "--:-- --").strftime("%I:%M %p") \
-                if ALLOWED_TIMES.get(day_name, {}).get("supposed_time_in", None) else "--:-- --"
+            supposed_time_in = ALLOWED_TIMES.get(day_name, {}).get("supposed_time_in", "--:-- --")
+            record["supposed_time_in"] = supposed_time_in.strftime("%I:%M %p") if isinstance(supposed_time_in, time) else "--:-- --"
 
             try:
                 sup_in = datetime.strptime(record["supposed_time_in"], "%I:%M %p").time()
             except:
                 sup_in = None
 
-            if sup_in:
+            if sup_in and morning_time:
                 late_raw = self.calculate_time_difference(sup_in, morning_time)
                 late_minutes = max(0, late_raw)
             else:
@@ -1750,9 +1746,9 @@ class DailyTimeRecordApp:
         if records is None:
             records = self.current_records
 
-        # If user hasn't sorted columns, default sort by date descending:
-        if records == self.current_records and not any(self.sort_states.values()):
-            records = sorted(records, key=lambda x: x["date"], reverse=True)
+        # Remove the default sorting to maintain insertion order
+        # if records == self.current_records and not any(self.sort_states.values()):
+        #     records = sorted(records, key=lambda x: x["date"], reverse=True)
 
         for record in records:
             self.history_tree.insert("", "end", values=(
@@ -1766,6 +1762,23 @@ class DailyTimeRecordApp:
                 record["deduction_points"]
             ))
         logging.info("History populated in Treeview.")
+
+    def sort_by_column(self, col):
+        # Toggle sort state
+        self.sort_states[col] = not self.sort_states[col]
+        reverse = self.sort_states[col]
+
+        # Define a key function based on the column
+        if col in ["Late Minutes", "Undertime Minutes", "Deduction Points"]:
+            key_func = lambda x: float(x[col.replace(" ", "_").lower()])
+        elif col == "Date":
+            key_func = lambda x: datetime.strptime(x[col.lower().replace(" ", "_")], "%Y-%m-%d")
+        else:
+            key_func = lambda x: x[col.replace(" ", "_").lower()]
+
+        # Sort the current_records
+        self.current_records.sort(key=key_func, reverse=reverse)
+        self.populate_history()
 
     def show_help_dialog(self):
         help_window = tk.Toplevel(self.master)
@@ -1875,7 +1888,55 @@ Disclaimer: Use at your own risk. Keep data backups.
 
         pos_x = parent_x + (parent_width // 2) - (child_width // 2)
         pos_y = parent_y + (parent_height // 2) - (child_height // 2)
+
         child.geometry(f"+{pos_x}+{pos_y}")
+
+    # ------------------------------------------------------------------------
+    # TIME INPUT LOGIC
+    # ------------------------------------------------------------------------
+
+    # Note: The time input logic was already handled in setup_time_inputs and related methods.
+
+    # ------------------------------------------------------------------------
+    # SAVE / LOAD / EXPORT
+    # ------------------------------------------------------------------------
+
+    # The save_record and populate_history methods have been updated above.
+
+    # ------------------------------------------------------------------------
+    # HISTORY & CONTEXT MENUS
+    # ------------------------------------------------------------------------
+
+    # The sort_by_column method was added to handle column sorting.
+
+    def sort_by_column(self, col):
+        # Toggle sort state
+        self.sort_states[col] = not self.sort_states[col]
+        reverse = self.sort_states[col]
+
+        # Define a key function based on the column
+        if col in ["Late Minutes", "Undertime Minutes", "Deduction Points"]:
+            key_func = lambda x: float(x[col.replace(" ", "_").lower()])
+        elif col == "Date":
+            key_func = lambda x: datetime.strptime(x[col.lower().replace(" ", "_")], "%Y-%m-%d")
+        else:
+            key_func = lambda x: x[col.replace(" ", "_").lower()]
+
+        # Sort the current_records
+        self.current_records.sort(key=key_func, reverse=reverse)
+        self.populate_history()
+
+    # ------------------------------------------------------------------------
+    # HELP & ABOUT DIALOGS
+    # ------------------------------------------------------------------------
+
+    # These methods were implemented above.
+
+    # ------------------------------------------------------------------------
+    # MAIN APPLICATION LOGIC
+    # ------------------------------------------------------------------------
+
+    # All main logic methods have been implemented above.
 
 
 class EditRecordDialog:

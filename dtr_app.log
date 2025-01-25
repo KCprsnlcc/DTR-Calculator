@@ -1641,3 +1641,113 @@
 2025-01-25 22:44:29,599 - INFO - Theme changed to superhero mode.
 2025-01-25 22:44:36,609 - INFO - Theme changed to flatly mode.
 2025-01-25 22:44:40,051 - INFO - Application closed.
+2025-01-25 22:47:00,981 - INFO - Application started.
+2025-01-25 22:47:01,178 - INFO - History populated in Treeview.
+2025-01-25 22:47:07,312 - INFO - Records saved successfully.
+2025-01-25 22:49:33,298 - INFO - Record saved for 2025-01-25: 0.0 points.
+2025-01-25 22:49:33,299 - INFO - History populated in Treeview.
+2025-01-25 22:49:37,070 - INFO - Theme changed to superhero mode.
+2025-01-25 22:49:38,789 - INFO - Theme changed to flatly mode.
+2025-01-25 22:52:21,637 - INFO - Theme changed to superhero mode.
+2025-01-25 22:52:28,091 - INFO - Theme changed to flatly mode.
+2025-01-25 22:52:36,521 - INFO - Theme changed to superhero mode.
+2025-01-25 22:52:41,864 - INFO - Theme changed to flatly mode.
+2025-01-25 22:52:50,501 - INFO - Theme changed to superhero mode.
+2025-01-25 22:52:52,293 - INFO - Entered full-screen mode.
+2025-01-25 22:52:54,227 - INFO - Exited full-screen mode.
+2025-01-25 22:53:22,328 - INFO - Application started.
+2025-01-25 22:53:22,557 - INFO - History populated in Treeview.
+2025-01-25 22:53:25,244 - INFO - Theme changed to flatly mode.
+2025-01-25 22:53:25,892 - INFO - Theme changed to superhero mode.
+2025-01-25 22:53:40,123 - INFO - Entered full-screen mode.
+2025-01-25 22:53:58,519 - INFO - Exited full-screen mode.
+2025-01-25 22:54:03,441 - INFO - Theme changed to flatly mode.
+2025-01-25 22:54:04,540 - INFO - Theme changed to superhero mode.
+2025-01-25 22:55:17,004 - INFO - Application closed.
+2025-01-25 22:57:18,135 - INFO - Application started.
+2025-01-25 22:57:18,324 - INFO - History populated in Treeview.
+2025-01-25 22:57:26,638 - INFO - Records saved successfully.
+2025-01-25 22:57:33,603 - INFO - Record saved for 2025-01-25: 0.0 points.
+2025-01-25 22:57:33,604 - INFO - History populated in Treeview.
+2025-01-25 22:57:38,050 - INFO - History populated in Treeview.
+2025-01-25 22:57:40,590 - INFO - Records saved successfully.
+2025-01-25 22:57:45,572 - INFO - Record saved for 2025-01-25: 0.0 points.
+2025-01-25 22:57:45,573 - INFO - History populated in Treeview.
+2025-01-25 22:57:49,214 - INFO - History populated in Treeview.
+2025-01-25 22:57:51,403 - INFO - Records saved successfully.
+2025-01-25 22:57:55,305 - INFO - Record saved for 2025-01-25: 0.0 points.
+2025-01-25 22:57:55,306 - INFO - History populated in Treeview.
+2025-01-25 22:58:09,452 - WARNING - Invalid Actual Time In for Morning.
+2025-01-25 22:58:13,930 - INFO - Records saved successfully.
+2025-01-25 22:58:15,524 - INFO - Record saved for 2025-01-25: 0.0 points.
+2025-01-25 22:58:15,524 - INFO - History populated in Treeview.
+2025-01-25 22:58:22,070 - INFO - Theme changed to superhero mode.
+2025-01-25 22:58:27,317 - WARNING - Invalid Actual Time In for Morning.
+2025-01-25 22:58:46,774 - WARNING - Invalid Actual Time In for Morning.
+2025-01-25 22:58:49,136 - INFO - History populated in Treeview.
+2025-01-25 22:58:49,137 - INFO - Date changed to 2025-01-27
+2025-01-25 22:58:54,455 - WARNING - Invalid Actual Time Out for Afternoon.
+2025-01-25 22:58:58,696 - INFO - Calculated Deductions. Late: 0.0, Undertime: 0.0, Half-day(s): 0.5, Total: 0.5
+2025-01-25 22:58:59,971 - INFO - Calculated Deductions. Late: 0.0, Undertime: 0.0, Half-day(s): 0.5, Total: 0.5
+2025-01-25 22:59:00,177 - INFO - Calculated Deductions. Late: 0.0, Undertime: 0.0, Half-day(s): 0.5, Total: 0.5
+2025-01-25 22:59:00,369 - INFO - Calculated Deductions. Late: 0.0, Undertime: 0.0, Half-day(s): 0.5, Total: 0.5
+2025-01-25 22:59:00,549 - INFO - Calculated Deductions. Late: 0.0, Undertime: 0.0, Half-day(s): 0.5, Total: 0.5
+2025-01-25 22:59:07,188 - INFO - Calculated Deductions. Late: 0.125, Undertime: 0.0, Half-day(s): 0.5, Total: 0.625
+2025-01-25 22:59:12,207 - INFO - Theme changed to flatly mode.
+2025-01-25 22:59:22,272 - INFO - Theme changed to superhero mode.
+2025-01-25 22:59:23,914 - INFO - Theme changed to flatly mode.
+2025-01-25 22:59:25,506 - INFO - Theme changed to superhero mode.
+2025-01-25 22:59:26,388 - INFO - Theme changed to flatly mode.
+2025-01-25 22:59:28,171 - INFO - Theme changed to superhero mode.
+2025-01-25 22:59:31,184 - INFO - Application closed.
+2025-01-25 22:59:35,993 - INFO - Application started.
+2025-01-25 22:59:36,176 - INFO - History populated in Treeview.
+2025-01-25 22:59:37,757 - INFO - Records saved successfully.
+2025-01-25 22:59:39,334 - INFO - Record saved for 2025-01-25: 0.0 points.
+2025-01-25 22:59:39,335 - INFO - History populated in Treeview.
+2025-01-25 23:00:06,347 - INFO - History populated in Treeview.
+2025-01-25 23:00:08,992 - INFO - History populated in Treeview.
+2025-01-25 23:00:09,216 - INFO - History populated in Treeview.
+2025-01-25 23:00:09,459 - INFO - History populated in Treeview.
+2025-01-25 23:00:09,667 - INFO - History populated in Treeview.
+2025-01-25 23:00:09,869 - INFO - History populated in Treeview.
+2025-01-25 23:00:10,060 - INFO - History populated in Treeview.
+2025-01-25 23:00:10,281 - INFO - History populated in Treeview.
+2025-01-25 23:00:10,483 - INFO - History populated in Treeview.
+2025-01-25 23:00:15,132 - INFO - History populated in Treeview.
+2025-01-25 23:00:16,241 - INFO - History populated in Treeview.
+2025-01-25 23:00:17,392 - INFO - History populated in Treeview.
+2025-01-25 23:00:18,240 - INFO - History populated in Treeview.
+2025-01-25 23:00:24,725 - INFO - History populated in Treeview.
+2025-01-25 23:00:27,394 - INFO - History populated in Treeview.
+2025-01-25 23:00:30,029 - INFO - History populated in Treeview.
+2025-01-25 23:00:33,522 - INFO - History populated in Treeview.
+2025-01-25 23:00:42,308 - INFO - History populated in Treeview.
+2025-01-25 23:00:42,308 - INFO - Searched records from 2025-01-25 to 2025-01-25.
+2025-01-25 23:00:49,356 - INFO - History populated in Treeview.
+2025-01-25 23:00:50,061 - INFO - History populated in Treeview.
+2025-01-25 23:00:50,604 - INFO - History populated in Treeview.
+2025-01-25 23:00:50,798 - INFO - History populated in Treeview.
+2025-01-25 23:00:50,980 - INFO - History populated in Treeview.
+2025-01-25 23:00:51,173 - INFO - History populated in Treeview.
+2025-01-25 23:00:51,362 - INFO - History populated in Treeview.
+2025-01-25 23:00:51,592 - INFO - History populated in Treeview.
+2025-01-25 23:00:52,016 - INFO - History populated in Treeview.
+2025-01-25 23:00:52,225 - INFO - History populated in Treeview.
+2025-01-25 23:00:52,442 - INFO - History populated in Treeview.
+2025-01-25 23:00:52,796 - INFO - History populated in Treeview.
+2025-01-25 23:00:52,969 - INFO - History populated in Treeview.
+2025-01-25 23:00:53,193 - INFO - History populated in Treeview.
+2025-01-25 23:00:55,994 - INFO - History populated in Treeview.
+2025-01-25 23:00:56,785 - INFO - History populated in Treeview.
+2025-01-25 23:00:59,207 - INFO - History populated in Treeview.
+2025-01-25 23:00:59,927 - INFO - History populated in Treeview.
+2025-01-25 23:01:00,586 - INFO - History populated in Treeview.
+2025-01-25 23:01:07,708 - INFO - History populated in Treeview.
+2025-01-25 23:01:07,708 - INFO - Searched records from 2025-01-25 to 2025-01-25.
+2025-01-25 23:01:08,776 - INFO - History populated in Treeview.
+2025-01-25 23:01:08,776 - INFO - Searched records from 2025-01-25 to 2025-01-25.
+2025-01-25 23:01:20,721 - INFO - History populated in Treeview.
+2025-01-25 23:01:20,722 - INFO - Searched records from 2024-01-25 to 2025-01-25.
+2025-01-25 23:01:37,632 - INFO - Theme changed to superhero mode.
+2025-01-25 23:01:54,696 - INFO - Application closed.
