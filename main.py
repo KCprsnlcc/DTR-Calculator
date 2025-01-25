@@ -303,18 +303,14 @@ class DailyTimeRecordApp:
     # ------------------------------------------------------------------------
     def apply_apple_calculator_light_style(self):
         """
-        Apple Calculator–inspired LIGHT mode:
-         - White background
-         - Black text
-         - Light grays for frames & buttons
-         - Orange highlight for primary button
+        Apple Calculator–inspired LIGHT mode
         """
         # Colors
-        BG_LIGHT = "#FFFFFF"      # main background (white)
-        BG_FRAME = "#F2F2F2"      # lighter gray for frames
-        FG_TEXT = "#000000"       # black text
-        BTN_GRAY = "#D0D0D0"      # normal button background
-        BTN_ORANGE = "#FF9500"    # primary highlight (orange)
+        BG_LIGHT = "#FFFFFF"
+        BG_FRAME = "#F2F2F2"
+        FG_TEXT = "#000000"
+        BTN_GRAY = "#D0D0D0"
+        BTN_ORANGE = "#FF9500"
         BTN_HOVER_GRAY = "#C0C0C0"
         BTN_HOVER_ORANGE = "#FFB340"
 
@@ -401,12 +397,7 @@ class DailyTimeRecordApp:
 
     def apply_apple_calculator_dark_style(self):
         """
-        Apple Calculator–inspired DARK mode:
-         - Dark gray backgrounds
-         - White text
-         - Gray buttons
-         - Orange highlight for primary button
-         - Override any default "dark blue" so text is white
+        Apple Calculator–inspired DARK mode
         """
         BG_DARK = "#333333"
         BG_FRAME = "#3C3C3C"
@@ -489,24 +480,31 @@ class DailyTimeRecordApp:
         # Force any possible link or accent text to white
         self.master.option_add("*foreground", "white")
 
-        # Also override the menubar text color (if possible)
+        # Also override the menubar text color
         menubar = tk.Menu(self.master, bg=BG_DARK, fg="white", activebackground=BG_DARK, activeforeground="white")
         self.master.configure(menu=menubar)
 
     def update_label_colors(self):
         """
-        Updates the colors of labels for Late and Undertime calculations based on the theme.
+        Updates the colors of labels for Late/Undertime and other main labels,
+        ensuring that dark mode text is white, light mode text is black.
         """
         if self.current_theme == "flatly":  # Light mode
-            text_color = "#000000"  # Black
+            text_color = "#000000"
         else:  # Dark mode
-            text_color = "#FFFFFF"  # White
+            text_color = "#FFFFFF"
 
-        # Update the foreground color of the labels
+        # FIX: enforced white in dark mode (or black in light) for all key labels
         self.label_morning_late.config(foreground=text_color)
         self.label_morning_late_deduction.config(foreground=text_color)
         self.label_afternoon_undertime.config(foreground=text_color)
         self.label_afternoon_undertime_deduction.config(foreground=text_color)
+
+        # Additional key labels:
+        self.label_day.config(foreground=text_color)
+        self.label_supposed_time_in.config(foreground=text_color)
+        self.label_supposed_time_out.config(foreground=text_color)
+        self.label_deductions.config(foreground=text_color)
 
     def change_theme(self, theme_name):
         """
@@ -519,8 +517,9 @@ class DailyTimeRecordApp:
             self.apply_apple_calculator_light_style()
             logging.info("Theme changed to Light Mode (Apple Calculator style).")
         else:
-            # Dark Mode
-            self.style.theme_use("darkly")
+            # We'll treat anything else as Dark Mode
+            # If the button passes "superhero", let's just do "darkly" style as an example
+            self.style.theme_use("darkly")  # or "superhero", but let's keep "darkly"
             self.apply_apple_calculator_dark_style()
             logging.info("Theme changed to Dark Mode (Apple Calculator style).")
 
@@ -628,6 +627,7 @@ class DailyTimeRecordApp:
         self.button_dark_mode = ttkb.Button(
             theme_buttons_frame,
             text="Dark Mode",
+            # We pass something other than 'flatly' to trigger dark style
             command=lambda: self.change_theme("superhero"),
             style="Calc.TButton"
         )
@@ -1790,7 +1790,8 @@ This version includes:
 Default sort: Date = newest first (descending).
 Click each column header to toggle ascending/descending.
 """
-        label_overview = tk.Text(tab_overview, wrap="word", font=("Helvetica", 12), bg=help_window.cget("bg"), borderwidth=0)
+        label_overview = tk.Text(tab_overview, wrap="word", font=("Helvetica", 12),
+                                 bg=help_window.cget("bg"), borderwidth=0)
         label_overview.insert("1.0", overview_content)
         label_overview.config(state="disabled")
         label_overview.pack(fill="both", expand=True, padx=10, pady=10)
@@ -1813,12 +1814,14 @@ Click each column header to toggle ascending/descending.
    - 'Edit Record' modifies Actual Time In/Out only; deductions auto-recalc.
    - Click column headers to toggle ascending/descending sort.
 """
-        label_guide = tk.Text(tab_guide, wrap="word", font=("Helvetica", 12), bg=help_window.cget("bg"), borderwidth=0)
+        label_guide = tk.Text(tab_guide, wrap="word", font=("Helvetica", 12),
+                              bg=help_window.cget("bg"), borderwidth=0)
         label_guide.insert("1.0", guide_content)
         label_guide.config(state="disabled")
         label_guide.pack(fill="both", expand=True, padx=10, pady=10)
 
-        if self.current_theme in ['superhero']:
+        # FIX: enforce white in dark mode
+        if self.current_theme != 'flatly':  # e.g. 'superhero' => dark
             label_overview.config(fg="white")
             label_guide.config(fg="white")
         else:
@@ -1848,12 +1851,14 @@ GitHub: https://github.com/KCprsnlcc
 
 Disclaimer: Use at your own risk. Keep data backups.
 """
-        label_about = tk.Text(frame, wrap="word", font=("Helvetica", 12), bg=about_window.cget("bg"), borderwidth=0)
+        label_about = tk.Text(frame, wrap="word", font=("Helvetica", 12),
+                              bg=about_window.cget("bg"), borderwidth=0)
         label_about.insert("1.0", about_content)
         label_about.config(state="disabled")
         label_about.pack(fill="both", expand=True)
 
-        if self.current_theme in ['superhero']:
+        # FIX: enforce white in dark mode
+        if self.current_theme != 'flatly':
             label_about.config(fg="white")
         else:
             label_about.config(fg="black")

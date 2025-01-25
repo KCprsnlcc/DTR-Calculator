@@ -1160,3 +1160,135 @@
 2025-01-25 21:02:06,186 - INFO - History populated in Treeview.
 2025-01-25 21:02:08,141 - INFO - Theme changed to Dark Mode (Apple Calculator style).
 2025-01-25 21:02:10,671 - INFO - Application closed.
+2025-01-25 21:02:31,517 - INFO - Application started.
+2025-01-25 21:02:31,680 - INFO - History populated in Treeview.
+2025-01-25 21:02:33,774 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 21:03:13,203 - WARNING - Invalid Actual Time In for Morning.
+2025-01-25 21:03:14,590 - INFO - Records saved successfully.
+2025-01-25 21:03:16,200 - INFO - Record saved for 2025-01-25: 0.0 points.
+2025-01-25 21:03:16,200 - INFO - History populated in Treeview.
+2025-01-25 21:04:31,053 - INFO - User chose not to add another record for 2025-01-25.
+2025-01-25 21:04:36,483 - INFO - History populated in Treeview.
+2025-01-25 21:04:36,483 - INFO - Date changed to 2025-01-28
+2025-01-25 21:04:40,572 - INFO - History populated in Treeview.
+2025-01-25 21:04:40,572 - INFO - Date changed to 2025-01-27
+2025-01-25 21:04:51,947 - WARNING - Invalid Actual Time In for Morning.
+2025-01-25 21:04:55,826 - INFO - Calculated Deductions. Late: 0.125, Undertime: 0.0, Half-day(s): 0.5, Total: 0.625
+2025-01-25 21:06:45,785 - INFO - Application started.
+2025-01-25 21:06:45,963 - INFO - History populated in Treeview.
+2025-01-25 21:06:49,631 - INFO - Theme changed to Light Mode (Apple Calculator style).
+2025-01-25 21:06:50,753 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 21:06:53,755 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 21:06:54,439 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 21:06:54,674 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 21:06:55,700 - INFO - Theme changed to Light Mode (Apple Calculator style).
+2025-01-25 21:06:57,239 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 21:06:58,831 - INFO - Theme changed to Light Mode (Apple Calculator style).
+2025-01-25 21:07:00,904 - INFO - Application closed.
+2025-01-25 21:07:19,838 - INFO - Application started.
+2025-01-25 21:07:20,001 - INFO - History populated in Treeview.
+2025-01-25 21:07:24,137 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 21:07:25,414 - INFO - Theme changed to Light Mode (Apple Calculator style).
+2025-01-25 21:07:25,615 - INFO - Theme changed to Light Mode (Apple Calculator style).
+2025-01-25 21:07:25,833 - INFO - Theme changed to Light Mode (Apple Calculator style).
+2025-01-25 21:07:26,855 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 21:07:27,969 - INFO - Theme changed to Light Mode (Apple Calculator style).
+2025-01-25 21:07:30,056 - INFO - Application closed.
+2025-01-25 21:07:39,453 - INFO - Application started.
+2025-01-25 21:07:39,628 - INFO - History populated in Treeview.
+2025-01-25 21:07:42,511 - INFO - Application closed.
+2025-01-25 21:07:49,545 - INFO - Application started.
+2025-01-25 21:07:49,702 - INFO - History populated in Treeview.
+2025-01-25 21:07:52,034 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 21:07:52,956 - INFO - Theme changed to Light Mode (Apple Calculator style).
+2025-01-25 21:09:07,246 - WARNING - Invalid Actual Time In for Morning.
+2025-01-25 21:10:04,485 - INFO - Application closed.
+2025-01-25 21:10:35,584 - INFO - Application started.
+2025-01-25 21:10:35,752 - INFO - History populated in Treeview.
+2025-01-25 21:10:37,706 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 21:10:41,257 - INFO - Theme changed to Light Mode (Apple Calculator style).
+2025-01-25 21:10:43,471 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 21:10:49,572 - ERROR - Supposed Time In is not set.
+2025-01-25 21:10:54,506 - ERROR - Supposed Time In is not set.
+2025-01-25 21:10:56,948 - INFO - History populated in Treeview.
+2025-01-25 21:10:56,948 - INFO - Date changed to 2025-01-27
+2025-01-25 21:10:58,784 - INFO - Calculated Deductions. Late: 0.0, Undertime: 0.0, Half-day(s): 0.5, Total: 0.5
+2025-01-25 21:10:59,942 - INFO - Calculated Deductions. Late: 0.0, Undertime: 0.0, Half-day(s): 0.5, Total: 0.5
+2025-01-25 21:11:00,193 - INFO - Calculated Deductions. Late: 0.0, Undertime: 0.0, Half-day(s): 0.5, Total: 0.5
+2025-01-25 21:11:06,892 - INFO - Theme changed to Light Mode (Apple Calculator style).
+2025-01-25 21:11:12,117 - INFO - Calculated Deductions. Late: 0.0, Undertime: 0.0, Half-day(s): 0.5, Total: 0.5
+2025-01-25 21:11:17,663 - INFO - Calculated Deductions. Late: 0.719, Undertime: 0.0, Half-day(s): 0.5, Total: 1.219
+2025-01-25 21:11:43,164 - INFO - Calculated Deductions. Late: 0.719, Undertime: 1.0, Half-day(s): 0.0, Total: 1.719
+2025-01-25 21:11:52,234 - INFO - Calculated Deductions. Late: 0.0, Undertime: 0.431, Half-day(s): 0.0, Total: 0.431
+2025-01-25 21:11:52,667 - INFO - Calculated Deductions. Late: 0.0, Undertime: 0.431, Half-day(s): 0.0, Total: 0.431
+2025-01-25 21:11:52,883 - INFO - Calculated Deductions. Late: 0.0, Undertime: 0.431, Half-day(s): 0.0, Total: 0.431
+2025-01-25 21:11:53,053 - INFO - Calculated Deductions. Late: 0.0, Undertime: 0.431, Half-day(s): 0.0, Total: 0.431
+2025-01-25 21:11:53,208 - INFO - Calculated Deductions. Late: 0.0, Undertime: 0.431, Half-day(s): 0.0, Total: 0.431
+2025-01-25 21:12:07,155 - INFO - User chose not to add another record for 2025-01-27.
+2025-01-25 21:12:08,849 - INFO - User chose not to add another record for 2025-01-27.
+2025-01-25 21:12:15,593 - INFO - User chose not to add another record for 2025-01-27.
+2025-01-25 21:12:21,615 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 21:12:22,239 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 21:12:22,418 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 21:12:22,588 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 21:13:15,729 - INFO - Theme changed to Light Mode (Apple Calculator style).
+2025-01-25 21:13:17,551 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 21:15:12,373 - INFO - Application closed.
+2025-01-25 21:15:16,853 - INFO - Application started.
+2025-01-25 21:15:17,030 - INFO - History populated in Treeview.
+2025-01-25 21:15:26,664 - INFO - History populated in Treeview.
+2025-01-25 21:15:26,666 - INFO - Date changed to 2025-01-27
+2025-01-25 21:15:34,026 - WARNING - Invalid Actual Time Out for Afternoon.
+2025-01-25 21:15:49,135 - WARNING - Invalid Actual Time Out for Afternoon.
+2025-01-25 21:15:50,341 - WARNING - Invalid Actual Time Out for Afternoon.
+2025-01-25 21:15:53,897 - INFO - Calculated Deductions. Late: 0.25, Undertime: 1.0, Half-day(s): 0.0, Total: 1.25
+2025-01-25 21:15:59,729 - INFO - Calculated Deductions. Late: 0.25, Undertime: 0.0, Half-day(s): 0.0, Total: 0.25
+2025-01-25 21:16:06,941 - INFO - Calculated Deductions. Late: 0.25, Undertime: 0.0, Half-day(s): 0.0, Total: 0.25
+2025-01-25 21:16:07,344 - INFO - Calculated Deductions. Late: 0.25, Undertime: 0.0, Half-day(s): 0.0, Total: 0.25
+2025-01-25 21:16:18,501 - INFO - History populated in Treeview.
+2025-01-25 21:16:18,501 - INFO - Date changed to 2025-01-28
+2025-01-25 21:16:22,183 - INFO - Calculated Deductions. Late: 0.181, Undertime: 0.0, Half-day(s): 0.0, Total: 0.181
+2025-01-25 21:16:27,139 - INFO - History populated in Treeview.
+2025-01-25 21:16:27,139 - INFO - Date changed to 2025-01-27
+2025-01-25 21:16:30,347 - INFO - Calculated Deductions. Late: 0.25, Undertime: 0.0, Half-day(s): 0.0, Total: 0.25
+2025-01-25 21:16:53,245 - INFO - History populated in Treeview.
+2025-01-25 21:16:53,245 - INFO - Date changed to 2025-01-29
+2025-01-25 21:16:55,367 - INFO - Calculated Deductions. Late: 0.181, Undertime: 0.0, Half-day(s): 0.0, Total: 0.181
+2025-01-25 21:17:08,590 - INFO - Calculated Deductions. Late: 0.0, Undertime: 0.0, Half-day(s): 0.0, Total: 0.0
+2025-01-25 21:17:14,201 - INFO - Calculated Deductions. Late: 0.181, Undertime: 0.0, Half-day(s): 0.0, Total: 0.181
+2025-01-25 21:17:33,639 - INFO - Calculated Deductions. Late: 0.0, Undertime: 0.0, Half-day(s): 0.0, Total: 0.0
+2025-01-25 21:17:36,724 - INFO - Calculated Deductions. Late: 0.0, Undertime: 0.0, Half-day(s): 0.0, Total: 0.0
+2025-01-25 21:17:42,810 - INFO - Calculated Deductions. Late: 0.0, Undertime: 0.0, Half-day(s): 0.0, Total: 0.0
+2025-01-25 21:17:53,365 - INFO - Records saved successfully.
+2025-01-25 21:17:55,289 - INFO - Record saved for 2025-01-29: 0.0 points.
+2025-01-25 21:17:55,289 - INFO - History populated in Treeview.
+2025-01-25 21:17:59,857 - INFO - User chose not to add another record for 2025-01-29.
+2025-01-25 21:18:05,058 - INFO - User chose not to add another record for 2025-01-29.
+2025-01-25 21:18:07,946 - INFO - User chose not to add another record for 2025-01-29.
+2025-01-25 21:18:23,563 - INFO - Calculated Deductions. Late: 0.0, Undertime: 0.125, Half-day(s): 0.0, Total: 0.125
+2025-01-25 21:18:36,613 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 21:18:39,625 - INFO - Theme changed to Light Mode (Apple Calculator style).
+2025-01-25 21:18:40,959 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 21:18:45,348 - INFO - Application closed.
+2025-01-25 21:18:50,346 - INFO - Application started.
+2025-01-25 21:18:50,509 - INFO - History populated in Treeview.
+2025-01-25 21:18:53,365 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 21:19:01,248 - WARNING - Invalid Actual Time In for Morning.
+2025-01-25 21:19:06,213 - WARNING - Invalid Actual Time In for Morning.
+2025-01-25 21:19:12,296 - ERROR - Supposed Time In is not set.
+2025-01-25 21:19:14,905 - ERROR - Supposed Time In is not set.
+2025-01-25 21:19:17,973 - INFO - History populated in Treeview.
+2025-01-25 21:19:17,973 - INFO - Date changed to 2025-01-30
+2025-01-25 21:19:21,019 - INFO - Calculated Deductions. Late: 0.0, Undertime: 0.0, Half-day(s): 0.5, Total: 0.5
+2025-01-25 21:19:21,812 - INFO - Calculated Deductions. Late: 0.0, Undertime: 0.0, Half-day(s): 0.5, Total: 0.5
+2025-01-25 21:19:22,260 - INFO - Calculated Deductions. Late: 0.0, Undertime: 0.0, Half-day(s): 0.5, Total: 0.5
+2025-01-25 21:19:23,358 - INFO - Calculated Deductions. Late: 0.0, Undertime: 0.0, Half-day(s): 0.5, Total: 0.5
+2025-01-25 21:19:23,558 - INFO - Calculated Deductions. Late: 0.0, Undertime: 0.0, Half-day(s): 0.5, Total: 0.5
+2025-01-25 21:19:23,753 - INFO - Calculated Deductions. Late: 0.0, Undertime: 0.0, Half-day(s): 0.5, Total: 0.5
+2025-01-25 21:19:34,689 - INFO - Calculated Deductions. Late: 0.085, Undertime: 0.0, Half-day(s): 0.5, Total: 0.585
+2025-01-25 21:19:50,680 - INFO - Theme changed to Light Mode (Apple Calculator style).
+2025-01-25 21:20:06,262 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 21:20:08,355 - INFO - Theme changed to Light Mode (Apple Calculator style).
+2025-01-25 21:20:11,244 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 21:20:13,242 - INFO - Theme changed to Light Mode (Apple Calculator style).
+2025-01-25 21:20:14,998 - INFO - Application closed.
