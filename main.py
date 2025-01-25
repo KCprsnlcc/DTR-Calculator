@@ -331,7 +331,7 @@ class DailyTimeRecordApp:
             bordercolor=BTN_GRAY,
             focusthickness=0,
             relief="flat",
-            font=("Helvetica", 10, "bold")
+            font=("Helvetica", 10)
         )
         self.style.map(
             "Calc.TButton",
@@ -345,7 +345,7 @@ class DailyTimeRecordApp:
             bordercolor=BTN_ORANGE,
             focusthickness=0,
             relief="flat",
-            font=("Helvetica", 10, "bold")
+            font=("Helvetica", 10)
         )
         self.style.map(
             "CalcPrimary.TButton",
@@ -427,7 +427,7 @@ class DailyTimeRecordApp:
             bordercolor=BTN_GRAY,
             focusthickness=0,
             relief="flat",
-            font=("Helvetica", 10, "bold")
+            font=("Helvetica", 10)
         )
         self.style.map(
             "Calc.TButton",
@@ -442,7 +442,7 @@ class DailyTimeRecordApp:
             bordercolor=BTN_ORANGE,
             focusthickness=0,
             relief="flat",
-            font=("Helvetica", 10, "bold")
+            font=("Helvetica", 10)
         )
         self.style.map(
             "CalcPrimary.TButton",
@@ -606,7 +606,7 @@ class DailyTimeRecordApp:
         Tooltip(self.month_combo, "Select Month")
         Tooltip(self.day_combo, "Select Day")
 
-        self.label_day = ttk.Label(labels_frame, text=f"Day: {self.current_day}", font=("Inter", 16))
+        self.label_day = ttk.Label(labels_frame, text=f"Day: {self.current_day}", font=("Helvetica", 16))
         self.label_day.pack(pady=5, anchor="w")
 
         theme_buttons_frame = ttkb.Frame(header_frame)
@@ -655,7 +655,7 @@ class DailyTimeRecordApp:
         left_morning_frame = ttkb.Frame(self.frame_morning)
         left_morning_frame.pack(side="left", fill="x", expand=True)
 
-        self.label_supposed_time_in = ttk.Label(left_morning_frame, text="Supposed Time In: --:-- --", font=("Inter", 12))
+        self.label_supposed_time_in = ttk.Label(left_morning_frame, text="Supposed Time In: --:-- --", font=("Helvetica", 12))
         self.label_supposed_time_in.pack(anchor="w", pady=(0, 5))
 
         self.create_actual_time_input(left_morning_frame, "Actual Time In:", "morning_actual_time_in")
@@ -673,7 +673,7 @@ class DailyTimeRecordApp:
         self.label_morning_late = ttk.Label(
             right_morning_frame,
             text="Late: 0 minutes",
-            font=("Inter", 13, "bold"),
+            font=("Helvetica", 13, "bold"),
             foreground="#000000"
         )
         self.label_morning_late.pack(anchor="center", pady=5)
@@ -681,7 +681,7 @@ class DailyTimeRecordApp:
         self.label_morning_late_deduction = ttk.Label(
             right_morning_frame,
             text="Late Deduction: 0.000",
-            font=("Inter", 13, "bold"),
+            font=("Helvetica", 13, "bold"),
             foreground="#000000"
         )
         self.label_morning_late_deduction.pack(anchor="center", pady=5)
@@ -701,7 +701,7 @@ class DailyTimeRecordApp:
         left_afternoon_frame = ttkb.Frame(self.frame_afternoon)
         left_afternoon_frame.pack(side="left", fill="x", expand=True)
 
-        self.label_supposed_time_out = ttk.Label(left_afternoon_frame, text="Supposed Time Out: --:-- --", font=("Inter", 12))
+        self.label_supposed_time_out = ttk.Label(left_afternoon_frame, text="Supposed Time Out: --:-- --", font=("Helvetica", 12))
         self.label_supposed_time_out.pack(anchor="w", pady=(0, 5))
 
         self.create_actual_time_input(left_afternoon_frame, "Actual Time Out:", "afternoon_actual_time_out")
@@ -719,7 +719,7 @@ class DailyTimeRecordApp:
         self.label_afternoon_undertime = ttk.Label(
             right_afternoon_frame,
             text="Undertime: 0 minutes",
-            font=("Inter", 13, "bold"),
+            font=("Helvetica", 13, "bold"),
             foreground="#000000"
         )
         self.label_afternoon_undertime.pack(anchor="center", pady=5)
@@ -727,7 +727,7 @@ class DailyTimeRecordApp:
         self.label_afternoon_undertime_deduction = ttk.Label(
             right_afternoon_frame,
             text="Undertime Deduction: 0.000",
-            font=("Inter", 13, "bold"),
+            font=("Helvetica", 13, "bold"),
             foreground="#000000"
         )
         self.label_afternoon_undertime_deduction.pack(anchor="center", pady=5)
@@ -770,7 +770,7 @@ class DailyTimeRecordApp:
         self.button_export.grid(row=0, column=2, padx=5, pady=5, sticky="ew")
         Tooltip(self.button_export, "Export deduction history to CSV")
 
-        self.label_deductions = ttk.Label(self.master, text="Total Deduction Points: 0.000", font=("Inter", 16, "bold"))
+        self.label_deductions = ttk.Label(self.master, text="Total Deduction Points: 0.000", font=("Helvetica", 16, "bold"))
         self.label_deductions.pack(pady=20)
 
     def setup_history(self):
@@ -1786,7 +1786,7 @@ This version includes:
 Default sort: Date = newest first (descending).
 Click each column header to toggle ascending/descending.
 """
-        label_overview = tk.Text(tab_overview, wrap="word", font=("Inter", 12), bg=help_window.cget("bg"), borderwidth=0)
+        label_overview = tk.Text(tab_overview, wrap="word", font=("Helvetica", 12), bg=help_window.cget("bg"), borderwidth=0)
         label_overview.insert("1.0", overview_content)
         label_overview.config(state="disabled")
         label_overview.pack(fill="both", expand=True, padx=10, pady=10)
@@ -1809,7 +1809,7 @@ Click each column header to toggle ascending/descending.
    - 'Edit Record' modifies Actual Time In/Out only; deductions auto-recalc.
    - Click column headers to toggle ascending/descending sort.
 """
-        label_guide = tk.Text(tab_guide, wrap="word", font=("Inter", 12), bg=help_window.cget("bg"), borderwidth=0)
+        label_guide = tk.Text(tab_guide, wrap="word", font=("Helvetica", 12), bg=help_window.cget("bg"), borderwidth=0)
         label_guide.insert("1.0", guide_content)
         label_guide.config(state="disabled")
         label_guide.pack(fill="both", expand=True, padx=10, pady=10)
@@ -1844,7 +1844,7 @@ GitHub: https://github.com/KCprsnlcc
 
 Disclaimer: Use at your own risk. Keep data backups.
 """
-        label_about = tk.Text(frame, wrap="word", font=("Inter", 12), bg=about_window.cget("bg"), borderwidth=0)
+        label_about = tk.Text(frame, wrap="word", font=("Helvetica", 12), bg=about_window.cget("bg"), borderwidth=0)
         label_about.insert("1.0", about_content)
         label_about.config(state="disabled")
         label_about.pack(fill="both", expand=True)
@@ -1883,7 +1883,7 @@ class EditRecordDialog:
         self.top.title("Edit Record")
         self.top.grab_set()
 
-        date_lbl = ttk.Label(self.top, text=f"Date: {record_data['date']}", font=("Inter", 12, "bold"))
+        date_lbl = ttk.Label(self.top, text=f"Date: {record_data['date']}", font=("Helvetica", 12, "bold"))
         date_lbl.pack(pady=5, anchor="w")
 
         frame_morn = ttk.LabelFrame(self.top, text="Morning Actual Time In")

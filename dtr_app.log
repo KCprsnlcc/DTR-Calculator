@@ -1032,3 +1032,101 @@
 2025-01-24 22:36:04,631 - INFO - History exported to C:/Users/kcper/OneDrive/Documents/test.csv
 2025-01-24 22:36:35,019 - INFO - Theme changed to Light Mode (Apple Calculator style).
 2025-01-24 22:36:45,572 - INFO - Application closed.
+2025-01-25 19:25:46,738 - INFO - Application started.
+2025-01-25 19:25:47,434 - INFO - History populated in Treeview.
+2025-01-25 19:30:34,823 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 19:30:39,314 - INFO - Theme changed to Light Mode (Apple Calculator style).
+2025-01-25 19:30:42,286 - INFO - Application closed.
+2025-01-25 19:33:19,493 - INFO - Application started.
+2025-01-25 19:33:19,664 - INFO - History populated in Treeview.
+2025-01-25 19:33:23,001 - WARNING - Invalid Actual Time In for Morning.
+2025-01-25 19:33:30,535 - WARNING - Invalid Actual Time In for Morning.
+2025-01-25 19:33:34,860 - ERROR - Supposed Time In is not set.
+2025-01-25 19:33:43,238 - ERROR - Supposed Time In is not set.
+2025-01-25 19:33:45,786 - INFO - Application closed.
+2025-01-25 19:33:52,058 - INFO - Application started.
+2025-01-25 19:33:52,251 - INFO - History populated in Treeview.
+2025-01-25 19:34:07,831 - INFO - History populated in Treeview.
+2025-01-25 19:34:07,831 - INFO - Date changed to 2025-01-25
+2025-01-25 19:34:12,109 - INFO - History populated in Treeview.
+2025-01-25 19:34:12,109 - INFO - Date changed to 2025-01-28
+2025-01-25 19:34:15,579 - INFO - History populated in Treeview.
+2025-01-25 19:34:15,579 - INFO - Date changed to 2025-01-26
+2025-01-25 19:34:18,912 - INFO - History populated in Treeview.
+2025-01-25 19:34:18,912 - INFO - Date changed to 2025-01-26
+2025-01-25 19:34:22,281 - INFO - History populated in Treeview.
+2025-01-25 19:34:22,281 - INFO - Date changed to 2025-01-27
+2025-01-25 19:34:27,977 - WARNING - Invalid Actual Time In for Morning.
+2025-01-25 19:36:30,935 - INFO - Application started.
+2025-01-25 19:36:31,106 - INFO - History populated in Treeview.
+2025-01-25 19:36:42,264 - INFO - Theme changed to Dark Mode.
+2025-01-25 19:36:44,905 - INFO - Theme changed to Light Mode.
+2025-01-25 19:36:56,728 - INFO - History populated in Treeview.
+2025-01-25 19:36:56,728 - INFO - Date changed to 2025-01-27
+2025-01-25 19:38:12,407 - INFO - Application closed.
+2025-01-25 19:38:18,231 - INFO - Application started.
+2025-01-25 19:38:18,390 - INFO - History populated in Treeview.
+2025-01-25 19:38:43,610 - INFO - Application closed.
+2025-01-25 19:38:50,139 - INFO - Application started.
+2025-01-25 19:38:50,308 - INFO - History populated in Treeview.
+2025-01-25 19:39:03,620 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 19:39:10,224 - INFO - Theme changed to Light Mode (Apple Calculator style).
+2025-01-25 19:39:12,016 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 19:41:27,403 - INFO - Application started.
+2025-01-25 19:41:27,571 - INFO - History populated in Treeview.
+2025-01-25 19:41:29,914 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 19:41:35,786 - INFO - Theme changed to Light Mode (Apple Calculator style).
+2025-01-25 19:41:37,370 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 19:41:38,494 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 19:41:39,032 - INFO - Theme changed to Light Mode (Apple Calculator style).
+2025-01-25 19:41:57,840 - INFO - Entered full-screen mode.
+2025-01-25 19:42:01,679 - INFO - Exited full-screen mode.
+2025-01-25 19:42:13,041 - INFO - Application closed.
+2025-01-25 19:53:07,448 - INFO - Application started.
+2025-01-25 19:53:07,612 - INFO - History populated in Treeview.
+2025-01-25 19:53:32,200 - INFO - Theme changed to Dark Mode.
+2025-01-25 19:53:37,736 - INFO - Application closed.
+2025-01-25 19:53:45,777 - INFO - Application started.
+2025-01-25 19:53:45,940 - INFO - History populated in Treeview.
+2025-01-25 19:54:33,626 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 19:54:37,849 - INFO - Theme changed to Light Mode (Apple Calculator style).
+2025-01-25 19:55:46,569 - INFO - Application started.
+2025-01-25 19:55:46,740 - INFO - History populated in Treeview.
+2025-01-25 19:57:38,813 - INFO - Application started.
+2025-01-25 19:57:38,977 - INFO - History populated in Treeview.
+2025-01-25 19:57:51,431 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 19:57:54,324 - INFO - Theme changed to Light Mode (Apple Calculator style).
+2025-01-25 19:58:04,448 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 19:58:33,192 - INFO - History populated in Treeview.
+2025-01-25 19:58:34,013 - INFO - History populated in Treeview.
+2025-01-25 19:58:34,234 - INFO - History populated in Treeview.
+2025-01-25 19:58:34,918 - INFO - History populated in Treeview.
+2025-01-25 20:01:00,659 - INFO - Application closed.
+2025-01-25 20:01:15,730 - INFO - Application started.
+2025-01-25 20:01:16,113 - INFO - History populated in Treeview.
+2025-01-25 20:01:38,720 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 20:01:40,712 - INFO - Theme changed to Light Mode (Apple Calculator style).
+2025-01-25 20:01:41,772 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 20:01:42,683 - INFO - Theme changed to Light Mode (Apple Calculator style).
+2025-01-25 20:01:43,529 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 20:01:45,555 - INFO - Theme changed to Light Mode (Apple Calculator style).
+2025-01-25 20:01:53,428 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 20:01:57,748 - INFO - Theme changed to Light Mode (Apple Calculator style).
+2025-01-25 20:02:04,657 - INFO - Entered full-screen mode.
+2025-01-25 20:02:12,101 - INFO - Exited full-screen mode.
+2025-01-25 20:10:59,523 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 20:11:03,066 - INFO - Theme changed to Light Mode (Apple Calculator style).
+2025-01-25 20:11:33,629 - INFO - Application closed.
+2025-01-25 20:19:42,970 - INFO - Application started.
+2025-01-25 20:19:43,376 - INFO - History populated in Treeview.
+2025-01-25 20:19:46,993 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 20:19:54,055 - INFO - Theme changed to Light Mode (Apple Calculator style).
+2025-01-25 20:19:56,740 - INFO - Application closed.
+2025-01-25 20:20:56,670 - INFO - Application started.
+2025-01-25 20:20:56,866 - INFO - History populated in Treeview.
+2025-01-25 20:20:58,708 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 20:21:03,760 - INFO - Theme changed to Light Mode (Apple Calculator style).
+2025-01-25 20:21:06,613 - INFO - Application closed.
+2025-01-25 20:21:36,687 - INFO - Application started.
+2025-01-25 20:21:36,857 - INFO - History populated in Treeview.
+2025-01-25 20:39:47,703 - INFO - Application started.
