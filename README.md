@@ -1,4 +1,4 @@
-# Daily Time Record (DTR) Application
+# Daily Time Record (DTR) Calculator
 
 A user-friendly desktop application to track daily work times, calculate deduction points based on lateness and undertime, and maintain a history of records for easy management.
 
@@ -129,14 +129,20 @@ Navigate to the **Help** menu to access:
 ```
 DTR-Calculator/
 │
-├── dtr_app.py              # Main application file
-├── requirements.txt        # Python dependencies
-├── dtr_records.json        # Saved records (auto-generated)
+├── build/                  # Build outputs
+│   └── DTR Calculator      # Application build folder
+│
+├── dist/                   # Distribution folder
+│   └── DTR Calculator      # Application distribution folder
+│
+├── .gitignore              # Git ignore file
+├── DTR Calculator.spec     # PyInstaller spec file
 ├── README.md               # Documentation
-├── assets/                 # Images and other assets
-│   └── icon.ico            # Application icon
-└── logs/                   # Log files (auto-generated)
-    └── dtr_app.log         # Application log
+├── dtr_app.log             # Application log
+├── dtr_records.json        # Saved records
+├── icon.ico                # Application icon
+├── main.py                 # Main application file
+└── requirements.txt        # Python dependencies
 ```
 
 ## 📦 **Dependencies**
@@ -254,4 +260,4 @@ For further assistance, please open an issue on the [GitHub repository](https://
 
 ---
 
-Thank you for using the **Daily Time Record (DTR) Application**! We hope it helps you manage your time.
+Thank you for using the **Daily Time Record (DTR) Calculator**! We hope it helps you manage your time.
