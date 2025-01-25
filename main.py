@@ -930,6 +930,12 @@ class DailyTimeRecordApp:
         self.button_select_all.pack(side="left", padx=5)
         Tooltip(self.button_select_all, "Select all rows in the history")
 
+        # ----- Added Delete Button -----
+        self.button_delete = ttkb.Button(search_frame, text="Delete", command=self.delete_record, style="Calc.TButton")
+        self.button_delete.pack(side="left", padx=5)
+        Tooltip(self.button_delete, "Delete selected record(s)")
+        # --------------------------------
+
         self.history_tree = ttk.Treeview(
             history_frame,
             columns=(
@@ -971,6 +977,8 @@ class DailyTimeRecordApp:
         scrollbar.pack(side="right", fill="y")
 
         self.history_tree.bind("<Delete>", lambda e: self.delete_record())
+        self.history_tree.bind("<Control-a>", lambda e: self.select_all_records())  # ----- Added Ctrl+A Binding -----
+        self.history_tree.bind("<Control-A>", lambda e: self.select_all_records())  # Ensure both cases
         self.history_tree.bind("<Button-3>", self.show_context_menu)
         self.context_menu = tk.Menu(self.master, tearoff=0)
         self.context_menu.add_command(label="Edit Record", command=self.edit_record)
@@ -995,9 +1003,9 @@ class DailyTimeRecordApp:
     def on_morning_check_toggle(self):
         state = "normal" if self.morning_check.get() else "disabled"
         if state == "disabled":
-            getattr(self, 'morning_actual_time_in_hour_var').set('00')
-            getattr(self, 'morning_actual_time_in_minute_var').set('00')
-            getattr(self, 'morning_actual_time_in_ampm_var').set('AM')
+            self.morning_actual_time_in_hour_var.set('00')
+            self.morning_actual_time_in_minute_var.set('00')
+            self.morning_actual_time_in_ampm_var.set('AM')
         self.morning_actual_time_in_hour_entry.config(state=state)
         self.morning_actual_time_in_minute_entry.config(state=state)
         self.morning_actual_time_in_ampm_combo.config(state=state)
@@ -1008,9 +1016,9 @@ class DailyTimeRecordApp:
     def on_afternoon_check_toggle(self):
         state = "normal" if self.afternoon_check.get() else "disabled"
         if state == "disabled":
-            getattr(self, 'afternoon_actual_time_out_hour_var').set('00')
-            getattr(self, 'afternoon_actual_time_out_minute_var').set('00')
-            getattr(self, 'afternoon_actual_time_out_ampm_var').set('PM')
+            self.afternoon_actual_time_out_hour_var.set('00')
+            self.afternoon_actual_time_out_minute_var.set('00')
+            self.afternoon_actual_time_out_ampm_var.set('PM')
         self.afternoon_actual_time_out_hour_entry.config(state=state)
         self.afternoon_actual_time_out_minute_entry.config(state=state)
         self.afternoon_actual_time_out_ampm_combo.config(state=state)
@@ -1341,9 +1349,9 @@ class DailyTimeRecordApp:
         self.calculate_deductions()
 
     def clear_morning(self):
-        getattr(self, 'morning_actual_time_in_hour_var').set('00')
-        getattr(self, 'morning_actual_time_in_minute_var').set('00')
-        getattr(self, 'morning_actual_time_in_ampm_var').set('AM')
+        self.morning_actual_time_in_hour_var.set('00')
+        self.morning_actual_time_in_minute_var.set('00')
+        self.morning_actual_time_in_ampm_var.set('AM')
 
         self.label_morning_late.config(text="Late: 0 minutes")
         self.label_morning_late_deduction.config(text="Late Deduction: 0.000")
@@ -1355,9 +1363,9 @@ class DailyTimeRecordApp:
         logging.info("Cleared Morning inputs.")
 
     def clear_afternoon(self):
-        getattr(self, 'afternoon_actual_time_out_hour_var').set('00')
-        getattr(self, 'afternoon_actual_time_out_minute_var').set('00')
-        getattr(self, 'afternoon_actual_time_out_ampm_var').set('PM')
+        self.afternoon_actual_time_out_hour_var.set('00')
+        self.afternoon_actual_time_out_minute_var.set('00')
+        self.afternoon_actual_time_out_ampm_var.set('PM')
 
         self.label_afternoon_undertime.config(text="Undertime: 0 minutes")
         self.label_afternoon_undertime_deduction.config(text="Undertime Deduction: 0.000")
@@ -1431,8 +1439,6 @@ class DailyTimeRecordApp:
             "undertime_minutes": undertime_minutes,
             "deduction_points": deduction_points
         }
-
-        # Removed duplicate record confirmation dialog
 
         # Insert the new record at the top of the list
         self.records.insert(0, new_record)
@@ -1620,9 +1626,10 @@ class DailyTimeRecordApp:
             logging.warning("Delete attempted without selecting a record.")
             return
 
+        num_selected = len(selected_items)
         confirm = messagebox.askyesno(
             "Confirm Deletion",
-            f"Are you sure you want to delete the selected {len(selected_items)} record(s)?"
+            f"Are you sure you want to delete the selected {num_selected} record(s)?"
         )
         if not confirm:
             return
@@ -1635,9 +1642,8 @@ class DailyTimeRecordApp:
             afternoon_out_str = values[4]
             idx_to_remove = None
             for i, record in enumerate(self.records):
-                if (record["date"] == date_str and
-                    record["morning_actual_time_in"] == morning_in_str and
-                    record["afternoon_actual_time_out"] == afternoon_out_str):
+                if record["date"] == date_str and record["morning_actual_time_in"] == morning_in_str \
+                   and record["afternoon_actual_time_out"] == afternoon_out_str:
                     idx_to_remove = i
                     break
             if idx_to_remove is not None:
@@ -1649,8 +1655,8 @@ class DailyTimeRecordApp:
         self.save_records_to_file()
         self.current_records = list(self.records)
         self.populate_history()
-        messagebox.showinfo("Deleted", "Selected record(s) have been deleted.")
-        logging.info("Selected record(s) deleted.")
+        messagebox.showinfo("Deleted", f"Selected record(s) have been deleted.")
+        logging.info(f"Deleted {num_selected} record(s).")
 
     def search_history(self):
         try:
@@ -1746,10 +1752,6 @@ class DailyTimeRecordApp:
         if records is None:
             records = self.current_records
 
-        # Remove the default sorting to maintain insertion order
-        # if records == self.current_records and not any(self.sort_states.values()):
-        #     records = sorted(records, key=lambda x: x["date"], reverse=True)
-
         for record in records:
             self.history_tree.insert("", "end", values=(
                 record["date"],
@@ -1802,6 +1804,7 @@ This version includes:
 - Single-record editing
 - Column sorting on click
 - Press 'Delete' key to remove selected row(s)
+- Press 'Ctrl+A' to select all records
 """
         label_overview = tk.Text(tab_overview, wrap="word", font=("Helvetica", 12),
                                  bg=help_window.cget("bg"), borderwidth=0)
@@ -1825,6 +1828,7 @@ This version includes:
    - Multi-select rows with Ctrl+Click or Shift+Click
    - Press 'Delete' key or right-click => 'Delete Record'
    - 'Edit Record' modifies Actual Times; auto-recalcs
+   - Press 'Ctrl+A' to select all records
    - Click column headers to toggle ascending/descending sort.
 """
         label_guide = tk.Text(tab_guide, wrap="word", font=("Helvetica", 12),
@@ -1892,45 +1896,10 @@ Disclaimer: Use at your own risk. Keep data backups.
         child.geometry(f"+{pos_x}+{pos_y}")
 
     # ------------------------------------------------------------------------
-    # TIME INPUT LOGIC
+    # EDIT RECORD DIALOG CLASS
     # ------------------------------------------------------------------------
 
-    # Note: The time input logic was already handled in setup_time_inputs and related methods.
-
-    # ------------------------------------------------------------------------
-    # SAVE / LOAD / EXPORT
-    # ------------------------------------------------------------------------
-
-    # The save_record and populate_history methods have been updated above.
-
-    # ------------------------------------------------------------------------
-    # HISTORY & CONTEXT MENUS
-    # ------------------------------------------------------------------------
-
-    # The sort_by_column method was added to handle column sorting.
-
-    def sort_by_column(self, col):
-        # Toggle sort state
-        self.sort_states[col] = not self.sort_states[col]
-        reverse = self.sort_states[col]
-
-        # Define a key function based on the column
-        if col in ["Late Minutes", "Undertime Minutes", "Deduction Points"]:
-            key_func = lambda x: float(x[col.replace(" ", "_").lower()])
-        elif col == "Date":
-            key_func = lambda x: datetime.strptime(x[col.lower().replace(" ", "_")], "%Y-%m-%d")
-        else:
-            key_func = lambda x: x[col.replace(" ", "_").lower()]
-
-        # Sort the current_records
-        self.current_records.sort(key=key_func, reverse=reverse)
-        self.populate_history()
-
-    # ------------------------------------------------------------------------
-    # HELP & ABOUT DIALOGS
-    # ------------------------------------------------------------------------
-
-    # These methods were implemented above.
+    # The EditRecordDialog class is implemented below.
 
     # ------------------------------------------------------------------------
     # MAIN APPLICATION LOGIC

@@ -1751,3 +1751,108 @@
 2025-01-25 23:01:20,722 - INFO - Searched records from 2024-01-25 to 2025-01-25.
 2025-01-25 23:01:37,632 - INFO - Theme changed to superhero mode.
 2025-01-25 23:01:54,696 - INFO - Application closed.
+2025-01-25 23:03:30,795 - INFO - Application started.
+2025-01-25 23:03:30,974 - INFO - History populated in Treeview.
+2025-01-25 23:03:39,247 - INFO - Records saved successfully.
+2025-01-25 23:03:39,247 - INFO - History populated in Treeview.
+2025-01-25 23:03:39,869 - INFO - Selected record(s) deleted.
+2025-01-25 23:03:41,938 - INFO - Records saved successfully.
+2025-01-25 23:03:43,442 - INFO - Record saved for 2025-01-25: 0.0 points.
+2025-01-25 23:03:43,442 - INFO - History populated in Treeview.
+2025-01-25 23:03:53,211 - INFO - Records saved successfully.
+2025-01-25 23:03:54,193 - INFO - Record saved for 2025-01-25: 0.0 points.
+2025-01-25 23:03:54,194 - INFO - History populated in Treeview.
+2025-01-25 23:03:58,849 - WARNING - Invalid Actual Time In for Morning.
+2025-01-25 23:04:00,003 - INFO - Records saved successfully.
+2025-01-25 23:04:00,346 - INFO - Record saved for 2025-01-25: 0.0 points.
+2025-01-25 23:04:00,347 - INFO - History populated in Treeview.
+2025-01-25 23:04:00,691 - INFO - Records saved successfully.
+2025-01-25 23:04:01,078 - INFO - Record saved for 2025-01-25: 0.0 points.
+2025-01-25 23:04:01,080 - INFO - History populated in Treeview.
+2025-01-25 23:04:01,323 - INFO - Records saved successfully.
+2025-01-25 23:04:01,749 - INFO - Record saved for 2025-01-25: 0.0 points.
+2025-01-25 23:04:01,750 - INFO - History populated in Treeview.
+2025-01-25 23:05:13,081 - INFO - Records saved successfully.
+2025-01-25 23:05:13,082 - INFO - History populated in Treeview.
+2025-01-25 23:05:14,220 - INFO - Record updated for 2025-01-25 with new times.
+2025-01-25 23:05:25,652 - INFO - Application closed.
+2025-01-25 23:06:06,147 - INFO - Application started.
+2025-01-25 23:06:06,353 - INFO - History populated in Treeview.
+2025-01-25 23:09:28,421 - ERROR - Supposed Time In is not set.
+2025-01-25 23:09:30,716 - INFO - History populated in Treeview.
+2025-01-25 23:09:30,716 - INFO - Date changed to 2025-01-29
+2025-01-25 23:09:34,434 - INFO - Calculated Deductions. Late: 0.0, Undertime: 0.0, Half-day(s): 0.5, Total: 0.5
+2025-01-25 23:09:38,828 - INFO - Calculated Deductions. Late: 0.0, Undertime: 0.0, Half-day(s): 0.5, Total: 0.5
+2025-01-25 23:09:44,396 - INFO - Calculated Deductions. Late: 0.037, Undertime: 0.0, Half-day(s): 0.5, Total: 0.537
+2025-01-25 23:09:51,319 - WARNING - Invalid Actual Time Out for Afternoon.
+2025-01-25 23:10:00,342 - INFO - Calculated Deductions. Late: 0.037, Undertime: 0.181, Half-day(s): 0.0, Total: 0.218
+2025-01-25 23:10:28,596 - INFO - Calculated Deductions. Late: 0.0, Undertime: 0.125, Half-day(s): 0.0, Total: 0.125
+2025-01-25 23:10:45,545 - INFO - Records saved successfully.
+2025-01-25 23:10:47,202 - INFO - Record saved for 2025-01-29: 0.125 points.
+2025-01-25 23:10:47,202 - INFO - History populated in Treeview.
+2025-01-25 23:13:44,337 - INFO - Application started.
+2025-01-25 23:13:44,509 - INFO - History populated in Treeview.
+2025-01-25 23:13:47,673 - INFO - Theme changed to superhero mode.
+2025-01-25 23:13:49,139 - INFO - Theme changed to flatly mode.
+2025-01-25 23:13:57,160 - INFO - Records saved successfully.
+2025-01-25 23:13:57,160 - INFO - History populated in Treeview.
+2025-01-25 23:13:58,946 - INFO - Deleted 4 record(s).
+2025-01-25 23:14:12,164 - INFO - Records saved successfully.
+2025-01-25 23:14:12,164 - INFO - History populated in Treeview.
+2025-01-25 23:14:13,691 - INFO - Deleted 19 record(s).
+2025-01-25 23:15:12,986 - ERROR - Supposed Time In is not set.
+2025-01-25 23:15:16,059 - INFO - History populated in Treeview.
+2025-01-25 23:15:16,060 - INFO - Date changed to 2025-01-28
+2025-01-25 23:15:21,425 - INFO - Calculated Deductions. Late: 0.0, Undertime: 0.0, Half-day(s): 0.5, Total: 0.5
+2025-01-25 23:15:36,820 - INFO - History populated in Treeview.
+2025-01-25 23:15:36,820 - INFO - Date changed to 2025-01-28
+2025-01-25 23:15:39,093 - INFO - Calculated Deductions. Late: 0.037, Undertime: 0.0, Half-day(s): 0.5, Total: 0.537
+2025-01-25 23:16:01,676 - INFO - History populated in Treeview.
+2025-01-25 23:16:01,676 - INFO - Date changed to 2025-01-29
+2025-01-25 23:16:05,632 - WARNING - Invalid Actual Time In for Morning.
+2025-01-25 23:16:12,858 - INFO - Calculated Deductions. Late: 0.052, Undertime: 0.0, Half-day(s): 0.5, Total: 0.552
+2025-01-25 23:16:39,837 - INFO - Records saved successfully.
+2025-01-25 23:16:41,013 - INFO - Record saved for 2025-01-29: 0.552 points.
+2025-01-25 23:16:41,013 - INFO - History populated in Treeview.
+2025-01-25 23:17:05,271 - INFO - Calculated Deductions. Late: 0.052, Undertime: 0.125, Half-day(s): 0.0, Total: 0.177
+2025-01-25 23:17:15,310 - INFO - Calculated Deductions. Late: 0.052, Undertime: 0.0, Half-day(s): 0.0, Total: 0.052
+2025-01-25 23:17:22,473 - INFO - Calculated Deductions. Late: 0.052, Undertime: 0.125, Half-day(s): 0.0, Total: 0.177
+2025-01-25 23:17:26,331 - INFO - Calculated Deductions. Late: 0.052, Undertime: 0.125, Half-day(s): 0.0, Total: 0.177
+2025-01-25 23:17:30,703 - INFO - Records saved successfully.
+2025-01-25 23:17:31,816 - INFO - Record saved for 2025-01-29: 0.177 points.
+2025-01-25 23:17:31,816 - INFO - History populated in Treeview.
+2025-01-25 23:17:37,784 - INFO - History populated in Treeview.
+2025-01-25 23:17:37,784 - INFO - Date changed to 2025-01-31
+2025-01-25 23:17:45,669 - WARNING - Invalid Actual Time In for Morning.
+2025-01-25 23:17:46,512 - INFO - Calculated Deductions. Late: 0.017, Undertime: 0.125, Half-day(s): 0.0, Total: 0.142
+2025-01-25 23:17:48,184 - INFO - Records saved successfully.
+2025-01-25 23:17:49,012 - INFO - Record saved for 2025-01-31: 0.142 points.
+2025-01-25 23:17:49,012 - INFO - History populated in Treeview.
+2025-01-25 23:20:11,047 - INFO - Application started.
+2025-01-25 23:20:11,235 - INFO - History populated in Treeview.
+2025-01-25 23:20:17,589 - INFO - Records saved successfully.
+2025-01-25 23:20:17,589 - INFO - History populated in Treeview.
+2025-01-25 23:20:18,814 - INFO - Deleted 3 record(s).
+2025-01-25 23:20:28,082 - INFO - Records saved successfully.
+2025-01-25 23:20:29,538 - INFO - Record saved for 2025-01-25: 0.0 points.
+2025-01-25 23:20:29,538 - INFO - History populated in Treeview.
+2025-01-25 23:21:25,997 - ERROR - Attempted to use unavailable theme: superhero
+2025-01-25 23:21:31,594 - ERROR - Attempted to use unavailable theme: flatly
+2025-01-25 23:21:34,074 - INFO - Application closed.
+2025-01-25 23:21:38,200 - INFO - Application started.
+2025-01-25 23:21:38,383 - INFO - History populated in Treeview.
+2025-01-25 23:21:40,594 - INFO - Theme changed to superhero mode.
+2025-01-25 23:21:41,943 - INFO - Theme changed to flatly mode.
+2025-01-25 23:21:42,734 - INFO - Theme changed to flatly mode.
+2025-01-25 23:21:43,961 - INFO - Theme changed to superhero mode.
+2025-01-25 23:21:45,812 - INFO - Theme changed to flatly mode.
+2025-01-25 23:21:46,805 - INFO - Theme changed to superhero mode.
+2025-01-25 23:21:49,210 - INFO - Theme changed to flatly mode.
+2025-01-25 23:21:50,735 - INFO - Theme changed to superhero mode.
+2025-01-25 23:21:51,669 - INFO - Theme changed to flatly mode.
+2025-01-25 23:21:52,454 - INFO - Theme changed to superhero mode.
+2025-01-25 23:21:54,305 - INFO - Theme changed to flatly mode.
+2025-01-25 23:28:35,968 - INFO - Application closed.
+2025-01-25 23:28:38,182 - INFO - Application started.
+2025-01-25 23:28:38,357 - INFO - History populated in Treeview.
+2025-01-25 23:28:42,131 - INFO - Application closed.
