@@ -73,6 +73,7 @@ def convert_time_diff_to_day_fraction(hours, minutes):
     day_fraction = HOURS_TO_DAY.get(hours, 0.0) + MINUTES_TO_DAY.get(minutes, 0.0)
     return round(day_fraction, 3)
 
+
 def setup_logging():
     """
     Configure logging for the application.
@@ -140,6 +141,7 @@ class Tooltip:
         if self.tipwindow:
             self.tipwindow.destroy()
         self.tipwindow = None
+
 
 class TimePickerDialog:
     """
@@ -271,10 +273,11 @@ class DailyTimeRecordApp:
 
         master.resizable(True, True)
 
-        # Keep an initial bootstrap theme to load styles; we override later:
+        # Initialize ttkbootstrap Style
         self.style = Style(theme='flatly')
         self.current_theme = 'flatly'
 
+        # Initialize records
         self.records = self.load_records()
         self.current_records = list(self.records)
 
@@ -284,10 +287,15 @@ class DailyTimeRecordApp:
         self.morning_check = tk.BooleanVar(value=True)
         self.afternoon_check = tk.BooleanVar(value=True)
 
-        # By default, let's assume user starts in "Light" theme:
+        # Create the menubar early
+        self.menubar = tk.Menu(self.master)
+        self.master.config(menu=self.menubar)
+
+        # Apply the initial theme style
         self.apply_apple_calculator_light_style()
 
-        self.setup_menu()
+        # Setup GUI components
+        self.setup_menu()            # Populate the menubar
         self.setup_header()
         self.setup_time_inputs()
         self.setup_controls()
@@ -296,14 +304,19 @@ class DailyTimeRecordApp:
         self.center_window()
         self.update_supposed_time_in_label()
 
+    def select_all_records(self):
+        """
+        Selects all records in the history Treeview.
+        """
+        for child in self.history_tree.get_children():
+            self.history_tree.selection_add(child)
+
     # ------------------------------------------------------------------------
-    # APPLE CALCULATOR STYLE: We define two separate styles:
-    # 1) Light style (White background, black text, etc.)
-    # 2) Dark style (Dark gray background, white text, etc.) + override dark blue => white
+    # THEME & STYLE CODE
     # ------------------------------------------------------------------------
     def apply_apple_calculator_light_style(self):
         """
-        Apple Calculator–inspired LIGHT mode
+        Apple Calculator–inspired LIGHT mode (no menubar recreation).
         """
         # Colors
         BG_LIGHT = "#FFFFFF"
@@ -314,7 +327,7 @@ class DailyTimeRecordApp:
         BTN_HOVER_GRAY = "#C0C0C0"
         BTN_HOVER_ORANGE = "#FFB340"
 
-        # Root window
+        # Root window background
         self.master.configure(bg=BG_LIGHT)
 
         # Frame and LabelFrame
@@ -383,32 +396,47 @@ class DailyTimeRecordApp:
         # Scrollbar
         self.style.configure("Vertical.TScrollbar", background=BG_FRAME)
 
-        # Entries: text in black, background white
-        self.style.configure(
-            "TEntry",
-            foreground=FG_TEXT,
-            fieldbackground="#FFFFFF"
-        )
+        # Entries
+        self.style.configure("TEntry", foreground=FG_TEXT, fieldbackground="#FFFFFF")
 
-        # (Optional) Menu bar overrides in Light
-        self.master.option_add('*Menu.tearOff', False)
-        # Force black foreground in text-based widgets if needed
+        # Menubar: keep the same menubar, just update its colors
+        self.menubar.config(bg=BG_LIGHT, fg=FG_TEXT, activebackground=BG_FRAME, activeforeground=FG_TEXT)
+
+        # Let all text-based widgets default to black in light mode
         self.master.option_add("*foreground", "black")
 
     def apply_apple_calculator_dark_style(self):
         """
-        Apple Calculator–inspired DARK mode
+        Apply custom styles for dark themes ('superhero' or 'darkly').
         """
-        BG_DARK = "#333333"
-        BG_FRAME = "#3C3C3C"
-        FG_TEXT = "#FFFFFF"
-        BTN_GRAY = "#505050"
-        BTN_ORANGE = "#FF9500"
-        BTN_HOVER_GRAY = "#626262"
-        BTN_HOVER_ORANGE = "#FFA040"
+        if self.current_theme == "superhero":
+            BG_DARK = "#2E2E2E"
+            BG_FRAME = "#3C3C3C"
+            FG_TEXT = "#FFFFFF"
+            BTN_GRAY = "#505050"
+            BTN_ORANGE = "#FF9500"
+            BTN_HOVER_GRAY = "#626262"
+            BTN_HOVER_ORANGE = "#FFA040"
+        elif self.current_theme == "darkly":
+            BG_DARK = "#343A40"
+            BG_FRAME = "#495057"
+            FG_TEXT = "#FFFFFF"
+            BTN_GRAY = "#6C757D"
+            BTN_ORANGE = "#FFC107"
+            BTN_HOVER_GRAY = "#5A6268"
+            BTN_HOVER_ORANGE = "#FFCA2C"
+        else:
+            # Default dark settings or handle other themes
+            BG_DARK = "#333333"
+            BG_FRAME = "#444444"
+            FG_TEXT = "#FFFFFF"
+            BTN_GRAY = "#555555"
+            BTN_ORANGE = "#FF9500"
+            BTN_HOVER_GRAY = "#666666"
+            BTN_HOVER_ORANGE = "#FFA040"
 
+        # Apply styles based on the selected dark theme
         self.master.configure(bg=BG_DARK)
-
         self.style.configure("TFrame", background=BG_DARK)
         self.style.configure("TLabelFrame", background=BG_FRAME, foreground=FG_TEXT)
         self.style.configure("TLabelframe.Label", background=BG_FRAME, foreground=FG_TEXT)
@@ -455,6 +483,7 @@ class DailyTimeRecordApp:
             selectbackground=[("readonly", BG_FRAME)]
         )
 
+        # Treeview
         self.style.configure(
             "Treeview",
             background=BG_DARK,
@@ -468,68 +497,91 @@ class DailyTimeRecordApp:
             foreground=FG_TEXT
         )
 
+        # Scrollbar
         self.style.configure("Vertical.TScrollbar", background=BG_FRAME)
 
-        # Entries: text in white, background = BG_FRAME or dark
-        self.style.configure(
-            "TEntry",
-            foreground=FG_TEXT,
-            fieldbackground=BG_FRAME
-        )
+        # Entries
+        self.style.configure("TEntry", foreground=FG_TEXT, fieldbackground=BG_FRAME)
 
-        # Force any possible link or accent text to white
+        # Menubar: update to dark colors
+        self.menubar.config(bg=BG_DARK, fg="white", activebackground=BG_FRAME, activeforeground="white")
+
+        # Force text-based widgets to white
         self.master.option_add("*foreground", "white")
-
-        # Also override the menubar text color
-        menubar = tk.Menu(self.master, bg=BG_DARK, fg="white", activebackground=BG_DARK, activeforeground="white")
-        self.master.configure(menu=menubar)
 
     def update_label_colors(self):
         """
-        Updates the colors of labels for Late/Undertime and other main labels,
-        ensuring that dark mode text is white, light mode text is black.
+        Updates the colors of the main labels for Late/Undertime, etc.
         """
         if self.current_theme == "flatly":  # Light mode
             text_color = "#000000"
         else:  # Dark mode
             text_color = "#FFFFFF"
 
-        # FIX: enforced white in dark mode (or black in light) for all key labels
         self.label_morning_late.config(foreground=text_color)
         self.label_morning_late_deduction.config(foreground=text_color)
         self.label_afternoon_undertime.config(foreground=text_color)
         self.label_afternoon_undertime_deduction.config(foreground=text_color)
-
-        # Additional key labels:
         self.label_day.config(foreground=text_color)
         self.label_supposed_time_in.config(foreground=text_color)
         self.label_supposed_time_out.config(foreground=text_color)
         self.label_deductions.config(foreground=text_color)
 
+    def refresh_all_widget_colors(self):
+        """
+        Re-apply correct foreground colors to all relevant Entry/Combobox
+        after a theme switch, preserving 'red' for invalid input.
+        """
+        normal_color = "black" if self.current_theme == "flatly" else "white"
+
+        # A small helper to refresh any TEntry
+        def refresh_entry(widget):
+            current_fg = widget.cget("foreground")
+            if current_fg != 'red':
+                widget.config(foreground=normal_color)
+
+        # A small helper to refresh any Combobox
+        def refresh_combo(widget):
+            # Combobox text color can differ depending on states; forcibly reset:
+            widget.configure(foreground=normal_color)
+
+        # Morning entries
+        refresh_entry(self.morning_actual_time_in_hour_entry)
+        refresh_entry(self.morning_actual_time_in_minute_entry)
+        refresh_combo(self.morning_actual_time_in_ampm_combo)
+
+        # Afternoon entries
+        refresh_entry(self.afternoon_actual_time_out_hour_entry)
+        refresh_entry(self.afternoon_actual_time_out_minute_entry)
+        refresh_combo(self.afternoon_actual_time_out_ampm_combo)
+
     def change_theme(self, theme_name):
         """
-        Switch between 'Light Mode' and 'Dark Mode' – using Apple Calculator color palettes.
+        Switch between 'Light Mode' (flatly) and 'Dark Mode' (superhero or darkly).
         """
         self.current_theme = theme_name
+        try:
+            self.style.theme_use(theme_name)
+        except tk.TclError:
+            messagebox.showerror("Theme Error", f"Theme '{theme_name}' is not available.")
+            logging.error(f"Attempted to use unavailable theme: {theme_name}")
+            return
+
         if theme_name == "flatly":
-            # Light Mode
-            self.style.theme_use("flatly")
             self.apply_apple_calculator_light_style()
-            logging.info("Theme changed to Light Mode (Apple Calculator style).")
-        else:
-            # We'll treat anything else as Dark Mode
-            # If the button passes "superhero", let's just do "darkly" style as an example
-            self.style.theme_use("darkly")  # or "superhero", but let's keep "darkly"
+        elif theme_name in ["superhero"]:
             self.apply_apple_calculator_dark_style()
-            logging.info("Theme changed to Dark Mode (Apple Calculator style).")
+        else:
+            # Handle other themes if necessary
+            pass
 
-        # Update label colors based on the theme
         self.update_label_colors()
+        self.refresh_all_widget_colors()
+        logging.info(f"Theme changed to {theme_name} mode.")
 
     # ------------------------------------------------------------------------
-    # Remaining code below with minimal modifications to incorporate new styles
+    # GUI SETUP
     # ------------------------------------------------------------------------
-
     def center_window(self):
         self.master.update_idletasks()
         screen_width = self.master.winfo_screenwidth()
@@ -541,16 +593,13 @@ class DailyTimeRecordApp:
         self.master.geometry(f"+{x}+{y}")
 
     def setup_menu(self):
-        menubar = tk.Menu(self.master)
-        self.master.config(menu=menubar)
-
-        file_menu = tk.Menu(menubar, tearoff=0)
-        menubar.add_cascade(label="File", menu=file_menu)
+        file_menu = tk.Menu(self.menubar, tearoff=0)
+        self.menubar.add_cascade(label="File", menu=file_menu)
         file_menu.add_command(label="Exit", command=self.master.quit)
         Tooltip(file_menu, "File operations")
 
-        help_menu = tk.Menu(menubar, tearoff=0)
-        menubar.add_cascade(label="Help", menu=help_menu)
+        help_menu = tk.Menu(self.menubar, tearoff=0)
+        self.menubar.add_cascade(label="Help", menu=help_menu)
         help_menu.add_command(label="How to Use", command=self.show_help_dialog)
         help_menu.add_command(label="About", command=self.show_about_dialog)
         Tooltip(help_menu, "Help and information")
@@ -627,8 +676,7 @@ class DailyTimeRecordApp:
         self.button_dark_mode = ttkb.Button(
             theme_buttons_frame,
             text="Dark Mode",
-            # We pass something other than 'flatly' to trigger dark style
-            command=lambda: self.change_theme("superhero"),
+            command=lambda: self.change_theme("superhero"),  # triggers dark
             style="Calc.TButton"
         )
         self.button_dark_mode.pack(side="left", padx=5)
@@ -941,62 +989,9 @@ class DailyTimeRecordApp:
 
         self.populate_history()
 
-    def sort_by_column(self, column_name):
-        ascending = self.sort_states[column_name]
-        self.sort_states[column_name] = not ascending
-
-        def parse_date(val):
-            try:
-                return datetime.strptime(val, "%Y-%m-%d").date()
-            except:
-                return datetime.min.date()
-
-        def parse_time(val):
-            if val.strip() == "--:-- --":
-                return time.min
-            try:
-                return datetime.strptime(val, "%I:%M %p").time()
-            except:
-                return time.min
-
-        def parse_int(val):
-            try:
-                return int(val)
-            except:
-                return 0
-
-        def parse_float(val):
-            try:
-                return float(val)
-            except:
-                return 0.0
-
-        if column_name == "Date":
-            key_func = lambda r: parse_date(r["date"])
-        elif column_name == "Morning Actual Time In":
-            key_func = lambda r: parse_time(r.get("morning_actual_time_in", "--:-- --"))
-        elif column_name == "Supposed Time In":
-            key_func = lambda r: parse_time(r.get("supposed_time_in", "--:-- --"))
-        elif column_name == "Late Minutes":
-            key_func = lambda r: parse_int(r.get("late_minutes", 0))
-        elif column_name == "Afternoon Actual Time Out":
-            key_func = lambda r: parse_time(r.get("afternoon_actual_time_out", "--:-- --"))
-        elif column_name == "Supposed Time Out":
-            key_func = lambda r: parse_time(r.get("supposed_time_out", "--:-- --"))
-        elif column_name == "Undertime Minutes":
-            key_func = lambda r: parse_int(r.get("undertime_minutes", 0))
-        elif column_name == "Deduction Points":
-            key_func = lambda r: parse_float(r.get("deduction_points", 0))
-        else:
-            key_func = lambda r: r
-
-        self.current_records.sort(key=key_func, reverse=not ascending)
-        self.populate_history(self.current_records)
-
-    def select_all_records(self):
-        for child in self.history_tree.get_children():
-            self.history_tree.selection_add(child)
-
+    # ------------------------------------------------------------------------
+    # TIME INPUT LOGIC
+    # ------------------------------------------------------------------------
     def on_morning_check_toggle(self):
         state = "normal" if self.morning_check.get() else "disabled"
         if state == "disabled":
@@ -1164,6 +1159,7 @@ class DailyTimeRecordApp:
                     if not (1 <= int(value) <= 12):
                         entry.config(foreground='red')
                     else:
+                        # revert to black/white depending on theme
                         entry.config(foreground='black' if self.current_theme == 'flatly' else 'white')
                 except ValueError:
                     entry.config(foreground='red')
@@ -1377,6 +1373,9 @@ class DailyTimeRecordApp:
             self.button_fullscreen.config(text="Full Screen")
             logging.info("Exited full-screen mode.")
 
+    # ------------------------------------------------------------------------
+    # SAVE / LOAD / EXPORT
+    # ------------------------------------------------------------------------
     def save_record(self):
         try:
             deduction_text = self.label_deductions.cget("text").split(":")[1].strip()
@@ -1493,6 +1492,9 @@ class DailyTimeRecordApp:
             messagebox.showerror("Export Failed", f"An error occurred while exporting:\n{e}")
             logging.error(f"Failed to export history: {e}")
 
+    # ------------------------------------------------------------------------
+    # HISTORY & CONTEXT MENUS
+    # ------------------------------------------------------------------------
     def show_context_menu(self, event):
         selected_item = self.history_tree.identify_row(event.y)
         if selected_item:
@@ -1701,6 +1703,7 @@ class DailyTimeRecordApp:
                             valid_records.append(record)
                     return valid_records
                 elif isinstance(data, dict):
+                    # old format => transform
                     records = []
                     for date_str, ded_val in data.items():
                         records.append({
@@ -1747,7 +1750,7 @@ class DailyTimeRecordApp:
         if records is None:
             records = self.current_records
 
-        # Default sort by date descending if user hasn't sorted columns:
+        # If user hasn't sorted columns, default sort by date descending:
         if records == self.current_records and not any(self.sort_states.values()):
             records = sorted(records, key=lambda x: x["date"], reverse=True)
 
@@ -1786,9 +1789,6 @@ This version includes:
 - Single-record editing
 - Column sorting on click
 - Press 'Delete' key to remove selected row(s)
-
-Default sort: Date = newest first (descending).
-Click each column header to toggle ascending/descending.
 """
         label_overview = tk.Text(tab_overview, wrap="word", font=("Helvetica", 12),
                                  bg=help_window.cget("bg"), borderwidth=0)
@@ -1804,14 +1804,14 @@ Click each column header to toggle ascending/descending.
 1. Select the Date (top-left).
 2. Check 'Morning' if you worked in the morning; uncheck if absent.
 3. Check 'Afternoon' if you worked in the afternoon; uncheck if absent.
-4. Enter Actual Time In / Out or click 'Select Time' to pick from a time picker.
-5. Click 'Calculate Deductions' to see Late / Undertime / Total points.
+4. Enter Actual Time In / Out or click 'Select Time'.
+5. Click 'Calculate Deductions' to see Late/Undertime/Total points.
 6. Click 'Save Record' to store it.
 7. 'Export History' => CSV.
-8. In the History:
+8. History:
    - Multi-select rows with Ctrl+Click or Shift+Click
-   - Press 'Delete' key or right-click => 'Delete Record' to remove them.
-   - 'Edit Record' modifies Actual Time In/Out only; deductions auto-recalc.
+   - Press 'Delete' key or right-click => 'Delete Record'
+   - 'Edit Record' modifies Actual Times; auto-recalcs
    - Click column headers to toggle ascending/descending sort.
 """
         label_guide = tk.Text(tab_guide, wrap="word", font=("Helvetica", 12),
@@ -1820,8 +1820,8 @@ Click each column header to toggle ascending/descending.
         label_guide.config(state="disabled")
         label_guide.pack(fill="both", expand=True, padx=10, pady=10)
 
-        # FIX: enforce white in dark mode
-        if self.current_theme != 'flatly':  # e.g. 'superhero' => dark
+        # Force text color for dark/light
+        if self.current_theme != 'flatly':  # dark
             label_overview.config(fg="white")
             label_guide.config(fg="white")
         else:
@@ -1857,7 +1857,6 @@ Disclaimer: Use at your own risk. Keep data backups.
         label_about.config(state="disabled")
         label_about.pack(fill="both", expand=True)
 
-        # FIX: enforce white in dark mode
         if self.current_theme != 'flatly':
             label_about.config(fg="white")
         else:

@@ -1292,3 +1292,345 @@
 2025-01-25 21:20:11,244 - INFO - Theme changed to Dark Mode (Apple Calculator style).
 2025-01-25 21:20:13,242 - INFO - Theme changed to Light Mode (Apple Calculator style).
 2025-01-25 21:20:14,998 - INFO - Application closed.
+2025-01-25 21:20:22,724 - INFO - Application started.
+2025-01-25 21:20:22,890 - INFO - History populated in Treeview.
+2025-01-25 21:20:24,597 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 21:20:25,370 - INFO - Theme changed to Light Mode (Apple Calculator style).
+2025-01-25 21:20:26,486 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 21:20:27,128 - INFO - Theme changed to Light Mode (Apple Calculator style).
+2025-01-25 21:20:27,686 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 21:20:29,855 - INFO - Theme changed to Light Mode (Apple Calculator style).
+2025-01-25 21:20:30,467 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 21:20:31,024 - INFO - Theme changed to Light Mode (Apple Calculator style).
+2025-01-25 21:20:31,921 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 21:20:35,335 - INFO - Theme changed to Light Mode (Apple Calculator style).
+2025-01-25 21:20:36,597 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 21:20:37,446 - INFO - Theme changed to Light Mode (Apple Calculator style).
+2025-01-25 21:20:38,147 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 21:20:41,302 - INFO - Theme changed to Light Mode (Apple Calculator style).
+2025-01-25 21:20:42,088 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 21:20:44,002 - INFO - Theme changed to Light Mode (Apple Calculator style).
+2025-01-25 21:23:38,927 - INFO - Application closed.
+2025-01-25 21:23:44,880 - INFO - Application started.
+2025-01-25 21:23:45,039 - INFO - History populated in Treeview.
+2025-01-25 21:23:47,086 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 21:23:49,373 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 21:23:49,559 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 21:23:53,079 - INFO - Theme changed to Light Mode (Apple Calculator style).
+2025-01-25 21:23:57,136 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 21:23:58,319 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 21:23:58,494 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 21:24:10,285 - INFO - Theme changed to Light Mode (Apple Calculator style).
+2025-01-25 21:24:10,836 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 21:24:11,386 - INFO - Theme changed to Light Mode (Apple Calculator style).
+2025-01-25 21:24:12,021 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 21:24:12,794 - INFO - Theme changed to Light Mode (Apple Calculator style).
+2025-01-25 21:24:13,627 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 21:24:14,158 - INFO - Theme changed to Light Mode (Apple Calculator style).
+2025-01-25 21:24:14,501 - INFO - Theme changed to Light Mode (Apple Calculator style).
+2025-01-25 21:24:16,751 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 21:24:17,162 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 21:24:17,320 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 21:24:18,157 - INFO - Theme changed to Light Mode (Apple Calculator style).
+2025-01-25 21:24:18,911 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 21:24:22,704 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 21:24:26,648 - WARNING - Invalid Actual Time In for Morning.
+2025-01-25 21:24:29,292 - ERROR - Supposed Time In is not set.
+2025-01-25 21:24:35,558 - ERROR - Supposed Time In is not set.
+2025-01-25 21:24:36,255 - ERROR - Supposed Time In is not set.
+2025-01-25 21:24:39,493 - INFO - History populated in Treeview.
+2025-01-25 21:24:39,493 - INFO - Date changed to 2025-01-27
+2025-01-25 21:24:41,684 - INFO - Calculated Deductions. Late: 0.0, Undertime: 0.0, Half-day(s): 0.5, Total: 0.5
+2025-01-25 21:24:41,994 - INFO - Calculated Deductions. Late: 0.0, Undertime: 0.0, Half-day(s): 0.5, Total: 0.5
+2025-01-25 21:24:42,205 - INFO - Calculated Deductions. Late: 0.0, Undertime: 0.0, Half-day(s): 0.5, Total: 0.5
+2025-01-25 21:24:42,394 - INFO - Calculated Deductions. Late: 0.0, Undertime: 0.0, Half-day(s): 0.5, Total: 0.5
+2025-01-25 21:24:42,554 - INFO - Calculated Deductions. Late: 0.0, Undertime: 0.0, Half-day(s): 0.5, Total: 0.5
+2025-01-25 21:24:42,722 - INFO - Calculated Deductions. Late: 0.0, Undertime: 0.0, Half-day(s): 0.5, Total: 0.5
+2025-01-25 21:24:47,754 - INFO - Theme changed to Light Mode (Apple Calculator style).
+2025-01-25 21:24:50,078 - INFO - Calculated Deductions. Late: 0.0, Undertime: 0.0, Half-day(s): 0.5, Total: 0.5
+2025-01-25 21:24:50,636 - INFO - Calculated Deductions. Late: 0.0, Undertime: 0.0, Half-day(s): 0.5, Total: 0.5
+2025-01-25 21:24:50,814 - INFO - Calculated Deductions. Late: 0.0, Undertime: 0.0, Half-day(s): 0.5, Total: 0.5
+2025-01-25 21:24:51,193 - INFO - Calculated Deductions. Late: 0.0, Undertime: 0.0, Half-day(s): 0.5, Total: 0.5
+2025-01-25 21:24:51,392 - INFO - Calculated Deductions. Late: 0.0, Undertime: 0.0, Half-day(s): 0.5, Total: 0.5
+2025-01-25 21:24:53,411 - INFO - Calculated Deductions. Late: 0.0, Undertime: 0.0, Half-day(s): 0.5, Total: 0.5
+2025-01-25 21:24:53,663 - INFO - Calculated Deductions. Late: 0.0, Undertime: 0.0, Half-day(s): 0.5, Total: 0.5
+2025-01-25 21:24:53,854 - INFO - Calculated Deductions. Late: 0.0, Undertime: 0.0, Half-day(s): 0.5, Total: 0.5
+2025-01-25 21:24:55,596 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 21:24:56,411 - INFO - Theme changed to Light Mode (Apple Calculator style).
+2025-01-25 21:24:57,381 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 21:24:57,981 - INFO - Theme changed to Light Mode (Apple Calculator style).
+2025-01-25 21:24:58,707 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 21:24:59,678 - INFO - Theme changed to Light Mode (Apple Calculator style).
+2025-01-25 21:25:04,372 - INFO - Application closed.
+2025-01-25 21:29:14,261 - INFO - Application started.
+2025-01-25 21:29:14,467 - INFO - History populated in Treeview.
+2025-01-25 21:29:55,759 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 21:30:13,177 - INFO - Theme changed to Light Mode (Apple Calculator style).
+2025-01-25 21:30:14,618 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 21:30:21,173 - INFO - Application closed.
+2025-01-25 21:32:33,314 - INFO - Application started.
+2025-01-25 21:32:44,693 - INFO - Application started.
+2025-01-25 21:32:44,869 - INFO - History populated in Treeview.
+2025-01-25 21:32:46,982 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 21:32:48,536 - INFO - Theme changed to Light Mode (Apple Calculator style).
+2025-01-25 21:32:50,417 - INFO - Application closed.
+2025-01-25 21:33:27,423 - INFO - Application started.
+2025-01-25 21:33:27,587 - INFO - History populated in Treeview.
+2025-01-25 21:33:29,658 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 21:33:30,617 - INFO - Theme changed to Light Mode (Apple Calculator style).
+2025-01-25 21:33:32,519 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 21:33:33,187 - INFO - Theme changed to Light Mode (Apple Calculator style).
+2025-01-25 21:33:34,787 - INFO - Application closed.
+2025-01-25 21:33:36,725 - INFO - Application started.
+2025-01-25 21:33:36,881 - INFO - History populated in Treeview.
+2025-01-25 21:33:39,353 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 21:33:40,773 - INFO - Theme changed to Light Mode (Apple Calculator style).
+2025-01-25 21:33:41,779 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 21:33:42,829 - INFO - Theme changed to Light Mode (Apple Calculator style).
+2025-01-25 21:33:43,896 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 21:33:49,056 - INFO - Application closed.
+2025-01-25 21:42:41,698 - INFO - Application started.
+2025-01-25 21:44:51,697 - INFO - Application started.
+2025-01-25 21:45:30,644 - INFO - Application started.
+2025-01-25 21:45:30,811 - INFO - History populated in Treeview.
+2025-01-25 21:45:38,239 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 21:45:41,289 - INFO - Theme changed to Light Mode (Apple Calculator style).
+2025-01-25 21:45:44,790 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 21:45:46,434 - INFO - Theme changed to Light Mode (Apple Calculator style).
+2025-01-25 21:45:52,040 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 21:45:53,543 - INFO - Theme changed to Light Mode (Apple Calculator style).
+2025-01-25 21:45:54,934 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 21:45:57,914 - INFO - Theme changed to Light Mode (Apple Calculator style).
+2025-01-25 21:46:00,093 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 21:46:02,290 - INFO - Theme changed to Light Mode (Apple Calculator style).
+2025-01-25 21:46:57,798 - ERROR - Supposed Time In is not set.
+2025-01-25 21:47:28,230 - INFO - Application closed.
+2025-01-25 21:48:56,282 - INFO - Application started.
+2025-01-25 21:48:56,441 - INFO - History populated in Treeview.
+2025-01-25 21:48:58,760 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 21:49:05,305 - INFO - Theme changed to Light Mode (Apple Calculator style).
+2025-01-25 21:49:09,247 - INFO - Application closed.
+2025-01-25 21:49:42,289 - INFO - Application started.
+2025-01-25 21:49:42,457 - INFO - History populated in Treeview.
+2025-01-25 21:49:46,324 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 21:49:54,232 - WARNING - Invalid Actual Time In for Morning.
+2025-01-25 21:49:56,858 - INFO - Theme changed to Light Mode (Apple Calculator style).
+2025-01-25 21:49:58,782 - INFO - Application closed.
+2025-01-25 21:50:04,665 - INFO - Application started.
+2025-01-25 21:50:04,823 - INFO - History populated in Treeview.
+2025-01-25 21:50:14,559 - WARNING - Invalid Actual Time In for Morning.
+2025-01-25 21:50:16,682 - INFO - History populated in Treeview.
+2025-01-25 21:50:16,682 - INFO - Date changed to 2025-01-27
+2025-01-25 21:50:24,507 - WARNING - Invalid Actual Time In for Morning.
+2025-01-25 21:50:27,855 - WARNING - Invalid Actual Time Out for Afternoon.
+2025-01-25 21:50:31,619 - INFO - Calculated Deductions. Late: 0.004, Undertime: 0.0, Half-day(s): 0.5, Total: 0.504
+2025-01-25 21:50:32,383 - INFO - Calculated Deductions. Late: 0.004, Undertime: 0.0, Half-day(s): 0.5, Total: 0.504
+2025-01-25 21:50:32,583 - INFO - Calculated Deductions. Late: 0.004, Undertime: 0.0, Half-day(s): 0.5, Total: 0.504
+2025-01-25 21:50:35,557 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 21:50:47,955 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 21:50:48,130 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 21:50:48,316 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 21:50:48,490 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 21:50:48,709 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 21:53:17,204 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 21:53:18,586 - INFO - Theme changed to Light Mode (Apple Calculator style).
+2025-01-25 21:53:19,683 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 21:53:21,335 - INFO - Theme changed to Light Mode (Apple Calculator style).
+2025-01-25 21:53:22,337 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 21:53:24,440 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 21:53:25,285 - INFO - Theme changed to Light Mode (Apple Calculator style).
+2025-01-25 21:53:27,369 - INFO - Theme changed to Dark Mode (Apple Calculator style).
+2025-01-25 21:53:31,369 - INFO - Application closed.
+2025-01-25 21:58:37,179 - INFO - Application started.
+2025-01-25 22:00:13,572 - INFO - Application started.
+2025-01-25 22:01:35,925 - INFO - Application started.
+2025-01-25 22:01:36,049 - INFO - History populated in Treeview.
+2025-01-25 22:01:39,616 - INFO - Theme changed to superhero mode.
+2025-01-25 22:01:40,683 - INFO - Theme changed to flatly mode.
+2025-01-25 22:01:41,316 - INFO - Theme changed to superhero mode.
+2025-01-25 22:01:42,109 - INFO - Theme changed to flatly mode.
+2025-01-25 22:01:42,775 - INFO - Theme changed to superhero mode.
+2025-01-25 22:01:46,233 - INFO - Theme changed to flatly mode.
+2025-01-25 22:01:47,513 - INFO - Theme changed to superhero mode.
+2025-01-25 22:01:48,204 - INFO - Theme changed to flatly mode.
+2025-01-25 22:01:49,263 - INFO - Theme changed to superhero mode.
+2025-01-25 22:01:49,997 - INFO - Theme changed to flatly mode.
+2025-01-25 22:01:54,788 - INFO - Application closed.
+2025-01-25 22:01:58,025 - INFO - Application started.
+2025-01-25 22:01:58,125 - INFO - History populated in Treeview.
+2025-01-25 22:02:06,996 - INFO - History populated in Treeview.
+2025-01-25 22:02:06,996 - INFO - Date changed to 2025-01-26
+2025-01-25 22:02:09,526 - INFO - History populated in Treeview.
+2025-01-25 22:02:09,528 - INFO - Date changed to 2025-01-28
+2025-01-25 22:02:15,865 - INFO - Calculated Deductions. Late: 0.008, Undertime: 0.0, Half-day(s): 0.5, Total: 0.508
+2025-01-25 22:02:58,224 - INFO - Application started.
+2025-01-25 22:02:58,333 - INFO - History populated in Treeview.
+2025-01-25 22:03:01,527 - INFO - Theme changed to superhero mode.
+2025-01-25 22:03:07,406 - INFO - Theme changed to flatly mode.
+2025-01-25 22:03:21,771 - ERROR - Supposed Time In is not set.
+2025-01-25 22:03:23,401 - INFO - History populated in Treeview.
+2025-01-25 22:03:23,401 - INFO - Date changed to 2025-01-28
+2025-01-25 22:03:25,569 - INFO - Calculated Deductions. Late: 0.012, Undertime: 0.0, Half-day(s): 0.5, Total: 0.512
+2025-01-25 22:03:29,204 - INFO - Theme changed to superhero mode.
+2025-01-25 22:03:33,190 - INFO - Theme changed to flatly mode.
+2025-01-25 22:03:35,749 - INFO - Theme changed to superhero mode.
+2025-01-25 22:03:37,464 - INFO - Calculated Deductions. Late: 0.012, Undertime: 0.0, Half-day(s): 0.5, Total: 0.512
+2025-01-25 22:03:37,834 - INFO - Calculated Deductions. Late: 0.012, Undertime: 0.0, Half-day(s): 0.5, Total: 0.512
+2025-01-25 22:03:41,333 - INFO - Calculated Deductions. Late: 1.012, Undertime: 0.0, Half-day(s): 0.5, Total: 1.512
+2025-01-25 22:04:07,610 - INFO - Theme changed to flatly mode.
+2025-01-25 22:04:08,377 - INFO - Theme changed to flatly mode.
+2025-01-25 22:04:08,610 - INFO - Theme changed to flatly mode.
+2025-01-25 22:04:22,240 - INFO - Theme changed to superhero mode.
+2025-01-25 22:05:22,589 - INFO - Application closed.
+2025-01-25 22:05:25,089 - INFO - Application started.
+2025-01-25 22:05:25,216 - INFO - History populated in Treeview.
+2025-01-25 22:05:29,079 - INFO - Application closed.
+2025-01-25 22:07:50,589 - INFO - Application started.
+2025-01-25 22:07:50,754 - INFO - History populated in Treeview.
+2025-01-25 22:07:53,910 - INFO - Theme changed to superhero mode.
+2025-01-25 22:08:00,339 - INFO - Theme changed to flatly mode.
+2025-01-25 22:08:01,655 - INFO - Theme changed to superhero mode.
+2025-01-25 22:08:07,373 - INFO - Theme changed to flatly mode.
+2025-01-25 22:08:08,919 - INFO - Theme changed to superhero mode.
+2025-01-25 22:08:31,643 - WARNING - Invalid Actual Time In for Morning.
+2025-01-25 22:08:33,898 - INFO - History populated in Treeview.
+2025-01-25 22:08:33,900 - INFO - Date changed to 2025-01-19
+2025-01-25 22:08:37,403 - WARNING - Invalid Actual Time In for Morning.
+2025-01-25 22:08:39,491 - INFO - History populated in Treeview.
+2025-01-25 22:08:39,491 - INFO - Date changed to 2025-01-18
+2025-01-25 22:08:41,540 - INFO - History populated in Treeview.
+2025-01-25 22:08:41,540 - INFO - Date changed to 2025-01-16
+2025-01-25 22:08:44,131 - WARNING - Invalid Actual Time In for Morning.
+2025-01-25 22:08:46,683 - INFO - Calculated Deductions. Late: 0.0, Undertime: 0.0, Half-day(s): 0.5, Total: 0.5
+2025-01-25 22:08:54,676 - INFO - Calculated Deductions. Late: 0.027, Undertime: 0.0, Half-day(s): 0.5, Total: 0.527
+2025-01-25 22:09:02,693 - INFO - Application closed.
+2025-01-25 22:09:05,582 - INFO - Application started.
+2025-01-25 22:09:05,760 - INFO - History populated in Treeview.
+2025-01-25 22:09:07,393 - INFO - Theme changed to superhero mode.
+2025-01-25 22:09:08,300 - INFO - Theme changed to flatly mode.
+2025-01-25 22:09:09,036 - INFO - Theme changed to superhero mode.
+2025-01-25 22:09:09,538 - INFO - Theme changed to flatly mode.
+2025-01-25 22:09:09,967 - INFO - Theme changed to flatly mode.
+2025-01-25 22:09:11,028 - INFO - Theme changed to superhero mode.
+2025-01-25 22:09:11,831 - INFO - Theme changed to flatly mode.
+2025-01-25 22:09:12,925 - INFO - Application closed.
+2025-01-25 22:10:14,516 - INFO - Application started.
+2025-01-25 22:10:14,690 - INFO - History populated in Treeview.
+2025-01-25 22:10:16,071 - INFO - Theme changed to darkly mode.
+2025-01-25 22:10:23,037 - INFO - Theme changed to flatly mode.
+2025-01-25 22:10:24,566 - INFO - Theme changed to darkly mode.
+2025-01-25 22:10:29,913 - INFO - Theme changed to flatly mode.
+2025-01-25 22:10:30,800 - INFO - Theme changed to darkly mode.
+2025-01-25 22:10:36,830 - INFO - Theme changed to flatly mode.
+2025-01-25 22:10:37,747 - INFO - Theme changed to darkly mode.
+2025-01-25 22:10:41,389 - INFO - Application closed.
+2025-01-25 22:11:16,348 - INFO - Application started.
+2025-01-25 22:11:16,515 - INFO - History populated in Treeview.
+2025-01-25 22:11:18,801 - INFO - Theme changed to superhero mode.
+2025-01-25 22:11:23,149 - INFO - Application closed.
+2025-01-25 22:11:40,811 - INFO - Application started.
+2025-01-25 22:11:40,991 - INFO - History populated in Treeview.
+2025-01-25 22:11:43,341 - INFO - Theme changed to superhero mode.
+2025-01-25 22:11:47,623 - INFO - Application closed.
+2025-01-25 22:11:52,590 - INFO - Application started.
+2025-01-25 22:11:52,748 - INFO - History populated in Treeview.
+2025-01-25 22:11:54,138 - INFO - Theme changed to superhero mode.
+2025-01-25 22:12:03,638 - INFO - Application closed.
+2025-01-25 22:12:38,296 - INFO - Application started.
+2025-01-25 22:12:38,459 - INFO - History populated in Treeview.
+2025-01-25 22:12:40,430 - INFO - Theme changed to darkly mode.
+2025-01-25 22:13:10,762 - INFO - Application started.
+2025-01-25 22:13:10,926 - INFO - History populated in Treeview.
+2025-01-25 22:13:12,559 - INFO - Theme changed to superhero mode.
+2025-01-25 22:13:16,308 - INFO - Application closed.
+2025-01-25 22:13:31,480 - INFO - Application started.
+2025-01-25 22:13:31,641 - INFO - History populated in Treeview.
+2025-01-25 22:13:33,615 - INFO - Theme changed to superhero mode.
+2025-01-25 22:14:55,010 - INFO - Application started.
+2025-01-25 22:14:55,197 - INFO - History populated in Treeview.
+2025-01-25 22:14:58,233 - INFO - Theme changed to superhero mode.
+2025-01-25 22:15:07,642 - INFO - Application closed.
+2025-01-25 22:15:33,483 - INFO - Application started.
+2025-01-25 22:15:33,643 - INFO - History populated in Treeview.
+2025-01-25 22:15:35,118 - INFO - Theme changed to superhero mode.
+2025-01-25 22:15:41,319 - INFO - Theme changed to flatly mode.
+2025-01-25 22:15:42,075 - INFO - Theme changed to superhero mode.
+2025-01-25 22:15:44,545 - INFO - Application closed.
+2025-01-25 22:16:05,357 - INFO - Application started.
+2025-01-25 22:16:05,519 - INFO - History populated in Treeview.
+2025-01-25 22:16:06,994 - INFO - Theme changed to superhero mode.
+2025-01-25 22:16:08,227 - INFO - Theme changed to flatly mode.
+2025-01-25 22:16:08,841 - INFO - Theme changed to superhero mode.
+2025-01-25 22:16:09,545 - INFO - Theme changed to flatly mode.
+2025-01-25 22:16:11,320 - INFO - Theme changed to superhero mode.
+2025-01-25 22:16:13,241 - INFO - Application closed.
+2025-01-25 22:16:52,307 - INFO - Application started.
+2025-01-25 22:16:52,471 - INFO - History populated in Treeview.
+2025-01-25 22:16:54,305 - INFO - Theme changed to superhero mode.
+2025-01-25 22:17:04,608 - INFO - Application closed.
+2025-01-25 22:17:16,860 - INFO - Application started.
+2025-01-25 22:17:17,065 - INFO - History populated in Treeview.
+2025-01-25 22:17:19,094 - INFO - Theme changed to superhero mode.
+2025-01-25 22:17:20,497 - INFO - Application closed.
+2025-01-25 22:17:36,466 - INFO - Application started.
+2025-01-25 22:17:36,625 - INFO - History populated in Treeview.
+2025-01-25 22:17:38,169 - INFO - Theme changed to superhero mode.
+2025-01-25 22:17:39,718 - INFO - Application closed.
+2025-01-25 22:17:47,686 - INFO - Application started.
+2025-01-25 22:17:47,851 - INFO - History populated in Treeview.
+2025-01-25 22:17:49,118 - INFO - Theme changed to superhero mode.
+2025-01-25 22:17:52,055 - INFO - Application closed.
+2025-01-25 22:17:58,084 - INFO - Application started.
+2025-01-25 22:17:58,252 - INFO - History populated in Treeview.
+2025-01-25 22:18:03,182 - INFO - Application closed.
+2025-01-25 22:18:07,824 - INFO - Application started.
+2025-01-25 22:18:07,984 - INFO - History populated in Treeview.
+2025-01-25 22:18:09,587 - INFO - Theme changed to superhero mode.
+2025-01-25 22:18:11,778 - INFO - Application closed.
+2025-01-25 22:18:18,156 - INFO - Application started.
+2025-01-25 22:18:18,323 - INFO - History populated in Treeview.
+2025-01-25 22:18:19,754 - INFO - Theme changed to superhero mode.
+2025-01-25 22:18:27,083 - INFO - Application closed.
+2025-01-25 22:18:39,722 - INFO - Application started.
+2025-01-25 22:18:39,890 - INFO - History populated in Treeview.
+2025-01-25 22:18:42,086 - INFO - Theme changed to superhero mode.
+2025-01-25 22:18:45,047 - INFO - Theme changed to flatly mode.
+2025-01-25 22:18:46,834 - INFO - Theme changed to superhero mode.
+2025-01-25 22:18:53,454 - WARNING - Invalid Actual Time In for Morning.
+2025-01-25 22:19:00,702 - INFO - History populated in Treeview.
+2025-01-25 22:19:00,702 - INFO - Date changed to 2027-01-22
+2025-01-25 22:19:04,543 - WARNING - Invalid Actual Time In for Morning.
+2025-01-25 22:19:10,384 - WARNING - Invalid Actual Time In for Morning.
+2025-01-25 22:19:13,327 - INFO - Calculated Deductions. Late: 1.056, Undertime: 0.0, Half-day(s): 0.5, Total: 1.556
+2025-01-25 22:19:20,617 - INFO - Calculated Deductions. Late: 0.056, Undertime: 0.0, Half-day(s): 0.5, Total: 0.556
+2025-01-25 22:19:28,931 - INFO - Theme changed to flatly mode.
+2025-01-25 22:19:31,204 - INFO - Theme changed to superhero mode.
+2025-01-25 22:19:42,995 - INFO - Application closed.
+2025-01-25 22:19:54,136 - INFO - Application started.
+2025-01-25 22:19:54,300 - INFO - History populated in Treeview.
+2025-01-25 22:19:57,146 - INFO - Theme changed to superhero mode.
+2025-01-25 22:19:59,744 - INFO - Application closed.
+2025-01-25 22:20:10,907 - INFO - Application started.
+2025-01-25 22:20:11,074 - INFO - History populated in Treeview.
+2025-01-25 22:20:12,667 - INFO - Theme changed to superhero mode.
+2025-01-25 22:20:14,980 - INFO - Application closed.
+2025-01-25 22:20:20,549 - INFO - Application started.
+2025-01-25 22:20:20,719 - INFO - History populated in Treeview.
+2025-01-25 22:20:22,116 - INFO - Theme changed to superhero mode.
+2025-01-25 22:20:24,813 - INFO - Application closed.
+2025-01-25 22:20:38,539 - INFO - Application started.
+2025-01-25 22:20:38,703 - INFO - History populated in Treeview.
+2025-01-25 22:20:39,955 - INFO - Theme changed to superhero mode.
+2025-01-25 22:20:42,034 - INFO - Application closed.
+2025-01-25 22:21:02,547 - INFO - Application started.
+2025-01-25 22:21:02,704 - INFO - History populated in Treeview.
+2025-01-25 22:21:04,247 - INFO - Theme changed to superhero mode.
+2025-01-25 22:21:06,645 - INFO - Theme changed to flatly mode.
+2025-01-25 22:21:08,135 - INFO - Theme changed to superhero mode.
+2025-01-25 22:21:09,705 - INFO - Theme changed to flatly mode.
+2025-01-25 22:21:11,645 - INFO - Application closed.
+2025-01-25 22:22:01,013 - INFO - Application started.
+2025-01-25 22:22:01,176 - INFO - History populated in Treeview.
+2025-01-25 22:22:02,872 - INFO - Theme changed to superhero mode.
+2025-01-25 22:22:11,754 - INFO - Theme changed to flatly mode.
+2025-01-25 22:22:13,734 - INFO - Application closed.
