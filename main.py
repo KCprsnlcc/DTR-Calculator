@@ -55,6 +55,7 @@ ALLOWED_TIMES = {
     }
 }
 
+## (No longer used for the new logic, but kept in code for reference)
 HALF_DAY_TIMES = {
     "Monday":  time(8, 15),
     "Tuesday": time(8, 30),
@@ -62,6 +63,7 @@ HALF_DAY_TIMES = {
     "Thursday": time(8, 30),
     "Friday": time(8, 30)
 }
+
 
 def convert_time_diff_to_day_fraction(hours, minutes):
     """
@@ -71,6 +73,7 @@ def convert_time_diff_to_day_fraction(hours, minutes):
     minutes = max(0, min(minutes, 60))
     day_fraction = HOURS_TO_DAY.get(hours, 0.0) + MINUTES_TO_DAY.get(minutes, 0.0)
     return round(day_fraction, 3)
+
 
 def setup_logging():
     """
@@ -82,6 +85,9 @@ def setup_logging():
         format='%(asctime)s - %(levelname)s - %(message)s'
     )
 
+# ---------------------
+#     Tooltip Class
+# ---------------------
 class Tooltip:
     """
     A custom tooltip class for Tkinter widgets that displays above the cursor.
@@ -124,7 +130,7 @@ class Tooltip:
         # Create the tooltip window
         self.tipwindow = tw = tk.Toplevel(self.widget)
         tw.wm_overrideredirect(True)  # Remove window decorations
-        tw.wm_geometry(f"+{self.x}+{self.y - 20}")  # Position above the cursor (20 pixels above)
+        tw.wm_geometry(f"+{self.x}+{self.y - 20}")  # Position above the cursor (20 px above)
 
         # Add the label with the tooltip text
         label = ttk.Label(
@@ -139,6 +145,10 @@ class Tooltip:
             self.tipwindow.destroy()
         self.tipwindow = None
 
+
+# ---------------------
+#  TimePicker Dialog
+# ---------------------
 class TimePickerDialog:
     """
     A dialog for selecting time (Hour, Minute, AM/PM) with dropdowns (Combobox).
@@ -252,6 +262,10 @@ class TimePickerDialog:
         self.top.wait_window()
         return self.selected_time
 
+
+# ---------------------------
+#  DailyTimeRecordApp Class
+# ---------------------------
 class DailyTimeRecordApp:
     """
     The main application class for the Daily Time Record Calculator.
@@ -529,15 +543,12 @@ class DailyTimeRecordApp:
         """
         normal_color = "black" if self.current_theme == 'flatly' else "white"
 
-        # A small helper to refresh any TEntry
         def refresh_entry(widget):
             current_fg = widget.cget("foreground")
             if current_fg != 'red':
                 widget.configure(foreground=normal_color)
 
-        # A small helper to refresh any Combobox
         def refresh_combo(widget):
-            # Combobox text color can differ depending on states; forcibly reset:
             widget.configure(foreground=normal_color)
 
         # Morning entries
@@ -567,7 +578,6 @@ class DailyTimeRecordApp:
         elif theme_name in ["superhero", "darkly"]:
             self.apply_apple_calculator_dark_style()
         else:
-            # Handle other themes if necessary
             pass
 
         self.update_label_colors()
@@ -599,7 +609,6 @@ class DailyTimeRecordApp:
         help_menu.add_command(label="About", command=self.show_about_dialog)
         Tooltip(help_menu, "Help and information")
 
-        # Ensure menubar colors are updated based on the initial theme
         if self.current_theme == "flatly":
             self.menubar.config(bg="#FFFFFF", fg="#000000", activebackground="#F2F2F2", activeforeground="#000000")
         else:
@@ -615,7 +624,6 @@ class DailyTimeRecordApp:
         date_selection_frame = ttk.Frame(labels_frame)
         date_selection_frame.pack(pady=5, anchor="w")
 
-        # Updated year range from 1900 to 2125
         ttk.Label(date_selection_frame, text="Year:").grid(row=0, column=0, padx=5, pady=2, sticky="e")
         self.year_var = tk.StringVar()
         self.year_combo = ttk.Combobox(
@@ -834,7 +842,6 @@ class DailyTimeRecordApp:
         search_frame.pack(fill="x", pady=5)
 
         ttk.Label(search_frame, text="From Year:").pack(side="left", padx=5)
-        # Updated year range from 1900 to 2125
         self.search_from_year_var = tk.StringVar()
         self.search_from_year = ttk.Combobox(
             search_frame,
@@ -931,11 +938,9 @@ class DailyTimeRecordApp:
         self.button_select_all.pack(side="left", padx=5)
         Tooltip(self.button_select_all, "Select all rows in the history")
 
-        # ----- Added Delete Button -----
         self.button_delete = ttkb.Button(search_frame, text="Delete", command=self.delete_record, style="Calc.TButton")
         self.button_delete.pack(side="left", padx=5)
         Tooltip(self.button_delete, "Delete selected record(s)")
-        # --------------------------------
 
         self.history_tree = ttk.Treeview(
             history_frame,
@@ -977,11 +982,11 @@ class DailyTimeRecordApp:
         self.history_tree.configure(yscroll=scrollbar.set)
         scrollbar.pack(side="right", fill="y")
 
-        # Bindings
         self.history_tree.bind("<Delete>", lambda e: self.delete_record())
-        self.history_tree.bind("<Control-a>", lambda e: self.select_all_records())  # ----- Added Ctrl+A Binding -----
-        self.history_tree.bind("<Control-A>", lambda e: self.select_all_records())  # Ensure both cases
+        self.history_tree.bind("<Control-a>", lambda e: self.select_all_records())
+        self.history_tree.bind("<Control-A>", lambda e: self.select_all_records())
         self.history_tree.bind("<Button-3>", self.show_context_menu)
+
         self.context_menu = tk.Menu(self.master, tearoff=0)
         self.context_menu.add_command(label="Edit Record", command=self.edit_record)
         self.context_menu.add_command(label="Delete Record", command=self.delete_record)
@@ -1004,23 +1009,30 @@ class DailyTimeRecordApp:
     # ------------------------------------------------------------------------
     def on_morning_check_toggle(self):
         state = "normal" if self.morning_check.get() else "disabled"
-        if state == "disabled":
+        if not self.morning_check.get():
             self.morning_actual_time_in_hour_var.set('00')
             self.morning_actual_time_in_minute_var.set('00')
             self.morning_actual_time_in_ampm_var.set('AM')
+
+            ## CHANGE: Clear the "Supposed Time In" label if morning is unchecked
+            self.label_supposed_time_in.config(text="Supposed Time In: --:-- --")
+
         self.morning_actual_time_in_hour_entry.config(state=state)
         self.morning_actual_time_in_minute_entry.config(state=state)
         self.morning_actual_time_in_ampm_combo.config(state=state)
         self.morning_actual_time_in_button.config(state=state)
         self.button_clear_morning.config(state=state)
-        self.update_supposed_time_in_label()
 
     def on_afternoon_check_toggle(self):
         state = "normal" if self.afternoon_check.get() else "disabled"
-        if state == "disabled":
+        if not self.afternoon_check.get():
             self.afternoon_actual_time_out_hour_var.set('00')
             self.afternoon_actual_time_out_minute_var.set('00')
             self.afternoon_actual_time_out_ampm_var.set('PM')
+
+            ## CHANGE: Clear the "Supposed Time Out" label if afternoon is unchecked
+            self.label_supposed_time_out.config(text="Supposed Time Out: --:-- --")
+
         self.afternoon_actual_time_out_hour_entry.config(state=state)
         self.afternoon_actual_time_out_minute_entry.config(state=state)
         self.afternoon_actual_time_out_ampm_combo.config(state=state)
@@ -1028,20 +1040,19 @@ class DailyTimeRecordApp:
         self.button_clear_afternoon.config(state=state)
 
     def update_supposed_time_in_label(self):
+        """
+        No longer using half-day times by default here.
+        We can leave it as is or show the default from ALLOWED_TIMES.
+        But the user wants it cleared if morning is unchecked
+        (handled in on_morning_check_toggle).
+        """
         self.current_day = self.selected_date.strftime("%A")
-        if self.morning_check.get() and self.afternoon_check.get():
+        if self.morning_check.get():
             st = ALLOWED_TIMES.get(self.current_day, {}).get("supposed_time_in")
             sup_in_str = st.strftime("%I:%M %p") if st else "--:-- --"
-        elif self.morning_check.get() and not self.afternoon_check.get():
-            st = HALF_DAY_TIMES.get(self.current_day)
-            sup_in_str = st.strftime("%I:%M %p") if st else "--:-- --"
-        elif not self.morning_check.get() and self.afternoon_check.get():
-            st = HALF_DAY_TIMES.get(self.current_day)
-            sup_in_str = st.strftime("%I:%M %p") if st else "--:-- --"
+            self.label_supposed_time_in.config(text=f"Supposed Time In: {sup_in_str}")
         else:
-            sup_in_str = "--:-- --"
-
-        self.label_supposed_time_in.config(text=f"Supposed Time In: {sup_in_str}")
+            self.label_supposed_time_in.config(text="Supposed Time In: --:-- --")
 
     def on_date_change(self, event):
         try:
@@ -1169,10 +1180,8 @@ class DailyTimeRecordApp:
                 # valid hours: 01..12
                 try:
                     if not (1 <= int(value) <= 12):
-                        # Apply error style
                         self.apply_error_style(entry)
                     else:
-                        # Revert to normal style based on theme
                         self.apply_normal_style(entry)
                 except ValueError:
                     self.apply_error_style(entry)
@@ -1180,26 +1189,17 @@ class DailyTimeRecordApp:
                 # valid minutes: 00..59
                 try:
                     if not (0 <= int(value) <= 59):
-                        # Apply error style
                         self.apply_error_style(entry)
                     else:
-                        # Revert to normal style based on theme
                         self.apply_normal_style(entry)
                 except ValueError:
                     self.apply_error_style(entry)
-
         var.trace_add('write', validate)
 
     def apply_error_style(self, widget):
-        """
-        Apply a red foreground to indicate invalid input.
-        """
         widget.configure(foreground="red")
 
     def apply_normal_style(self, widget):
-        """
-        Revert the foreground color based on the current theme.
-        """
         if self.current_theme == 'flatly':
             widget.configure(foreground="black")
         else:
@@ -1266,7 +1266,9 @@ class DailyTimeRecordApp:
         total_late_deduction = 0.0
         total_undertime_deduction = 0.0
 
-        # Morning
+        # -------------------------------
+        #   Handle Morning (Late)
+        # -------------------------------
         if self.morning_check.get():
             morning_actual_time_in = self.parse_time_input("morning_actual_time_in")
             if not morning_actual_time_in:
@@ -1274,6 +1276,7 @@ class DailyTimeRecordApp:
                 logging.warning("Invalid Actual Time In for Morning.")
                 return
 
+            # Suppose Time In from label
             supposed_time_in_str = self.label_supposed_time_in.cget("text").split(": ", 1)[1]
             try:
                 supposed_time_in = datetime.strptime(supposed_time_in_str, "%I:%M %p").time()
@@ -1295,34 +1298,65 @@ class DailyTimeRecordApp:
             )
             self.label_morning_late_deduction.config(text=f"Late Deduction: {late_deduction:.3f}")
             total_late_deduction = late_deduction
+        else:
+            self.label_morning_late.config(text="Late: 0 minutes")
+            self.label_morning_late_deduction.config(text="Late Deduction: 0.000")
 
-            # Flexi logic for Suppose Time Out
-            day_name = self.current_day
-            hour_min = morning_actual_time_in.hour * 60 + morning_actual_time_in.minute
+        # -------------------------------
+        #  Determine Supposed Time Out
+        # -------------------------------
+        day_name = self.current_day
 
-            if day_name == "Monday":
-                if hour_min <= 450:  # 7:30am => 450
-                    supposed_time_out = time(16, 30)
-                else:
-                    supposed_time_out = time(17, 0)
+        supposed_time_out = None
+
+        ## CHANGE: If both morning & afternoon are included => flexi based on actual time in
+        if self.morning_check.get() and self.afternoon_check.get():
+            # We need the actual morning time in to do flexi logic
+            morning_in = self.parse_time_input("morning_actual_time_in")
+            if not morning_in:
+                # Already handled above, but in case
+                return
+
+            # Convert to total minutes from midnight
+            in_minutes = morning_in.hour * 60 + morning_in.minute
+
+            # If earlier than 7:30 => treat as 7:30
+            if in_minutes < 450:  # 7:30 -> 450
+                in_minutes = 450
+            # If later than 8:30 => treat as 8:30
+            elif in_minutes > 510:  # 8:30 -> 510
+                in_minutes = 510
+
+            # Add 9 hours (540 minutes)
+            out_minutes = in_minutes + 540
+            out_hour = out_minutes // 60
+            out_minute = out_minutes % 60
+            supposed_time_out = time(out_hour, out_minute)
+            self.label_supposed_time_out.config(
+                text=f"Supposed Time Out: {supposed_time_out.strftime('%I:%M %p')}"
+            )
+
+        ## CHANGE: If only the afternoon is included => M-TH=4:30 PM, Fri=5:00 PM
+        elif not self.morning_check.get() and self.afternoon_check.get():
+            if day_name in ["Monday", "Tuesday", "Wednesday", "Thursday"]:
+                supposed_time_out = time(16, 30)  # 4:30 PM
+            elif day_name == "Friday":
+                supposed_time_out = time(17, 0)   # 5:00 PM
             else:
-                if hour_min <= 450:
-                    supposed_time_out = time(16, 30)
-                elif hour_min <= 480:
-                    supposed_time_out = time(17, 0)
-                else:
-                    supposed_time_out = time(17, 30)
+                # For Sat/Sun or other logic, keep a fallback
+                supposed_time_out = time(16, 30)
 
             self.label_supposed_time_out.config(
                 text=f"Supposed Time Out: {supposed_time_out.strftime('%I:%M %p')}"
             )
         else:
-            self.label_morning_late.config(text="Late: 0 minutes")
-            self.label_morning_late_deduction.config(text="Late Deduction: 0.000")
-            supposed_time_out = None
+            # If afternoon is unchecked => we keep "Supposed Time Out: --:-- --"
+            # or if morning only => we do not set a supposed time out.
             self.label_supposed_time_out.config(text="Supposed Time Out: --:-- --")
 
-        # Afternoon
+        # -------------------------------
+        #   Handle Afternoon (Undertime)
+        # -------------------------------
         if self.afternoon_check.get():
             afternoon_actual_time_out = self.parse_time_input("afternoon_actual_time_out")
             if not afternoon_actual_time_out:
@@ -1348,6 +1382,7 @@ class DailyTimeRecordApp:
             self.label_afternoon_undertime.config(text="Undertime: 0 minutes")
             self.label_afternoon_undertime_deduction.config(text="Undertime Deduction: 0.000")
 
+        # Count half-day absences
         half_day_absences = 0
         if not self.morning_check.get():
             half_day_absences += 1
@@ -1460,7 +1495,6 @@ class DailyTimeRecordApp:
             "deduction_points": deduction_points
         }
 
-        # Check for existing records for the same date
         existing_records = [record for record in self.records if record["date"] == date_str]
         if existing_records:
             add_record = messagebox.askyesno(
@@ -1579,60 +1613,69 @@ class DailyTimeRecordApp:
         morning_in_str = record["morning_actual_time_in"]
         if morning_in_str and morning_in_str != "--:-- --":
             morning_time = self.str_to_time(morning_in_str)
-            supposed_time_in = ALLOWED_TIMES.get(day_name, {}).get("supposed_time_in", "--:-- --")
-            record["supposed_time_in"] = supposed_time_in.strftime("%I:%M %p") if isinstance(supposed_time_in, time) else "--:-- --"
 
-            try:
-                sup_in = datetime.strptime(record["supposed_time_in"], "%I:%M %p").time()
-            except:
-                sup_in = None
+            # Suppose Time In from ALLOWED_TIMES
+            st = ALLOWED_TIMES.get(day_name, {}).get("supposed_time_in")
+            if st:
+                record["supposed_time_in"] = st.strftime("%I:%M %p")
+            else:
+                record["supposed_time_in"] = "--:-- --"
 
-            if sup_in and morning_time:
-                late_raw = self.calculate_time_difference(sup_in, morning_time)
+            late_minutes = 0
+            if morning_time and st:
+                late_raw = self.calculate_time_difference(st, morning_time)
                 late_minutes = max(0, late_raw)
-            else:
-                late_minutes = 0
             record["late_minutes"] = late_minutes
-
-            hour_min = morning_time.hour * 60 + morning_time.minute
-            if day_name == "Monday":
-                if hour_min <= 450:
-                    s_out = time(16, 30)
-                else:
-                    s_out = time(17, 0)
-            else:
-                if hour_min <= 450:
-                    s_out = time(16, 30)
-                elif hour_min <= 480:
-                    s_out = time(17, 0)
-                else:
-                    s_out = time(17, 30)
-            record["supposed_time_out"] = s_out.strftime("%I:%M %p")
         else:
             record["morning_actual_time_in"] = "--:-- --"
             record["supposed_time_in"] = "--:-- --"
             record["late_minutes"] = 0
+
+        # We'll replicate the new flexi rule if both morning/afternoon included
+        after_str = record["afternoon_actual_time_out"]
+        if after_str and after_str != "--:-- --":
+            afternoon_time = self.str_to_time(after_str)
+        else:
+            afternoon_time = None
+
+        # If both morning & afternoon, do the new flexi logic for supposed time out
+        if record["morning_actual_time_in"] != "--:-- --" and afternoon_time:
+            morning_minutes = 0
+            if morning_time:
+                morning_minutes = morning_time.hour * 60 + morning_time.minute
+            if morning_minutes < 450:
+                morning_minutes = 450
+            elif morning_minutes > 510:
+                morning_minutes = 510
+            out_minutes = morning_minutes + 540
+            out_h = out_minutes // 60
+            out_m = out_minutes % 60
+            sup_time_out = time(out_h, out_m)
+            record["supposed_time_out"] = sup_time_out.strftime("%I:%M %p")
+        elif record["morning_actual_time_in"] == "--:-- --" and afternoon_time:
+            # Only afternoon => M-TH=4:30 pm, F=5:00 pm
+            if day_name in ["Monday", "Tuesday", "Wednesday", "Thursday"]:
+                record["supposed_time_out"] = time(16, 30).strftime("%I:%M %p")
+            elif day_name == "Friday":
+                record["supposed_time_out"] = time(17, 0).strftime("%I:%M %p")
+            else:
+                record["supposed_time_out"] = time(16, 30).strftime("%I:%M %p")
+        else:
             record["supposed_time_out"] = "--:-- --"
 
-        afternoon_out_str = record["afternoon_actual_time_out"]
-        if afternoon_out_str and afternoon_out_str != "--:-- --":
-            afternoon_time = self.str_to_time(afternoon_out_str)
-            if record["supposed_time_out"] and record["supposed_time_out"] != "--:-- --":
-                sup_out_time = datetime.strptime(record["supposed_time_out"], "%I:%M %p").time()
-                undertime_raw = self.calculate_time_difference(afternoon_time, sup_out_time)
-                undertime_minutes = max(0, undertime_raw)
-            else:
-                undertime_minutes = 0
-            record["undertime_minutes"] = undertime_minutes
-        else:
-            record["afternoon_actual_time_out"] = "--:-- --"
-            record["undertime_minutes"] = 0
+        undertime_minutes = 0
+        if afternoon_time and record["supposed_time_out"] != "--:-- --":
+            sup_out_time = self.str_to_time(record["supposed_time_out"])
+            undertime_raw = self.calculate_time_difference(afternoon_time, sup_out_time)
+            undertime_minutes = max(0, undertime_raw)
+        record["undertime_minutes"] = undertime_minutes
 
-        morning_absent = (record["morning_actual_time_in"] == "--:-- --")
-        afternoon_absent = (record["afternoon_actual_time_out"] == "--:-- --")
+        # Recalculate total deduction
         half_days = 0
-        if morning_absent: half_days += 1
-        if afternoon_absent: half_days += 1
+        if record["morning_actual_time_in"] == "--:-- --":
+            half_days += 1
+        if record["afternoon_actual_time_out"] == "--:-- --":
+            half_days += 1
         half_day_deduction = half_days * 0.5
 
         late_ded = convert_time_diff_to_day_fraction(
@@ -1796,11 +1839,9 @@ class DailyTimeRecordApp:
         logging.info("History populated in Treeview.")
 
     def sort_by_column(self, col):
-        # Toggle sort state
         self.sort_states[col] = not self.sort_states[col]
         reverse = self.sort_states[col]
 
-        # Define a key function based on the column
         if col in ["Late Minutes", "Undertime Minutes", "Deduction Points"]:
             key_func = lambda x: float(x[col.replace(" ", "_").lower()])
         elif col == "Date":
@@ -1808,7 +1849,6 @@ class DailyTimeRecordApp:
         else:
             key_func = lambda x: x[col.replace(" ", "_").lower()]
 
-        # Sort the current_records
         self.current_records.sort(key=key_func, reverse=reverse)
         self.populate_history()
 
@@ -1867,7 +1907,6 @@ This version includes:
         label_guide.config(state="disabled")
         label_guide.pack(fill="both", expand=True, padx=10, pady=10)
 
-        # Force text color for dark/light
         if self.current_theme != 'flatly':  # dark
             label_overview.config(fg="white")
             label_guide.config(fg="white")
@@ -1893,7 +1932,7 @@ Enhanced with:
  - Multi-selection & Sorting
  - Simplified Record Editing
 
-Developed by: KCprsnlcc
+Developer: KCprsnlcc
 GitHub: https://github.com/KCprsnlcc
 
 Disclaimer: Use at your own risk. Keep data backups.
@@ -1925,10 +1964,10 @@ Disclaimer: Use at your own risk. Keep data backups.
 
         child.geometry(f"+{pos_x}+{pos_y}")
 
-# ------------------------------------------------------------------------
-# EDIT RECORD DIALOG CLASS
-# ------------------------------------------------------------------------
 
+# --------------------------------------------------------------
+#   EDIT RECORD DIALOG CLASS
+# --------------------------------------------------------------
 class EditRecordDialog:
     """
     Dialog to edit the 'morning_actual_time_in' and 'afternoon_actual_time_out' fields only.
@@ -2027,6 +2066,7 @@ def main():
     app = DailyTimeRecordApp(root)
     root.mainloop()
     logging.info("Application closed.")
+
 
 if __name__ == "__main__":
     main()
