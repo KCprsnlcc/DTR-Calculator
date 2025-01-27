@@ -126,9 +126,11 @@ class Tooltip:
         label = ttk.Label(
             tw, text=self.text, justify=tk.LEFT,
             background="#ffffe0", relief=tk.SOLID, borderwidth=1,
-            font=("tahoma", "8", "normal")
+            font=("tahoma", "8", "normal"),
+            foreground="#000000"  # Set font color explicitly to black
         )
         label.pack(ipadx=1)
+
 
     def hidetip(self):
         if self.tipwindow:
@@ -1863,7 +1865,9 @@ class DailyTimeRecordApp:
         self.current_records.sort(key=key_func, reverse=reverse)
         self.populate_history()
 
-    # <-- CHANGE: Add more recommended features under About & Help
+    # ------------------------------------------------------------------------
+    # ADDED: More recommended features in the help tabs
+    # ------------------------------------------------------------------------
     def show_help_dialog(self):
         help_window = tk.Toplevel(self.master)
         help_window.title("How to Use - Daily Time Record")
@@ -1872,12 +1876,15 @@ class DailyTimeRecordApp:
         help_window.lift()
 
         help_window.grab_set()
-        help_window.geometry("700x500")
+        help_window.geometry("700x550")
         self.center_child_window(help_window)
 
         notebook = ttk.Notebook(help_window)
         notebook.pack(fill="both", expand=True, padx=10, pady=10)
 
+        # -----------------
+        #  Tab: OVERVIEW
+        # -----------------
         tab_overview = ttk.Frame(notebook)
         notebook.add(tab_overview, text="Overview")
 
@@ -1894,12 +1901,6 @@ This version includes:
 - Time Picker dialogs
 - Light/Dark theme toggle
 - Fullscreen toggle
-
-Recommended Additional Features:
-- Option to add daily notes or remarks
-- Integration with attendance hardware logs
-- Automatic lunch break deduction (if applicable)
-- Overtime calculation extension
 """
         label_overview = tk.Text(tab_overview, wrap="word", font=("Helvetica", 12),
                                  bg=help_window.cget("bg"), borderwidth=0)
@@ -1907,6 +1908,9 @@ Recommended Additional Features:
         label_overview.config(state="disabled")
         label_overview.pack(fill="both", expand=True, padx=10, pady=10)
 
+        # --------------------------
+        #  Tab: STEP-BY-STEP GUIDE
+        # --------------------------
         tab_guide = ttk.Frame(notebook)
         notebook.add(tab_guide, text="Step-by-Step Guide")
 
@@ -1933,12 +1937,107 @@ Recommended Additional Features:
         label_guide.config(state="disabled")
         label_guide.pack(fill="both", expand=True, padx=10, pady=10)
 
-        if self.current_theme != 'flatly':  # dark
+        # -------------------
+        #  Tab: FAQs
+        # -------------------
+        tab_faqs = ttk.Frame(notebook)
+        notebook.add(tab_faqs, text="FAQs")
+
+        faqs_content = """Frequently Asked Questions (FAQs)
+
+Q: What happens if I forget to set the Morning or Afternoon checkbox?
+A: The system considers it as a half-day absence for that session, adding 0.5 deduction.
+
+Q: How does the Flexi Time Out work?
+A: If you have both Morning & Afternoon checked, the program uses your actual Morning In as the basis for an 8-hour shift (with standard earliest possible times). The 'Supposed Time Out' then auto-calculates.
+
+Q: Can I add multiple records for the same date?
+A: Yes. The system will ask for confirmation and keep a separate entry if you choose 'Yes'.
+
+Q: Why is my Late Deduction or Undertime Deduction still zero?
+A: Make sure you entered valid times and clicked 'Calculate Deductions'.
+
+Q: Will the data remain after I close the program?
+A: Yes, as long as the JSON file remains in the same folder and is not corrupted or deleted.
+
+Q: How do I correct a record after saving it?
+A: Go to the 'Deduction History', right-click on a record, then choose 'Edit Record'. Or select the record and press 'Delete' to remove it, and then re-enter the correct details.
+
+Q: How do I toggle between Light and Dark themes?
+A: Use the Light Mode and Dark Mode buttons in the header section. The themes dynamically update the application's appearance.
+
+Q: What happens if I accidentally delete a record?
+A: Unfortunately, there is no undo feature for deleted records. Always double-check before confirming deletion.
+
+Q: Can I edit the Supposed Time In or Supposed Time Out values?
+A: No, these values are automatically calculated based on predefined schedules and cannot be manually edited.
+
+Q: How does the system handle half-day absences?
+A: If either Morning or Afternoon is unchecked, the system adds a 0.5 deduction point for that half-day absence.
+
+Q: Can I export the history for specific dates only?
+A: Yes. Use the date range filters in the Deduction History tab to narrow the records. Once filtered, click Export History to save only the selected records.
+
+Q: What should I do if my JSON file is missing or corrupted?
+A: The program will start fresh if the JSON file is missing. However, if it is corrupted, you will need to manually fix it or delete it to allow the program to create a new file.
+
+Q: How are Late Minutes calculated?
+A: Late Minutes are the difference in minutes between the Supposed Time In and the Actual Time In for the Morning session.
+
+Q: How are Undertime Minutes calculated?
+A: Undertime Minutes are the difference in minutes between the Supposed Time Out and the Actual Time Out for the Afternoon session.
+
+Q: Can I view only specific columns in the Deduction History?
+A: No, all columns are displayed by default, but you can resize columns or sort them by clicking the column headers.
+
+Q: How do I quickly find records from a specific month or year?
+A: Use the date range filters in the Deduction History tab to search for records within a specific range.
+
+Q: Is there a limit to the number of records I can save?
+A: No, there is no limit as long as your computer has sufficient storage.
+
+Q: Why can’t I select more than one record when editing?
+A: The Edit Record functionality is designed to modify only one record at a time to avoid conflicts. Use the Delete option for multi-selection.
+
+Q: Can I add a record for a future date?
+A: Yes, you can select a future date and add a record, but ensure that it is intentional.
+
+Q: What happens if I forget to click 'Calculate Deductions' before saving?
+A: The deduction points will remain as zero for the record unless recalculated and updated manually.
+
+Q: How does the sorting work in the Deduction History?
+A: Clicking a column header toggles between ascending and descending order for that column.
+
+Q: How do I reset all inputs to default values?
+A: Use the Clear Morning and Clear Afternoon buttons to reset the respective inputs to their default state.
+
+Q: Can I disable the tooltip feature?
+A: Tooltips are always enabled for ease of use. They cannot be disabled.
+
+Q: How can I test the application without affecting actual records?
+A: Add and save test records, and delete them once you're done. Use the date range filters to separate test data from real records.
+
+Q: How do I open the Time Picker dialog?
+A: Click the Select Time button next to the time input fields for Morning or Afternoon to open the Time Picker dialog.
+
+Q: How does the application calculate Total Deduction Points?
+A: It sums up the Late Deduction, Undertime Deduction, and any Half-day Deduction (if applicable).
+"""
+        label_faqs = tk.Text(tab_faqs, wrap="word", font=("Helvetica", 12),
+                             bg=help_window.cget("bg"), borderwidth=0)
+        label_faqs.insert("1.0", faqs_content)
+        label_faqs.config(state="disabled")
+        label_faqs.pack(fill="both", expand=True, padx=10, pady=10)
+
+        # Adjust text color based on theme
+        if self.current_theme != 'flatly':  # dark theme
             label_overview.config(fg="white")
             label_guide.config(fg="white")
+            label_faqs.config(fg="white")
         else:
             label_overview.config(fg="black")
             label_guide.config(fg="black")
+            label_faqs.config(fg="black")
 
     def show_about_dialog(self):
         about_window = tk.Toplevel(self.master)
