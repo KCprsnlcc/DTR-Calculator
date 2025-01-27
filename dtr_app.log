@@ -2019,3 +2019,62 @@
 2025-01-27 16:43:07,491 - INFO - Application started.
 2025-01-27 16:43:08,025 - INFO - History populated in Treeview.
 2025-01-27 16:43:13,369 - INFO - Application closed.
+2025-01-27 16:50:04,072 - INFO - Application started.
+2025-01-27 17:08:46,840 - INFO - Application started.
+2025-01-27 17:08:47,073 - INFO - History populated in Treeview.
+2025-01-27 17:09:01,635 - INFO - User chose not to add another record for 2025-01-27.
+2025-01-27 17:11:09,770 - INFO - User chose not to add another record for 2025-01-27.
+2025-01-27 17:11:30,164 - INFO - Theme changed to superhero mode.
+2025-01-27 17:11:31,472 - INFO - Theme changed to flatly mode.
+2025-01-27 17:11:33,654 - INFO - Theme changed to superhero mode.
+2025-01-27 17:11:35,260 - INFO - Theme changed to flatly mode.
+2025-01-27 17:20:38,760 - INFO - Application closed.
+2025-01-27 17:20:43,958 - INFO - Application started.
+2025-01-27 17:20:44,214 - INFO - History populated in Treeview.
+2025-01-27 17:20:56,438 - INFO - Entered full-screen mode.
+2025-01-27 17:20:59,653 - INFO - User chose not to add another record for 2025-01-27.
+2025-01-27 17:21:04,315 - INFO - User chose not to add another record for 2025-01-27.
+2025-01-27 17:21:33,012 - INFO - User chose not to add another record for 2025-01-27.
+2025-01-27 21:18:15,137 - INFO - User chose not to add another record for 2025-01-27.
+2025-01-27 21:18:16,883 - INFO - Exited full-screen mode.
+2025-01-27 21:19:05,861 - INFO - Calculated Deductions. Late: 0.0, Undertime: 0.181, Half-day(s): 0.5, Total: 0.681
+2025-01-27 21:19:16,406 - INFO - History populated in Treeview.
+2025-01-27 21:19:16,416 - INFO - Date changed to 2025-01-28
+2025-01-27 21:19:22,393 - INFO - History populated in Treeview.
+2025-01-27 21:19:22,393 - INFO - Date changed to 2025-01-31
+2025-01-27 21:19:28,904 - INFO - Calculated Deductions. Late: 0.0, Undertime: 0.0, Half-day(s): 0.5, Total: 0.5
+2025-01-27 21:19:34,321 - INFO - Calculated Deductions. Late: 0.0, Undertime: 0.002, Half-day(s): 0.5, Total: 0.502
+2025-01-27 21:20:00,049 - INFO - Records saved successfully.
+2025-01-27 21:20:01,751 - INFO - Record saved for 2025-01-31: 0.502 points.
+2025-01-27 21:20:01,756 - INFO - History populated in Treeview.
+2025-01-27 21:20:15,578 - INFO - User chose not to add another record for 2025-01-31.
+2025-01-27 21:20:19,982 - INFO - User chose not to add another record for 2025-01-31.
+2025-01-27 21:26:11,379 - INFO - Application started.
+2025-01-27 21:26:11,922 - INFO - History populated in Treeview.
+2025-01-27 21:26:15,249 - INFO - User chose not to add another record for 2025-01-27.
+2025-01-27 21:26:23,017 - INFO - User chose not to add another record for 2025-01-27.
+2025-01-27 21:26:35,744 - WARNING - Invalid Actual Time Out for Afternoon.
+2025-01-27 21:26:38,231 - WARNING - Invalid Actual Time Out for Afternoon.
+2025-01-27 21:26:41,690 - INFO - Calculated Deductions. Late: 0.0, Undertime: 1.056, Half-day(s): 0.0, Total: 1.056
+2025-01-27 21:26:46,440 - INFO - Calculated Deductions. Late: 0.0, Undertime: 0.056, Half-day(s): 0.0, Total: 0.056
+2025-01-27 21:26:56,535 - INFO - Calculated Deductions. Late: 0.0, Undertime: 0.073, Half-day(s): 0.0, Total: 0.073
+2025-01-27 21:27:02,466 - INFO - Calculated Deductions. Late: 0.0, Undertime: 0.0, Half-day(s): 0.0, Total: 0.0
+2025-01-27 21:27:12,909 - INFO - Calculated Deductions. Late: 0.002, Undertime: 0.046, Half-day(s): 0.0, Total: 0.048
+2025-01-27 21:42:07,913 - INFO - Calculated Deductions. Late: 0.0, Undertime: 0.044, Half-day(s): 0.0, Total: 0.044
+2025-01-27 21:42:18,807 - INFO - History populated in Treeview.
+2025-01-27 21:42:18,812 - INFO - Date changed to 2025-01-30
+2025-01-27 21:42:22,828 - INFO - History populated in Treeview.
+2025-01-27 21:42:22,828 - INFO - Date changed to 2025-01-31
+2025-01-27 21:42:27,359 - INFO - Calculated Deductions. Late: 0.0, Undertime: 0.044, Half-day(s): 0.5, Total: 0.544
+2025-01-27 21:42:38,594 - INFO - History populated in Treeview.
+2025-01-27 21:42:38,594 - INFO - Date changed to 2025-01-30
+2025-01-27 21:42:41,436 - INFO - Calculated Deductions. Late: 0.0, Undertime: 0.0, Half-day(s): 0.5, Total: 0.5
+2025-01-27 21:42:44,872 - INFO - Calculated Deductions. Late: 0.0, Undertime: 0.006, Half-day(s): 0.5, Total: 0.506
+2025-01-27 21:42:59,938 - INFO - Calculated Deductions. Late: 0.0, Undertime: 0.0, Half-day(s): 0.5, Total: 0.5
+2025-01-27 21:43:05,209 - WARNING - Invalid Actual Time Out for Afternoon.
+2025-01-27 21:43:07,484 - INFO - Calculated Deductions. Late: 0.0, Undertime: 0.0, Half-day(s): 0.0, Total: 0.0
+2025-01-27 21:43:09,547 - INFO - Calculated Deductions. Late: 0.0, Undertime: 0.0, Half-day(s): 0.0, Total: 0.0
+2025-01-27 21:43:09,748 - INFO - Calculated Deductions. Late: 0.0, Undertime: 0.0, Half-day(s): 0.0, Total: 0.0
+2025-01-27 21:43:12,956 - INFO - Calculated Deductions. Late: 0.0, Undertime: 0.056, Half-day(s): 0.0, Total: 0.056
+2025-01-27 21:43:23,828 - INFO - Calculated Deductions. Late: 0.0, Undertime: 0.056, Half-day(s): 0.5, Total: 0.556
+2025-01-27 21:43:48,647 - INFO - Application closed.
