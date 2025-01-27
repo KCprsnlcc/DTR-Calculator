@@ -152,7 +152,7 @@ class TimePickerDialog:
         # Make the dialog modal-like
         self.top.grab_set()
 
-        ## CHANGE: Make it transient and lift to ensure it stays on top in full-screen
+        # Keep it on top in fullscreen mode
         self.top.transient(self.parent)
         self.top.lift()
 
@@ -217,6 +217,9 @@ class TimePickerDialog:
         self.top.protocol("WM_DELETE_WINDOW", self.on_cancel)
 
     def center_dialog(self):
+        """
+        Center the Toplevel over the parent window.
+        """
         self.parent.update_idletasks()
         parent_x = self.parent.winfo_rootx()
         parent_y = self.parent.winfo_rooty()
@@ -246,7 +249,7 @@ class TimePickerDialog:
             self.selected_time = time(hour, minute)
             self.top.destroy()
         except ValueError:
-            messagebox.showerror("Invalid Input", "Please enter a valid time.")
+            messagebox.showerror("Invalid Input", "Please enter a valid time.", parent=self.top)
 
     def on_cancel(self):
         self.top.destroy()
@@ -272,6 +275,9 @@ class DailyTimeRecordApp:
             master.iconbitmap(icon_path)
         else:
             logging.warning("Icon file not found. Default icon will be used.")
+
+        # <-- CHANGE: Store normal geometry for toggling fullscreen
+        self.normal_geometry = None
 
         master.resizable(True, True)
 
@@ -305,7 +311,6 @@ class DailyTimeRecordApp:
 
         self.center_window()
         self.update_supposed_time_in_label()
-        ## CHANGE: Also update the supposed time out label on initialization
         self.update_supposed_time_out_label()
 
     def select_all_records(self):
@@ -322,7 +327,6 @@ class DailyTimeRecordApp:
         """
         Apple Calculator–inspired LIGHT mode (no menubar recreation).
         """
-        # Colors
         BG_LIGHT = "#FFFFFF"
         BG_FRAME = "#F2F2F2"
         FG_TEXT = "#000000"
@@ -331,10 +335,8 @@ class DailyTimeRecordApp:
         BTN_HOVER_GRAY = "#C0C0C0"
         BTN_HOVER_ORANGE = "#FFB340"
 
-        # Root window background
         self.master.configure(bg=BG_LIGHT)
 
-        # Frame and LabelFrame
         self.style.configure("TFrame", background=BG_LIGHT)
         self.style.configure("TLabelFrame", background=BG_FRAME, foreground=FG_TEXT)
         self.style.configure("TLabelframe.Label", background=BG_FRAME, foreground=FG_TEXT)
@@ -397,16 +399,10 @@ class DailyTimeRecordApp:
             foreground=FG_TEXT
         )
 
-        # Scrollbar
         self.style.configure("Vertical.TScrollbar", background=BG_FRAME)
-
-        # Entries
         self.style.configure("TEntry", foreground=FG_TEXT, fieldbackground="#FFFFFF")
 
-        # Menubar: keep the same menubar, just update its colors
         self.menubar.config(bg=BG_LIGHT, fg=FG_TEXT, activebackground=BG_FRAME, activeforeground=FG_TEXT)
-
-        # Let all text-based widgets default to black in light mode
         self.master.option_add("*foreground", "black")
 
     def apply_apple_calculator_dark_style(self):
@@ -430,7 +426,6 @@ class DailyTimeRecordApp:
             BTN_HOVER_GRAY = "#5A6268"
             BTN_HOVER_ORANGE = "#FFCA2C"
         else:
-            # Default dark settings or handle other themes
             BG_DARK = "#333333"
             BG_FRAME = "#444444"
             FG_TEXT = "#FFFFFF"
@@ -439,7 +434,6 @@ class DailyTimeRecordApp:
             BTN_HOVER_GRAY = "#666666"
             BTN_HOVER_ORANGE = "#FFA040"
 
-        # Apply styles based on the selected dark theme
         self.master.configure(bg=BG_DARK)
         self.style.configure("TFrame", background=BG_DARK)
         self.style.configure("TLabelFrame", background=BG_FRAME, foreground=FG_TEXT)
@@ -477,7 +471,6 @@ class DailyTimeRecordApp:
             foreground=[("active", "#FFFFFF")]
         )
 
-        # Checkbutton, Combobox
         self.style.configure("TCheckbutton", background=BG_DARK, foreground=FG_TEXT)
         self.style.configure("TCombobox", fieldbackground=BG_FRAME, foreground=FG_TEXT)
         self.style.map(
@@ -487,7 +480,6 @@ class DailyTimeRecordApp:
             selectbackground=[("readonly", BG_FRAME)]
         )
 
-        # Treeview
         self.style.configure(
             "Treeview",
             background=BG_DARK,
@@ -501,16 +493,10 @@ class DailyTimeRecordApp:
             foreground=FG_TEXT
         )
 
-        # Scrollbar
         self.style.configure("Vertical.TScrollbar", background=BG_FRAME)
-
-        # Entries
         self.style.configure("TEntry", foreground=FG_TEXT, fieldbackground=BG_FRAME)
 
-        # Menubar: update to dark colors
         self.menubar.config(bg=BG_DARK, fg="white", activebackground=BG_FRAME, activeforeground="white")
-
-        # Force text-based widgets to white
         self.master.option_add("*foreground", "white")
 
     def update_label_colors(self):
@@ -564,7 +550,7 @@ class DailyTimeRecordApp:
         try:
             self.style.theme_use(theme_name)
         except tk.TclError:
-            messagebox.showerror("Theme Error", f"Theme '{theme_name}' is not available.")
+            messagebox.showerror("Theme Error", f"Theme '{theme_name}' is not available.", parent=self.master)
             logging.error(f"Attempted to use unavailable theme: {theme_name}")
             return
 
@@ -583,6 +569,9 @@ class DailyTimeRecordApp:
     # GUI SETUP
     # ------------------------------------------------------------------------
     def center_window(self):
+        """
+        Center the main application window on the screen.
+        """
         self.master.update_idletasks()
         screen_width = self.master.winfo_screenwidth()
         screen_height = self.master.winfo_screenheight()
@@ -680,7 +669,7 @@ class DailyTimeRecordApp:
         self.button_dark_mode = ttkb.Button(
             theme_buttons_frame,
             text="Dark Mode",
-            command=lambda: self.change_theme("superhero"),  # triggers dark
+            command=lambda: self.change_theme("superhero"),
             style="Calc.TButton"
         )
         self.button_dark_mode.pack(side="left", padx=5)
@@ -841,7 +830,7 @@ class DailyTimeRecordApp:
         self.search_from_year = ttk.Combobox(
             search_frame,
             textvariable=self.search_from_year_var,
-            values=[str(year) for year in range(1900, 2126)],  # 1900-2125
+            values=[str(year) for year in range(1900, 2126)],
             state="readonly",
             width=5
         )
@@ -880,7 +869,7 @@ class DailyTimeRecordApp:
         self.search_to_year = ttk.Combobox(
             search_frame,
             textvariable=self.search_to_year_var,
-            values=[str(year) for year in range(1900, 2126)],  # 1900-2125
+            values=[str(year) for year in range(1900, 2126)],
             state="readonly",
             width=5
         )
@@ -1010,7 +999,6 @@ class DailyTimeRecordApp:
             self.morning_actual_time_in_ampm_var.set('AM')
             self.label_supposed_time_in.config(text="Supposed Time In: --:-- --")
         else:
-            ## CHANGE: If morning is checked, set the correct supposed time in
             self.update_supposed_time_in_label()
 
         self.morning_actual_time_in_hour_entry.config(state=state)
@@ -1019,7 +1007,6 @@ class DailyTimeRecordApp:
         self.morning_actual_time_in_button.config(state=state)
         self.button_clear_morning.config(state=state)
 
-        ## CHANGE: Also recalculate or update the afternoon label if needed
         self.update_supposed_time_out_label()
 
     def on_afternoon_check_toggle(self):
@@ -1030,7 +1017,6 @@ class DailyTimeRecordApp:
             self.afternoon_actual_time_out_ampm_var.set('PM')
             self.label_supposed_time_out.config(text="Supposed Time Out: --:-- --")
         else:
-            ## CHANGE: If afternoon is checked, set the correct supposed time out
             self.update_supposed_time_out_label()
 
         self.afternoon_actual_time_out_hour_entry.config(state=state)
@@ -1040,9 +1026,6 @@ class DailyTimeRecordApp:
         self.button_clear_afternoon.config(state=state)
 
     def update_supposed_time_in_label(self):
-        """
-        Sets the "Supposed Time In" for the currently selected day if morning is checked.
-        """
         self.current_day = self.selected_date.strftime("%A")
         if self.morning_check.get():
             st = ALLOWED_TIMES.get(self.current_day, {}).get("supposed_time_in")
@@ -1051,12 +1034,7 @@ class DailyTimeRecordApp:
         else:
             self.label_supposed_time_in.config(text="Supposed Time In: --:-- --")
 
-    ## CHANGE: New helper for setting the "Supposed Time Out" immediately
     def update_supposed_time_out_label(self):
-        """
-        Sets the "Supposed Time Out" immediately when Afternoon is checked.
-        Handles flexi if both morning & afternoon are included.
-        """
         day_name = self.selected_date.strftime("%A")
 
         if not self.afternoon_check.get():
@@ -1064,8 +1042,7 @@ class DailyTimeRecordApp:
             return
 
         if self.morning_check.get():
-            # Both morning & afternoon => new flexi rule => can't finalize
-            # until user sets Actual Time In. Show a placeholder:
+            # Both morning & afternoon => flexi
             self.label_supposed_time_out.config(
                 text="Supposed Time Out: (Will be determined by flexi upon input)"
             )
@@ -1076,7 +1053,6 @@ class DailyTimeRecordApp:
             elif day_name == "Friday":
                 sto = time(17, 0).strftime("%I:%M %p")
             else:
-                # fallback
                 sto = time(16, 30).strftime("%I:%M %p")
             self.label_supposed_time_out.config(text=f"Supposed Time Out: {sto}")
 
@@ -1102,7 +1078,6 @@ class DailyTimeRecordApp:
             self.current_day = self.selected_date.strftime("%A")
             self.label_day.config(text=f"Day: {self.current_day}")
 
-            # Update labels
             self.update_supposed_time_in_label()
             self.update_supposed_time_out_label()
 
@@ -1115,7 +1090,7 @@ class DailyTimeRecordApp:
             self.populate_history()
             logging.info(f"Date changed to {self.selected_date}")
         except ValueError as e:
-            messagebox.showerror("Error", f"Invalid date selected.\n{e}")
+            messagebox.showerror("Error", f"Invalid date selected.\n{e}", parent=self.master)
             logging.error(f"Error on date change: {e}")
 
     def update_days(self, event):
@@ -1205,7 +1180,6 @@ class DailyTimeRecordApp:
         def validate(*args):
             value = var.get()
             if part == 'hour':
-                # valid hours: 01..12
                 try:
                     if not (1 <= int(value) <= 12):
                         self.apply_error_style(entry)
@@ -1214,7 +1188,6 @@ class DailyTimeRecordApp:
                 except ValueError:
                     self.apply_error_style(entry)
             elif part == 'minute':
-                # valid minutes: 00..59
                 try:
                     if not (0 <= int(value) <= 59):
                         self.apply_error_style(entry)
@@ -1300,7 +1273,8 @@ class DailyTimeRecordApp:
         if self.morning_check.get():
             morning_actual_time_in = self.parse_time_input("morning_actual_time_in")
             if not morning_actual_time_in:
-                messagebox.showerror("Input Error", "Please enter a valid Actual Time In (Morning) or uncheck it.")
+                messagebox.showerror("Input Error", "Please enter a valid Actual Time In (Morning) or uncheck it.",
+                                     parent=self.master)
                 logging.warning("Invalid Actual Time In for Morning.")
                 return
 
@@ -1312,7 +1286,7 @@ class DailyTimeRecordApp:
                 supposed_time_in = None
 
             if not supposed_time_in:
-                messagebox.showerror("Error", "Supposed Time In is not set for the selected day.")
+                messagebox.showerror("Error", "Supposed Time In is not set for the selected day.", parent=self.master)
                 logging.error("Supposed Time In is not set.")
                 return
 
@@ -1338,22 +1312,18 @@ class DailyTimeRecordApp:
         supposed_time_out = None
 
         if self.morning_check.get() and self.afternoon_check.get():
-            # We need the actual morning time in to do flexi logic
+            # flexi
             morning_in = self.parse_time_input("morning_actual_time_in")
             if not morning_in:
-                # Already handled above, but just in case
                 return
 
             in_minutes = morning_in.hour * 60 + morning_in.minute
 
-            # If earlier than 7:30 => treat as 7:30
-            if in_minutes < 450:  # 7:30 -> 450
+            if in_minutes < 450:  # 7:30 => 450
                 in_minutes = 450
-            # If later than 8:30 => treat as 8:30
-            elif in_minutes > 510:  # 8:30 -> 510
+            elif in_minutes > 510:  # 8:30 => 510
                 in_minutes = 510
 
-            # Add 9 hours (540 minutes)
             out_minutes = in_minutes + 540
             out_hour = out_minutes // 60
             out_minute = out_minutes % 60
@@ -1363,18 +1333,18 @@ class DailyTimeRecordApp:
             )
 
         elif not self.morning_check.get() and self.afternoon_check.get():
-            # Only the afternoon => M-TH=4:30 PM, Fri=5:00 PM
+            # Only afternoon
             if day_name in ["Monday", "Tuesday", "Wednesday", "Thursday"]:
-                supposed_time_out = time(16, 30)  # 4:30 PM
+                supposed_time_out = time(16, 30)
             elif day_name == "Friday":
-                supposed_time_out = time(17, 0)   # 5:00 PM
+                supposed_time_out = time(17, 0)
             else:
                 supposed_time_out = time(16, 30)
             self.label_supposed_time_out.config(
                 text=f"Supposed Time Out: {supposed_time_out.strftime('%I:%M %p')}"
             )
+
         else:
-            # if afternoon is unchecked or morning only => do nothing
             self.label_supposed_time_out.config(text="Supposed Time Out: --:-- --")
 
         # -------------------------------
@@ -1383,7 +1353,8 @@ class DailyTimeRecordApp:
         if self.afternoon_check.get():
             afternoon_actual_time_out = self.parse_time_input("afternoon_actual_time_out")
             if not afternoon_actual_time_out:
-                messagebox.showerror("Input Error", "Please enter a valid Actual Time Out (Afternoon) or uncheck it.")
+                messagebox.showerror("Input Error", "Please enter a valid Actual Time Out (Afternoon) or uncheck it.",
+                                     parent=self.master)
                 logging.warning("Invalid Actual Time Out for Afternoon.")
                 return
 
@@ -1405,7 +1376,7 @@ class DailyTimeRecordApp:
             self.label_afternoon_undertime.config(text="Undertime: 0 minutes")
             self.label_afternoon_undertime_deduction.config(text="Undertime Deduction: 0.000")
 
-        # Count half-day absences
+        # half-day check
         half_day_absences = 0
         if not self.morning_check.get():
             half_day_absences += 1
@@ -1451,13 +1422,21 @@ class DailyTimeRecordApp:
 
         logging.info("Cleared Afternoon inputs.")
 
+    # <-- CHANGE: Store & restore geometry on toggling fullscreen
     def toggle_fullscreen(self):
-        self.fullscreen = not self.fullscreen
-        self.master.attributes("-fullscreen", self.fullscreen)
-        if self.fullscreen:
+        if not self.fullscreen:
+            # Going from windowed to fullscreen
+            self.normal_geometry = self.master.geometry()
+            self.master.attributes("-fullscreen", True)
+            self.fullscreen = True
             self.button_fullscreen.config(text="Windowed Mode")
             logging.info("Entered full-screen mode.")
         else:
+            # Going from fullscreen to windowed
+            self.master.attributes("-fullscreen", False)
+            if self.normal_geometry:
+                self.master.geometry(self.normal_geometry)
+            self.fullscreen = False
             self.button_fullscreen.config(text="Full Screen")
             logging.info("Exited full-screen mode.")
 
@@ -1469,7 +1448,7 @@ class DailyTimeRecordApp:
             deduction_text = self.label_deductions.cget("text").split(":")[1].strip()
             deduction_points = float(deduction_text)
         except (IndexError, ValueError):
-            messagebox.showerror("Error", "Unable to parse deduction points.")
+            messagebox.showerror("Error", "Unable to parse deduction points.", parent=self.master)
             logging.error("Failed to parse deduction points for saving.")
             return
 
@@ -1522,20 +1501,23 @@ class DailyTimeRecordApp:
         if existing_records:
             add_record = messagebox.askyesno(
                 "Add Record",
-                f"A record for {date_str} already exists.\nDo you want to add another record for this date?"
+                f"A record for {date_str} already exists.\nDo you want to add another record for this date?",
+                parent=self.master
             )
             if not add_record:
                 logging.info(f"User chose not to add another record for {date_str}.")
                 return
 
-        self.records.insert(0, new_record)  # Insert at the top
+        self.records.insert(0, new_record)
 
         self.save_records_to_file()
+
+        # <-- CHANGE: Use parent=self.master to center the message box
         messagebox.showinfo(
-        "Success",
-        f"Record for {date_str} saved successfully.",
-        parent=self.master  # <-- This helps center the dialog over the main window
-    )
+            "Success",
+            f"Record for {date_str} saved successfully.",
+            parent=self.master
+        )
         logging.info(f"Record saved for {date_str}: {deduction_points} points.")
 
         self.current_records = list(self.records)
@@ -1543,7 +1525,7 @@ class DailyTimeRecordApp:
 
     def export_history(self):
         if not self.records:
-            messagebox.showinfo("No Data", "There are no records to export.")
+            messagebox.showinfo("No Data", "There are no records to export.", parent=self.master)
             logging.info("Export attempted with no records.")
             return
 
@@ -1579,10 +1561,10 @@ class DailyTimeRecordApp:
                         record.get("undertime_minutes", 0),
                         record["deduction_points"]
                     ])
-            messagebox.showinfo("Export Successful", f"History exported to {file_path}")
+            messagebox.showinfo("Export Successful", f"History exported to {file_path}", parent=self.master)
             logging.info(f"History exported to {file_path}")
         except Exception as e:
-            messagebox.showerror("Export Failed", f"An error occurred while exporting:\n{e}")
+            messagebox.showerror("Export Failed", f"An error occurred while exporting:\n{e}", parent=self.master)
             logging.error(f"Failed to export history: {e}")
 
     # ------------------------------------------------------------------------
@@ -1597,11 +1579,11 @@ class DailyTimeRecordApp:
     def edit_record(self):
         selected_items = self.history_tree.selection()
         if len(selected_items) == 0:
-            messagebox.showwarning("No Selection", "Please select a record to edit.")
+            messagebox.showwarning("No Selection", "Please select a record to edit.", parent=self.master)
             logging.warning("Edit attempted without selecting a record.")
             return
         if len(selected_items) > 1:
-            messagebox.showinfo("Edit Record", "Please select only one record at a time to edit.")
+            messagebox.showinfo("Edit Record", "Please select only one record at a time to edit.", parent=self.master)
             return
 
         item = selected_items[0]
@@ -1612,13 +1594,14 @@ class DailyTimeRecordApp:
 
         record_index = None
         for i, record in enumerate(self.records):
-            if record["date"] == date_str and record["morning_actual_time_in"] == morning_in_str \
-               and record["afternoon_actual_time_out"] == afternoon_out_str:
+            if (record["date"] == date_str and
+                record["morning_actual_time_in"] == morning_in_str and
+                record["afternoon_actual_time_out"] == afternoon_out_str):
                 record_index = i
                 break
 
         if record_index is None:
-            messagebox.showerror("Error", "Selected record not found.")
+            messagebox.showerror("Error", "Selected record not found.", parent=self.master)
             return
 
         record_to_edit = self.records[record_index]
@@ -1629,7 +1612,7 @@ class DailyTimeRecordApp:
         self.save_records_to_file()
         self.current_records = list(self.records)
         self.populate_history()
-        messagebox.showinfo("Success", f"Record for {updated_record['date']} updated successfully.")
+        messagebox.showinfo("Success", f"Record for {updated_record['date']} updated successfully.", parent=self.master)
         logging.info(f"Record updated for {updated_record['date']} with new times.")
 
     def recalc_single_record(self, record):
@@ -1641,7 +1624,6 @@ class DailyTimeRecordApp:
         if morning_in_str and morning_in_str != "--:-- --":
             morning_time = self.str_to_time(morning_in_str)
 
-            # Suppose Time In from ALLOWED_TIMES
             st = ALLOWED_TIMES.get(day_name, {}).get("supposed_time_in")
             if st:
                 record["supposed_time_in"] = st.strftime("%I:%M %p")
@@ -1668,9 +1650,9 @@ class DailyTimeRecordApp:
             morning_time = self.str_to_time(record["morning_actual_time_in"])
             if morning_time:
                 in_minutes = morning_time.hour * 60 + morning_time.minute
-                if in_minutes < 450:  # 7:30
+                if in_minutes < 450:
                     in_minutes = 450
-                elif in_minutes > 510:  # 8:30
+                elif in_minutes > 510:
                     in_minutes = 510
                 out_minutes = in_minutes + 540
                 out_h = out_minutes // 60
@@ -1696,7 +1678,7 @@ class DailyTimeRecordApp:
             undertime_minutes = max(0, undertime_raw)
         record["undertime_minutes"] = undertime_minutes
 
-        # Recalculate total deduction
+        # half-day
         half_days = 0
         if record["morning_actual_time_in"] == "--:-- --":
             half_days += 1
@@ -1721,14 +1703,15 @@ class DailyTimeRecordApp:
     def delete_record(self):
         selected_items = self.history_tree.selection()
         if not selected_items:
-            messagebox.showwarning("No Selection", "Please select a record to delete.")
+            messagebox.showwarning("No Selection", "Please select a record to delete.", parent=self.master)
             logging.warning("Delete attempted without selecting a record.")
             return
 
         num_selected = len(selected_items)
         confirm = messagebox.askyesno(
             "Confirm Deletion",
-            f"Are you sure you want to delete the selected {num_selected} record(s)?"
+            f"Are you sure you want to delete the selected {num_selected} record(s)?",
+            parent=self.master
         )
         if not confirm:
             return
@@ -1741,8 +1724,9 @@ class DailyTimeRecordApp:
             afternoon_out_str = values[4]
             idx_to_remove = None
             for i, record in enumerate(self.records):
-                if record["date"] == date_str and record["morning_actual_time_in"] == morning_in_str \
-                   and record["afternoon_actual_time_out"] == afternoon_out_str:
+                if (record["date"] == date_str and
+                    record["morning_actual_time_in"] == morning_in_str and
+                    record["afternoon_actual_time_out"] == afternoon_out_str):
                     idx_to_remove = i
                     break
             if idx_to_remove is not None:
@@ -1754,7 +1738,7 @@ class DailyTimeRecordApp:
         self.save_records_to_file()
         self.current_records = list(self.records)
         self.populate_history()
-        messagebox.showinfo("Deleted", f"Selected record(s) have been deleted.")
+        messagebox.showinfo("Deleted", f"Selected record(s) have been deleted.", parent=self.master)
         logging.info(f"Deleted {num_selected} record(s).")
 
     def search_history(self):
@@ -1770,7 +1754,7 @@ class DailyTimeRecordApp:
             to_date = datetime(to_year, to_month, to_day).date()
 
             if from_date > to_date:
-                messagebox.showerror("Invalid Range", "From date cannot be after To date.")
+                messagebox.showerror("Invalid Range", "From date cannot be after To date.", parent=self.master)
                 logging.warning("Invalid search date range.")
                 return
 
@@ -1782,7 +1766,8 @@ class DailyTimeRecordApp:
             self.populate_history(filtered_records)
             logging.info(f"Searched records from {from_date} to {to_date}.")
         except ValueError as e:
-            messagebox.showerror("Invalid Input", f"Please ensure all search dates are selected correctly.\n{e}")
+            messagebox.showerror("Invalid Input", f"Please ensure all search dates are selected correctly.\n{e}",
+                                 parent=self.master)
             logging.error(f"Error in search input: {e}")
 
     def load_records(self):
@@ -1824,11 +1809,11 @@ class DailyTimeRecordApp:
                     logging.warning("Unknown data format. Starting empty.")
                     return []
             except json.JSONDecodeError as e:
-                messagebox.showerror("Error", f"Failed to load records: {e}")
+                messagebox.showerror("Error", f"Failed to load records: {e}", parent=self.master)
                 logging.error(f"JSON decode error: {e}")
                 return []
             except Exception as e:
-                messagebox.showerror("Error", f"An error occurred while loading records:\n{e}")
+                messagebox.showerror("Error", f"An error occurred while loading records:\n{e}", parent=self.master)
                 logging.error(f"Error loading records: {e}")
                 return []
         else:
@@ -1841,7 +1826,7 @@ class DailyTimeRecordApp:
                 json.dump(self.records, f, indent=4)
             logging.info("Records saved successfully.")
         except Exception as e:
-            messagebox.showerror("Error", f"Failed to save records: {e}")
+            messagebox.showerror("Error", f"Failed to save records: {e}", parent=self.master)
             logging.error(f"Error saving records: {e}")
 
     def populate_history(self, records=None):
@@ -1878,11 +1863,11 @@ class DailyTimeRecordApp:
         self.current_records.sort(key=key_func, reverse=reverse)
         self.populate_history()
 
+    # <-- CHANGE: Add more recommended features under About & Help
     def show_help_dialog(self):
         help_window = tk.Toplevel(self.master)
         help_window.title("How to Use - Daily Time Record")
 
-        ## CHANGE: Make it transient and lifted so it stays on top in fullscreen
         help_window.transient(self.master)
         help_window.lift()
 
@@ -1906,6 +1891,15 @@ This version includes:
 - Column sorting on click
 - Press 'Delete' key to remove selected row(s)
 - Press 'Ctrl+A' to select all records
+- Time Picker dialogs
+- Light/Dark theme toggle
+- Fullscreen toggle
+
+Recommended Additional Features:
+- Option to add daily notes or remarks
+- Integration with attendance hardware logs
+- Automatic lunch break deduction (if applicable)
+- Overtime calculation extension
 """
         label_overview = tk.Text(tab_overview, wrap="word", font=("Helvetica", 12),
                                  bg=help_window.cget("bg"), borderwidth=0)
@@ -1924,13 +1918,14 @@ This version includes:
 4. Enter Actual Time In / Out or click 'Select Time'.
 5. Click 'Calculate Deductions' to see Late/Undertime/Total points.
 6. Click 'Save Record' to store it.
-7. 'Export History' => CSV.
-8. History:
+7. Click 'Export History' => CSV.
+8. In the History section:
    - Multi-select rows with Ctrl+Click or Shift+Click
    - Press 'Delete' key or right-click => 'Delete Record'
    - 'Edit Record' modifies Actual Times; auto-recalcs
    - Press 'Ctrl+A' to select all records
    - Click column headers to toggle ascending/descending sort.
+   - Searching by date range helps filter older records quickly.
 """
         label_guide = tk.Text(tab_guide, wrap="word", font=("Helvetica", 12),
                               bg=help_window.cget("bg"), borderwidth=0)
@@ -1949,7 +1944,6 @@ This version includes:
         about_window = tk.Toplevel(self.master)
         about_window.title("About - Daily Time Record")
 
-        ## CHANGE: Make it transient and lifted so it stays on top in fullscreen
         about_window.transient(self.master)
         about_window.lift()
 
@@ -1967,6 +1961,9 @@ Enhanced with:
  - Flexi Time Out
  - Multi-selection & Sorting
  - Simplified Record Editing
+ - Time Picker for convenience
+ - Light/Dark Mode toggle
+ - Fullscreen toggle
 
 Developer: KCprsnlcc
 GitHub: https://github.com/KCprsnlcc
@@ -2016,7 +2013,6 @@ class EditRecordDialog:
         self.top = tk.Toplevel(parent)
         self.top.title("Edit Record")
 
-        ## CHANGE: Keep the standard decorations & ensure on top if in fullscreen
         self.top.transient(self.parent)
         self.top.lift()
         self.top.grab_set()
