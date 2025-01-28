@@ -244,20 +244,4 @@ For further assistance, please open an issue on the [GitHub repository](https://
 
 ---
 
-## 🛠️ **Future Improvements**
-
-- **Biometric Integration**
-  - Integrate fingerprint or facial recognition for secure time tracking.
-
-- **Cloud Syncing**
-  - Sync records across multiple devices using cloud storage solutions.
-
-- **Mobile Application**
-  - Develop a mobile version for on-the-go time tracking.
-
-- **Advanced Reporting**
-  - Generate detailed reports and visualizations of work patterns.
-
----
-
 Thank you for using the **Daily Time Record (DTR) Calculator**! We hope it helps you manage your time.
