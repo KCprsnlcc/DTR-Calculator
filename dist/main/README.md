@@ -208,7 +208,7 @@ We welcome contributions! Here's how you can help:
 
 ## 📝 **License**
 
-This project is licensed under the **License**. See the [License](LICENSE.md) file for details.
+This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) file for details.
 
 ## 🎉 **Acknowledgements**
 
@@ -241,22 +241,6 @@ For any questions or support, please contact:
   - Ensure that the selected theme is supported.
 
 For further assistance, please open an issue on the [GitHub repository](https://github.com/KCprsnlcc/DTR-Calculator/issues).
-
----
-
-## 🛠️ **Future Improvements**
-
-- **Biometric Integration**
-  - Integrate fingerprint or facial recognition for secure time tracking.
-
-- **Cloud Syncing**
-  - Sync records across multiple devices using cloud storage solutions.
-
-- **Mobile Application**
-  - Develop a mobile version for on-the-go time tracking.
-
-- **Advanced Reporting**
-  - Generate detailed reports and visualizations of work patterns.
 
 ---
 

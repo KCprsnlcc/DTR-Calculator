@@ -2171,3 +2171,286 @@
 2025-01-27 23:41:29,997 - INFO - Theme changed to superhero mode.
 2025-01-27 23:41:32,659 - INFO - Theme changed to flatly mode.
 2025-01-27 23:41:41,147 - INFO - Application closed.
+2025-01-28 08:56:25,629 - INFO - Application started.
+2025-01-28 08:56:26,646 - INFO - History populated in Treeview.
+2025-01-28 08:56:28,401 - INFO - Application closed.
+2025-01-28 11:04:45,045 - INFO - Application started.
+2025-01-28 11:04:45,424 - INFO - History populated in Treeview.
+2025-01-28 11:04:48,717 - INFO - Application closed.
+2025-01-28 13:57:48,797 - INFO - Application started.
+2025-01-28 13:57:51,982 - ERROR - JSON decode error: Expecting value: line 1 column 1 (char 0)
+2025-01-28 13:57:52,201 - INFO - History populated in Treeview.
+2025-01-28 13:58:05,522 - WARNING - Invalid Actual Time Out for Afternoon.
+2025-01-28 13:58:40,895 - INFO - Calculated Deductions. Late: 0.0, Undertime: 0.0, Half-day(s): 0.5, Total: 0.5
+2025-01-28 13:58:50,970 - INFO - Calculated Deductions. Late: 0.002, Undertime: 0.0, Half-day(s): 0.5, Total: 0.502
+2025-01-28 13:59:00,356 - INFO - Calculated Deductions. Late: 0.127, Undertime: 0.0, Half-day(s): 0.5, Total: 0.627
+2025-01-28 13:59:01,891 - INFO - Calculated Deductions. Late: 0.127, Undertime: 0.0, Half-day(s): 0.5, Total: 0.627
+2025-01-28 13:59:25,917 - INFO - History populated in Treeview.
+2025-01-28 13:59:25,917 - INFO - Date changed to 2025-01-27
+2025-01-28 14:00:28,258 - WARNING - Invalid Actual Time Out for Afternoon.
+2025-01-28 14:00:29,587 - INFO - Export attempted with no records.
+2025-01-28 14:00:40,530 - WARNING - Invalid Actual Time Out for Afternoon.
+2025-01-28 14:01:05,801 - INFO - Calculated Deductions. Late: 0.19, Undertime: 0.125, Half-day(s): 0.0, Total: 0.315
+2025-01-28 14:01:35,906 - INFO - History populated in Treeview.
+2025-01-28 14:01:35,906 - INFO - Date changed to 2025-01-31
+2025-01-28 14:01:45,186 - INFO - Records saved successfully.
+2025-01-28 14:01:46,772 - INFO - Record saved for 2025-01-31: 0.0 points.
+2025-01-28 14:01:46,772 - INFO - History populated in Treeview.
+2025-01-28 14:02:08,813 - INFO - Application closed.
+2025-01-28 14:02:17,778 - INFO - Application started.
+2025-01-28 14:02:18,200 - INFO - History populated in Treeview.
+2025-01-28 14:02:20,882 - INFO - Application closed.
+2025-01-28 14:02:44,581 - INFO - Application started.
+2025-01-28 14:02:44,962 - INFO - History populated in Treeview.
+2025-01-28 14:04:05,891 - INFO - History populated in Treeview.
+2025-01-28 14:04:05,891 - INFO - Date changed to 2025-01-01
+2025-01-28 14:05:00,315 - INFO - History populated in Treeview.
+2025-01-28 14:05:00,315 - INFO - Date changed to 2025-01-22
+2025-01-28 14:05:03,736 - INFO - History populated in Treeview.
+2025-01-28 14:05:03,736 - INFO - Date changed to 2025-01-27
+2025-01-28 14:05:05,929 - INFO - History populated in Treeview.
+2025-01-28 14:05:05,929 - INFO - Searched records from 2025-01-22 to 2025-01-27.
+2025-01-28 14:06:03,463 - INFO - Application closed.
+2025-01-28 14:06:07,489 - INFO - Application started.
+2025-01-28 14:06:07,979 - INFO - History populated in Treeview.
+2025-01-28 14:06:25,554 - INFO - History exported to C:/Users/kcper/OneDrive/Documents/Jan 28.csv
+2025-01-28 14:13:58,213 - INFO - History populated in Treeview.
+2025-01-28 14:13:58,215 - INFO - Date changed to 2025-01-08
+2025-01-28 14:14:04,193 - INFO - History populated in Treeview.
+2025-01-28 14:14:04,193 - INFO - Date changed to 2025-01-09
+2025-01-28 14:15:00,211 - INFO - History populated in Treeview.
+2025-01-28 14:15:00,211 - INFO - Date changed to 2025-01-11
+2025-01-28 14:19:00,724 - INFO - Application closed.
+2025-01-28 16:53:16,336 - INFO - Application started.
+2025-01-28 16:53:16,738 - INFO - History populated in Treeview.
+2025-01-28 17:15:11,555 - INFO - Application closed.
+2025-01-29 21:26:38,584 - INFO - Application started.
+2025-01-29 21:26:39,318 - INFO - History populated in Treeview.
+2025-01-29 21:26:42,360 - INFO - History populated in Treeview.
+2025-01-29 21:26:42,360 - INFO - Date changed to 2025-01-30
+2025-01-29 21:26:42,689 - INFO - History populated in Treeview.
+2025-01-29 21:26:42,689 - INFO - Date changed to 2025-01-31
+2025-01-29 21:26:43,149 - INFO - History populated in Treeview.
+2025-01-29 21:26:43,149 - INFO - Date changed to 2025-01-30
+2025-01-29 21:26:43,355 - INFO - History populated in Treeview.
+2025-01-29 21:26:43,355 - INFO - Date changed to 2025-01-29
+2025-01-29 21:26:43,862 - INFO - History populated in Treeview.
+2025-01-29 21:26:43,862 - INFO - Date changed to 2025-01-28
+2025-01-29 21:26:44,048 - INFO - History populated in Treeview.
+2025-01-29 21:26:44,050 - INFO - Date changed to 2025-01-27
+2025-01-29 21:26:44,547 - INFO - History populated in Treeview.
+2025-01-29 21:26:44,547 - INFO - Date changed to 2025-01-26
+2025-01-29 21:26:44,774 - INFO - History populated in Treeview.
+2025-01-29 21:26:44,774 - INFO - Date changed to 2025-01-25
+2025-01-29 21:26:45,237 - INFO - History populated in Treeview.
+2025-01-29 21:26:45,237 - INFO - Date changed to 2025-01-26
+2025-01-29 21:26:45,484 - INFO - History populated in Treeview.
+2025-01-29 21:26:45,484 - INFO - Date changed to 2025-01-27
+2025-01-29 21:26:45,887 - INFO - History populated in Treeview.
+2025-01-29 21:26:45,887 - INFO - Date changed to 2025-01-28
+2025-01-29 21:26:50,314 - INFO - History populated in Treeview.
+2025-01-29 21:26:50,314 - INFO - Date changed to 2025-01-28
+2025-01-29 21:26:51,623 - INFO - History populated in Treeview.
+2025-01-29 21:26:51,623 - INFO - Searched records from 2025-01-22 to 2025-01-29.
+2025-01-29 21:26:58,560 - INFO - History populated in Treeview.
+2025-01-29 21:27:05,697 - INFO - History populated in Treeview.
+2025-01-29 21:27:05,697 - INFO - Date changed to 2025-02-28
+2025-01-29 21:27:06,198 - INFO - History populated in Treeview.
+2025-01-29 21:27:06,198 - INFO - Date changed to 2025-01-28
+2025-01-29 21:27:06,657 - INFO - History populated in Treeview.
+2025-01-29 21:27:06,657 - INFO - Date changed to 2024-12-28
+2025-01-29 21:27:06,891 - INFO - History populated in Treeview.
+2025-01-29 21:27:06,891 - INFO - Date changed to 2024-11-28
+2025-01-29 21:27:07,122 - INFO - History populated in Treeview.
+2025-01-29 21:27:07,122 - INFO - Date changed to 2024-10-28
+2025-01-29 21:27:08,999 - INFO - History populated in Treeview.
+2025-01-29 21:27:08,999 - INFO - Date changed to 2025-10-28
+2025-01-29 21:27:09,211 - INFO - History populated in Treeview.
+2025-01-29 21:27:09,211 - INFO - Date changed to 2026-10-28
+2025-01-29 21:27:09,392 - INFO - History populated in Treeview.
+2025-01-29 21:27:09,392 - INFO - Date changed to 2027-10-28
+2025-01-29 21:27:09,651 - INFO - History populated in Treeview.
+2025-01-29 21:27:09,651 - INFO - Date changed to 2026-10-28
+2025-01-29 21:27:09,848 - INFO - History populated in Treeview.
+2025-01-29 21:27:09,848 - INFO - Date changed to 2025-10-28
+2025-01-29 21:27:10,013 - INFO - History populated in Treeview.
+2025-01-29 21:27:10,013 - INFO - Date changed to 2024-10-28
+2025-01-29 21:27:10,168 - INFO - History populated in Treeview.
+2025-01-29 21:27:10,168 - INFO - Date changed to 2023-10-28
+2025-01-29 21:27:10,916 - INFO - History populated in Treeview.
+2025-01-29 21:27:10,916 - INFO - Date changed to 2023-10-29
+2025-01-29 21:27:11,124 - INFO - History populated in Treeview.
+2025-01-29 21:27:11,124 - INFO - Date changed to 2023-10-30
+2025-01-29 21:27:11,290 - INFO - History populated in Treeview.
+2025-01-29 21:27:11,290 - INFO - Date changed to 2023-10-31
+2025-01-29 21:27:14,672 - INFO - History populated in Treeview.
+2025-01-29 21:27:15,555 - INFO - History populated in Treeview.
+2025-01-29 21:27:15,555 - INFO - Date changed to 2023-11-01
+2025-01-29 21:27:17,738 - INFO - History populated in Treeview.
+2025-01-29 21:27:17,738 - INFO - Date changed to 2023-10-31
+2025-01-29 21:27:17,913 - INFO - History populated in Treeview.
+2025-01-29 21:27:17,913 - INFO - Date changed to 2023-10-30
+2025-01-29 21:27:18,074 - INFO - History populated in Treeview.
+2025-01-29 21:27:18,074 - INFO - Date changed to 2023-10-29
+2025-01-29 21:27:18,291 - INFO - History populated in Treeview.
+2025-01-29 21:27:18,291 - INFO - Date changed to 2023-10-28
+2025-01-29 21:27:18,648 - INFO - History populated in Treeview.
+2025-01-29 21:27:18,648 - INFO - Date changed to 2023-10-27
+2025-01-29 21:27:18,798 - INFO - History populated in Treeview.
+2025-01-29 21:27:18,798 - INFO - Date changed to 2023-10-26
+2025-01-29 21:27:18,994 - INFO - History populated in Treeview.
+2025-01-29 21:27:18,994 - INFO - Date changed to 2023-10-25
+2025-01-29 21:27:19,187 - INFO - History populated in Treeview.
+2025-01-29 21:27:19,187 - INFO - Date changed to 2023-10-24
+2025-01-29 21:27:19,370 - INFO - History populated in Treeview.
+2025-01-29 21:27:19,370 - INFO - Date changed to 2023-10-23
+2025-01-29 21:27:19,531 - INFO - History populated in Treeview.
+2025-01-29 21:27:19,531 - INFO - Date changed to 2023-10-22
+2025-01-29 21:27:20,113 - INFO - History populated in Treeview.
+2025-01-29 21:27:20,113 - INFO - Date changed to 2023-10-23
+2025-01-29 21:27:20,312 - INFO - History populated in Treeview.
+2025-01-29 21:27:20,312 - INFO - Date changed to 2023-10-24
+2025-01-29 21:27:22,548 - INFO - History populated in Treeview.
+2025-01-29 21:27:22,548 - INFO - Date changed to 2024-10-24
+2025-01-29 21:27:22,812 - INFO - History populated in Treeview.
+2025-01-29 21:27:22,812 - INFO - Date changed to 2025-10-24
+2025-01-29 21:27:23,617 - INFO - History populated in Treeview.
+2025-01-29 21:27:23,617 - INFO - Date changed to 2025-10-25
+2025-01-29 21:27:24,127 - INFO - History populated in Treeview.
+2025-01-29 21:27:24,129 - INFO - Date changed to 2025-10-26
+2025-01-29 21:27:24,672 - INFO - History populated in Treeview.
+2025-01-29 21:27:24,672 - INFO - Date changed to 2025-10-25
+2025-01-29 21:27:24,849 - INFO - History populated in Treeview.
+2025-01-29 21:27:24,849 - INFO - Date changed to 2025-10-24
+2025-01-29 21:27:26,514 - INFO - History populated in Treeview.
+2025-01-29 21:27:26,516 - INFO - Date changed to 2025-11-24
+2025-01-29 21:27:26,717 - INFO - History populated in Treeview.
+2025-01-29 21:27:26,717 - INFO - Date changed to 2025-12-24
+2025-01-29 21:27:27,130 - INFO - History populated in Treeview.
+2025-01-29 21:27:27,130 - INFO - Date changed to 2025-11-24
+2025-01-29 21:27:27,311 - INFO - History populated in Treeview.
+2025-01-29 21:27:27,311 - INFO - Date changed to 2025-10-24
+2025-01-29 21:27:27,505 - INFO - History populated in Treeview.
+2025-01-29 21:27:27,505 - INFO - Date changed to 2025-09-24
+2025-01-29 21:27:27,746 - INFO - History populated in Treeview.
+2025-01-29 21:27:27,746 - INFO - Date changed to 2025-08-24
+2025-01-29 21:27:27,942 - INFO - History populated in Treeview.
+2025-01-29 21:27:27,942 - INFO - Date changed to 2025-07-24
+2025-01-29 21:27:28,214 - INFO - History populated in Treeview.
+2025-01-29 21:27:28,214 - INFO - Date changed to 2025-06-24
+2025-01-29 21:27:28,413 - INFO - History populated in Treeview.
+2025-01-29 21:27:28,413 - INFO - Date changed to 2025-05-24
+2025-01-29 21:27:28,781 - INFO - History populated in Treeview.
+2025-01-29 21:27:28,781 - INFO - Date changed to 2025-06-24
+2025-01-29 21:27:30,571 - INFO - History populated in Treeview.
+2025-01-29 21:27:30,571 - INFO - Date changed to 2025-07-24
+2025-01-29 21:27:30,741 - INFO - History populated in Treeview.
+2025-01-29 21:27:30,741 - INFO - Date changed to 2025-08-24
+2025-01-29 21:27:30,914 - INFO - History populated in Treeview.
+2025-01-29 21:27:30,914 - INFO - Date changed to 2025-09-24
+2025-01-29 21:27:31,363 - INFO - History populated in Treeview.
+2025-01-29 21:27:31,363 - INFO - Date changed to 2025-10-24
+2025-01-29 21:27:31,539 - INFO - History populated in Treeview.
+2025-01-29 21:27:31,539 - INFO - Date changed to 2025-11-24
+2025-01-29 21:27:31,724 - INFO - History populated in Treeview.
+2025-01-29 21:27:31,724 - INFO - Date changed to 2025-12-24
+2025-01-29 21:27:32,011 - INFO - History populated in Treeview.
+2025-01-29 21:27:32,011 - INFO - Date changed to 2026-01-24
+2025-01-29 21:27:32,155 - INFO - History populated in Treeview.
+2025-01-29 21:27:32,155 - INFO - Date changed to 2026-02-24
+2025-01-29 21:27:32,678 - INFO - History populated in Treeview.
+2025-01-29 21:27:32,678 - INFO - Date changed to 2026-03-24
+2025-01-29 21:27:32,913 - INFO - History populated in Treeview.
+2025-01-29 21:27:32,913 - INFO - Date changed to 2026-02-24
+2025-01-29 21:27:33,095 - INFO - History populated in Treeview.
+2025-01-29 21:27:33,095 - INFO - Date changed to 2026-01-24
+2025-01-29 21:27:33,317 - INFO - History populated in Treeview.
+2025-01-29 21:27:33,317 - INFO - Date changed to 2025-12-24
+2025-01-29 21:27:33,695 - INFO - History populated in Treeview.
+2025-01-29 21:27:33,695 - INFO - Date changed to 2026-01-24
+2025-01-29 21:27:33,901 - INFO - History populated in Treeview.
+2025-01-29 21:27:33,901 - INFO - Date changed to 2026-02-24
+2025-01-29 21:27:34,302 - INFO - History populated in Treeview.
+2025-01-29 21:27:34,302 - INFO - Date changed to 2026-01-24
+2025-01-29 21:27:35,032 - INFO - History populated in Treeview.
+2025-01-29 21:27:35,032 - INFO - Date changed to 2026-01-25
+2025-01-29 21:27:35,226 - INFO - History populated in Treeview.
+2025-01-29 21:27:35,228 - INFO - Date changed to 2026-01-26
+2025-01-29 21:27:35,383 - INFO - History populated in Treeview.
+2025-01-29 21:27:35,383 - INFO - Date changed to 2026-01-27
+2025-01-29 21:27:35,575 - INFO - History populated in Treeview.
+2025-01-29 21:27:35,577 - INFO - Date changed to 2026-01-28
+2025-01-29 21:27:35,820 - INFO - History populated in Treeview.
+2025-01-29 21:27:35,820 - INFO - Date changed to 2026-01-29
+2025-01-29 21:27:36,573 - INFO - History populated in Treeview.
+2025-01-29 21:27:36,573 - INFO - Date changed to 2026-01-30
+2025-01-29 21:27:36,732 - INFO - History populated in Treeview.
+2025-01-29 21:27:36,732 - INFO - Date changed to 2026-01-31
+2025-01-29 21:27:37,433 - INFO - History populated in Treeview.
+2025-01-29 21:27:37,436 - INFO - Date changed to 2026-01-30
+2025-01-29 21:27:37,601 - INFO - History populated in Treeview.
+2025-01-29 21:27:37,601 - INFO - Date changed to 2026-01-29
+2025-01-29 21:27:37,756 - INFO - History populated in Treeview.
+2025-01-29 21:27:37,756 - INFO - Date changed to 2026-01-28
+2025-01-29 21:27:37,927 - INFO - History populated in Treeview.
+2025-01-29 21:27:37,927 - INFO - Date changed to 2026-01-27
+2025-01-29 21:27:38,093 - INFO - History populated in Treeview.
+2025-01-29 21:27:38,093 - INFO - Date changed to 2026-01-26
+2025-01-29 21:27:40,466 - INFO - History populated in Treeview.
+2025-01-29 21:27:40,466 - INFO - Date changed to 2027-01-26
+2025-01-29 21:27:40,493 - INFO - History populated in Treeview.
+2025-01-29 21:27:40,493 - INFO - Date changed to 2026-01-26
+2025-01-29 21:27:40,993 - INFO - History populated in Treeview.
+2025-01-29 21:27:40,993 - INFO - Date changed to 2025-01-26
+2025-01-29 21:27:41,765 - INFO - History populated in Treeview.
+2025-01-29 21:27:41,765 - INFO - Date changed to 2025-01-27
+2025-01-29 21:27:48,460 - INFO - History populated in Treeview.
+2025-01-29 21:27:48,460 - INFO - Date changed to 2025-01-28
+2025-01-29 21:27:49,009 - INFO - History populated in Treeview.
+2025-01-29 21:27:49,009 - INFO - Date changed to 2025-01-27
+2025-01-29 21:27:50,989 - INFO - History populated in Treeview.
+2025-01-29 21:27:50,989 - INFO - Date changed to 2025-01-28
+2025-01-29 21:27:51,241 - INFO - History populated in Treeview.
+2025-01-29 21:27:51,241 - INFO - Date changed to 2025-01-29
+2025-01-29 21:27:51,541 - INFO - History populated in Treeview.
+2025-01-29 21:27:51,541 - INFO - Date changed to 2025-01-30
+2025-01-29 21:27:51,889 - INFO - History populated in Treeview.
+2025-01-29 21:27:51,889 - INFO - Date changed to 2025-01-29
+2025-01-29 21:27:52,095 - INFO - History populated in Treeview.
+2025-01-29 21:27:52,095 - INFO - Date changed to 2025-01-28
+2025-01-29 21:27:52,296 - INFO - History populated in Treeview.
+2025-01-29 21:27:52,296 - INFO - Date changed to 2025-01-27
+2025-01-29 21:27:52,708 - INFO - History populated in Treeview.
+2025-01-29 21:27:52,708 - INFO - Date changed to 2025-01-26
+2025-01-29 21:27:53,132 - INFO - History populated in Treeview.
+2025-01-29 21:27:53,132 - INFO - Date changed to 2025-01-27
+2025-01-29 21:28:00,434 - INFO - History populated in Treeview.
+2025-01-29 21:28:00,434 - INFO - Date changed to 2025-01-28
+2025-01-29 21:28:02,653 - INFO - History populated in Treeview.
+2025-01-29 21:28:02,656 - INFO - Date changed to 2025-01-29
+2025-01-29 21:28:03,480 - INFO - History populated in Treeview.
+2025-01-29 21:28:03,480 - INFO - Date changed to 2025-01-30
+2025-01-29 21:28:03,818 - INFO - History populated in Treeview.
+2025-01-29 21:28:03,818 - INFO - Date changed to 2025-01-31
+2025-01-29 21:28:04,133 - INFO - History populated in Treeview.
+2025-01-29 21:28:04,133 - INFO - Date changed to 2025-02-01
+2025-01-29 21:28:05,214 - INFO - History populated in Treeview.
+2025-01-29 21:28:05,214 - INFO - Date changed to 2025-01-31
+2025-01-29 21:28:05,878 - INFO - History populated in Treeview.
+2025-01-29 21:28:05,878 - INFO - Date changed to 2025-01-30
+2025-01-29 21:28:06,634 - INFO - History populated in Treeview.
+2025-01-29 21:28:06,634 - INFO - Date changed to 2025-01-29
+2025-01-29 21:28:07,359 - INFO - History populated in Treeview.
+2025-01-29 21:28:07,359 - INFO - Date changed to 2025-01-30
+2025-01-29 21:28:07,573 - INFO - History populated in Treeview.
+2025-01-29 21:28:07,573 - INFO - Date changed to 2025-01-31
+2025-01-29 21:28:07,771 - INFO - History populated in Treeview.
+2025-01-29 21:28:07,771 - INFO - Date changed to 2025-02-01
+2025-01-29 21:28:08,085 - INFO - History populated in Treeview.
+2025-01-29 21:28:08,085 - INFO - Date changed to 2025-02-02
+2025-01-29 21:28:12,062 - INFO - History populated in Treeview.
+2025-01-29 21:28:12,062 - INFO - Searched records from 2025-01-22 to 2025-01-29.
+2025-01-29 21:28:17,637 - INFO - Application closed.
+2025-01-29 21:50:22,833 - INFO - Application started.
+2025-01-29 21:50:23,108 - INFO - History populated in Treeview.
+2025-01-29 21:50:31,870 - INFO - Application closed.
