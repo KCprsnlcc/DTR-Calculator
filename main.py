@@ -289,7 +289,11 @@ class DailyTimeRecordApp:
 
         # Initialize records
         self.records = self.load_records()
-        self.current_records = list(self.records)
+        # Holds the *filtered* records for display in the treeview
+        self.current_records = []
+
+        # By default, we display only for the selected date. 
+        self.search_active = False  # If a date range search is active, this is True.
 
         self.selected_date = datetime.now().date()
         self.current_day = self.selected_date.strftime("%A")
@@ -314,6 +318,149 @@ class DailyTimeRecordApp:
         self.center_window()
         self.update_supposed_time_in_label()
         self.update_supposed_time_out_label()
+
+        # Add key bindings for date navigation
+        self.bind_shortcut_keys()
+
+        # Initially populate the tree only with the selected date's records
+        self.populate_history_for_selected_date()
+
+    # ---------------------------------------------------------
+    #               NEW SHORTCUT KEY BINDINGS
+    # ---------------------------------------------------------
+    def bind_shortcut_keys(self):
+        # Day navigation
+        self.master.bind("<Control-Right>", self.increment_day)
+        self.master.bind("<Control-Left>", self.decrement_day)
+
+        # Month navigation
+        self.master.bind("<Control-Shift-Right>", self.increment_month)
+        self.master.bind("<Control-Shift-Left>", self.decrement_month)
+
+        # Year navigation (using SHIFT+CTRL+ALT)
+        self.master.bind("<Control-Alt-Shift-Right>", self.increment_year)
+        self.master.bind("<Control-Alt-Shift-Left>", self.decrement_year)
+
+    def increment_day(self, event):
+        new_date = self.selected_date + timedelta(days=1)
+        self.set_selected_date(new_date)
+
+    def decrement_day(self, event):
+        new_date = self.selected_date - timedelta(days=1)
+        self.set_selected_date(new_date)
+
+    def increment_month(self, event):
+        year = self.selected_date.year
+        month = self.selected_date.month
+        day = self.selected_date.day
+
+        new_month = month + 1
+        new_year = year
+        if new_month > 12:
+            new_month = 1
+            new_year += 1
+
+        # Clamp the day if it exceeds the number of days in the new month
+        num_days = calendar.monthrange(new_year, new_month)[1]
+        new_day = min(day, num_days)
+
+        new_date = datetime(new_year, new_month, new_day).date()
+        self.set_selected_date(new_date)
+
+    def decrement_month(self, event):
+        year = self.selected_date.year
+        month = self.selected_date.month
+        day = self.selected_date.day
+
+        new_month = month - 1
+        new_year = year
+        if new_month < 1:
+            new_month = 12
+            new_year -= 1
+
+        # Clamp the day if it exceeds the number of days in the new month
+        num_days = calendar.monthrange(new_year, new_month)[1]
+        new_day = min(day, num_days)
+
+        new_date = datetime(new_year, new_month, new_day).date()
+        self.set_selected_date(new_date)
+
+    def increment_year(self, event):
+        year = self.selected_date.year
+        month = self.selected_date.month
+        day = self.selected_date.day
+
+        new_year = year + 1
+        # clamp day to new year's month last day if needed
+        num_days = calendar.monthrange(new_year, month)[1]
+        new_day = min(day, num_days)
+
+        new_date = datetime(new_year, month, new_day).date()
+        self.set_selected_date(new_date)
+
+    def decrement_year(self, event):
+        year = self.selected_date.year
+        month = self.selected_date.month
+        day = self.selected_date.day
+
+        new_year = year - 1
+        # clamp day
+        num_days = calendar.monthrange(new_year, month)[1]
+        new_day = min(day, num_days)
+
+        new_date = datetime(new_year, month, new_day).date()
+        self.set_selected_date(new_date)
+
+    def set_selected_date(self, new_date):
+        """Helper to set the selected_date, update the combos, and trigger refresh."""
+        self.selected_date = new_date
+        self.search_active = False  # going back to single date display
+        # Update combos to reflect new date
+        self.year_var.set(str(self.selected_date.year))
+        self.month_var.set(calendar.month_name[self.selected_date.month])
+        self.day_var.set(str(self.selected_date.day))
+        # This will also call on_date_change, which refreshes everything
+        self.on_date_change(None)
+
+    # ---------------------------------------------------------
+    #   A method to show only the currently selected date's records
+    # ---------------------------------------------------------
+    def populate_history_for_selected_date(self):
+        date_str = self.selected_date.strftime("%Y-%m-%d")
+        filtered = [r for r in self.records if r["date"] == date_str]
+        self.current_records = filtered
+        self.populate_history(filtered)
+
+    # ---------------------------------------------------------
+    #   For "Reset" button => revert to the selected date's data
+    # ---------------------------------------------------------
+    def reset_history(self):
+        self.search_active = False
+        self.populate_history_for_selected_date()
+
+    # ---------------------------------------------------------
+    #   Overridden populate_history method
+    #   (If no record list is given, we use self.current_records)
+    # ---------------------------------------------------------
+    def populate_history(self, records=None):
+        for item in self.history_tree.get_children():
+            self.history_tree.delete(item)
+
+        if records is None:
+            records = self.current_records
+
+        for record in records:
+            self.history_tree.insert("", "end", values=(
+                record["date"],
+                record.get("morning_actual_time_in", "--:-- --"),
+                record.get("supposed_time_in", "--:-- --"),
+                record.get("late_minutes", 0),
+                record.get("afternoon_actual_time_out", "--:-- --"),
+                record.get("supposed_time_out", "--:-- --"),
+                record.get("undertime_minutes", 0),
+                record["deduction_points"]
+            ))
+        logging.info("History populated in Treeview.")
 
     def select_all_records(self):
         """
@@ -916,9 +1063,12 @@ class DailyTimeRecordApp:
         self.button_search.pack(side="left", padx=5)
         Tooltip(self.button_search, "Search records within the selected date range")
 
-        self.button_reset = ttkb.Button(search_frame, text="Reset", command=lambda: self.populate_history(None), style="Calc.TButton")
+        # ---------------------------
+        #   NEW: Reset calls self.reset_history
+        # ---------------------------
+        self.button_reset = ttkb.Button(search_frame, text="Reset", command=self.reset_history, style="Calc.TButton")
         self.button_reset.pack(side="left", padx=5)
-        Tooltip(self.button_reset, "Reset search filters")
+        Tooltip(self.button_reset, "Reset to the currently selected date's records")
 
         self.button_select_all = ttkb.Button(search_frame, text="Select All", command=self.select_all_records, style="Calc.TButton")
         self.button_select_all.pack(side="left", padx=5)
@@ -988,7 +1138,7 @@ class DailyTimeRecordApp:
             "Deduction Points": False
         }
 
-        self.populate_history()
+        # We'll show the data after finishing UI setup in the constructor.
 
     # ------------------------------------------------------------------------
     # TIME INPUT LOGIC
@@ -1060,23 +1210,22 @@ class DailyTimeRecordApp:
 
     def on_date_change(self, event):
         try:
-            widget = event.widget
+            # If user manually changed combos (or triggered by set_selected_date), 
+            # we do single-date mode (unless it was triggered by search combos).
+            # But let's handle them carefully.
+
+            widget = event.widget if event else None
             if widget in [self.year_combo, self.month_combo, self.day_combo]:
                 year = int(self.year_var.get())
                 month = list(calendar.month_name).index(self.month_var.get())
                 day = int(self.day_var.get())
-            elif widget in [self.search_from_year, self.search_from_month, self.search_from_day]:
-                year = int(self.search_from_year_var.get())
-                month = list(calendar.month_name).index(self.search_from_month_var.get())
-                day = int(self.search_from_day_var.get())
-            elif widget in [self.search_to_year, self.search_to_month, self.search_to_day]:
-                year = int(self.search_to_year_var.get())
-                month = list(calendar.month_name).index(self.search_to_month_var.get())
-                day = int(self.search_to_day_var.get())
-            else:
-                return
+                self.selected_date = datetime(year, month, day).date()
+                self.search_active = False
+            elif widget in [self.search_from_year, self.search_from_month, self.search_from_day,
+                            self.search_to_year, self.search_to_month, self.search_to_day]:
+                # This is related to the search combos. We won't change self.selected_date here.
+                pass
 
-            self.selected_date = datetime(year, month, day).date()
             self.current_day = self.selected_date.strftime("%A")
             self.label_day.config(text=f"Day: {self.current_day}")
 
@@ -1089,7 +1238,9 @@ class DailyTimeRecordApp:
             self.label_afternoon_undertime_deduction.config(text="Undertime Deduction: 0.000")
             self.label_deductions.config(text="Total Deduction Points: 0.000")
 
-            self.populate_history()
+            if not self.search_active:
+                self.populate_history_for_selected_date()
+
             logging.info(f"Date changed to {self.selected_date}")
         except ValueError as e:
             messagebox.showerror("Error", f"Invalid date selected.\n{e}", parent=self.master)
@@ -1514,7 +1665,6 @@ class DailyTimeRecordApp:
 
         self.save_records_to_file()
 
-        # <-- CHANGE: Use parent=self.master to center the message box
         messagebox.showinfo(
             "Success",
             f"Record for {date_str} saved successfully.",
@@ -1522,8 +1672,8 @@ class DailyTimeRecordApp:
         )
         logging.info(f"Record saved for {date_str}: {deduction_points} points.")
 
-        self.current_records = list(self.records)
-        self.populate_history()
+        # After saving, re-filter and show the new data for the selected date
+        self.populate_history_for_selected_date()
 
     def export_history(self):
         if not self.records:
@@ -1612,8 +1762,15 @@ class DailyTimeRecordApp:
     def save_edited_record(self, updated_record):
         self.recalc_single_record(updated_record)
         self.save_records_to_file()
-        self.current_records = list(self.records)
-        self.populate_history()
+        # Re-display either the date's records or search results
+        if self.search_active:
+            # we remain in search results mode
+            self.current_records = [r for r in self.records if r in self.current_records or r["date"] == r["date"]]
+            self.populate_history(self.current_records)
+        else:
+            # revert to single date mode
+            self.populate_history_for_selected_date()
+
         messagebox.showinfo("Success", f"Record for {updated_record['date']} updated successfully.", parent=self.master)
         logging.info(f"Record updated for {updated_record['date']} with new times.")
 
@@ -1738,8 +1895,12 @@ class DailyTimeRecordApp:
             self.records.pop(idx)
 
         self.save_records_to_file()
-        self.current_records = list(self.records)
-        self.populate_history()
+
+        if self.search_active:
+            self.search_history()  # Re-run the search
+        else:
+            self.populate_history_for_selected_date()
+
         messagebox.showinfo("Deleted", f"Selected record(s) have been deleted.", parent=self.master)
         logging.info(f"Deleted {num_selected} record(s).")
 
@@ -1765,6 +1926,7 @@ class DailyTimeRecordApp:
                 if from_date <= datetime.strptime(record["date"], "%Y-%m-%d").date() <= to_date
             ]
             self.current_records = filtered_records
+            self.search_active = True
             self.populate_history(filtered_records)
             logging.info(f"Searched records from {from_date} to {to_date}.")
         except ValueError as e:
@@ -1831,39 +1993,32 @@ class DailyTimeRecordApp:
             messagebox.showerror("Error", f"Failed to save records: {e}", parent=self.master)
             logging.error(f"Error saving records: {e}")
 
-    def populate_history(self, records=None):
-        for item in self.history_tree.get_children():
-            self.history_tree.delete(item)
-
-        if records is None:
-            records = self.current_records
-
-        for record in records:
-            self.history_tree.insert("", "end", values=(
-                record["date"],
-                record.get("morning_actual_time_in", "--:-- --"),
-                record.get("supposed_time_in", "--:-- --"),
-                record.get("late_minutes", 0),
-                record.get("afternoon_actual_time_out", "--:-- --"),
-                record.get("supposed_time_out", "--:-- --"),
-                record.get("undertime_minutes", 0),
-                record["deduction_points"]
-            ))
-        logging.info("History populated in Treeview.")
-
     def sort_by_column(self, col):
         self.sort_states[col] = not self.sort_states[col]
         reverse = self.sort_states[col]
 
-        if col in ["Late Minutes", "Undertime Minutes", "Deduction Points"]:
-            key_func = lambda x: float(x[col.replace(" ", "_").lower()])
+        # We need the actual column key in the record dictionary
+        if col == "Late Minutes":
+            key_func = lambda x: float(x["late_minutes"])
+        elif col == "Undertime Minutes":
+            key_func = lambda x: float(x["undertime_minutes"])
+        elif col == "Deduction Points":
+            key_func = lambda x: float(x["deduction_points"])
         elif col == "Date":
-            key_func = lambda x: datetime.strptime(x[col.lower().replace(" ", "_")], "%Y-%m-%d")
+            key_func = lambda x: datetime.strptime(x["date"], "%Y-%m-%d")
+        elif col == "Morning Actual Time In":
+            key_func = lambda x: x["morning_actual_time_in"]
+        elif col == "Supposed Time In":
+            key_func = lambda x: x["supposed_time_in"]
+        elif col == "Afternoon Actual Time Out":
+            key_func = lambda x: x["afternoon_actual_time_out"]
+        elif col == "Supposed Time Out":
+            key_func = lambda x: x["supposed_time_out"]
         else:
-            key_func = lambda x: x[col.replace(" ", "_").lower()]
+            key_func = lambda x: x["date"]  # fallback
 
         self.current_records.sort(key=key_func, reverse=reverse)
-        self.populate_history()
+        self.populate_history(self.current_records)
 
     # ------------------------------------------------------------------------
     # ADDED: More recommended features in the help tabs
@@ -1901,6 +2056,13 @@ This version includes:
 - Time Picker dialogs
 - Light/Dark theme toggle
 - Fullscreen toggle
+- Keyboard shortcuts for changing the selected date:
+   * Ctrl + Right Arrow  => Next Day
+   * Ctrl + Left Arrow   => Previous Day
+   * Ctrl + Shift + Right Arrow => Next Month
+   * Ctrl + Shift + Left Arrow  => Previous Month
+   * Ctrl + Shift + Alt + Right Arrow => Next Year
+   * Ctrl + Shift + Alt + Left Arrow  => Previous Year
 """
         label_overview = tk.Text(tab_overview, wrap="word", font=("Helvetica", 12),
                                  bg=help_window.cget("bg"), borderwidth=0)
@@ -1916,20 +2078,22 @@ This version includes:
 
         guide_content = """Step-by-Step Guide
 
-1. Select the Date (top-left).
+1. Select the Date (top-left) or use keyboard shortcuts (Ctrl/Shift/Alt + Arrow) to navigate quickly.
 2. Check 'Morning' if you worked in the morning; uncheck if absent.
 3. Check 'Afternoon' if you worked in the afternoon; uncheck if absent.
 4. Enter Actual Time In / Out or click 'Select Time'.
 5. Click 'Calculate Deductions' to see Late/Undertime/Total points.
-6. Click 'Save Record' to store it.
-7. Click 'Export History' => CSV.
+6. Click 'Save Record' to store it (multiple records per date allowed if you confirm).
+7. Click 'Export History' => CSV to export all saved data.
 8. In the History section:
-   - Multi-select rows with Ctrl+Click or Shift+Click
-   - Press 'Delete' key or right-click => 'Delete Record'
-   - 'Edit Record' modifies Actual Times; auto-recalcs
-   - Press 'Ctrl+A' to select all records
+   - The default view shows only the currently selected date's records.
+   - Use the date range filter to see multiple dates, then press 'Search'.
+   - 'Reset' reverts back to showing only the currently selected date's records.
+   - You can multi-select rows with Ctrl+Click or Shift+Click,
+     then press 'Delete' key or right-click => 'Delete Record'.
+   - Right-click => 'Edit Record' modifies times and automatically recalculates
+   - Press 'Ctrl+A' to select all records.
    - Click column headers to toggle ascending/descending sort.
-   - Searching by date range helps filter older records quickly.
 """
         label_guide = tk.Text(tab_guide, wrap="word", font=("Helvetica", 12),
                               bg=help_window.cget("bg"), borderwidth=0)
@@ -1945,83 +2109,38 @@ This version includes:
 
         faqs_content = """Frequently Asked Questions (FAQs)
 
-Q: What happens if I forget to set the Morning or Afternoon checkbox?
-A: The system considers it as a half-day absence for that session, adding 0.5 deduction.
+Q: Why does the Deduction History only show the selected date by default?
+A: This design helps focus on the current day's data. You can still use date range filters to see more dates.
 
-Q: How does the Flexi Time Out work?
-A: If you have both Morning & Afternoon checked, the program uses your actual Morning In as the basis for an 8-hour shift (with standard earliest possible times). The 'Supposed Time Out' then auto-calculates.
+Q: How do I quickly jump to next/previous days, months, or years?
+A: Use the keyboard shortcuts:
+   * Ctrl + Right/Left => Next/Previous Day
+   * Ctrl + Shift + Right/Left => Next/Previous Month
+   * Ctrl + Shift + Alt + Right/Left => Next/Previous Year
+
+Q: How do I reset the search?
+A: Click the 'Reset' button. This will revert the table to showing only the currently selected date's records.
+
+Q: What if I forget to check Morning or Afternoon?
+A: The system assumes half-day absence for any unchecked portion, adding 0.5 to the deduction.
 
 Q: Can I add multiple records for the same date?
-A: Yes. The system will ask for confirmation and keep a separate entry if you choose 'Yes'.
+A: Yes, you'll be prompted with a confirmation if a record already exists for that date.
 
-Q: Why is my Late Deduction or Undertime Deduction still zero?
-A: Make sure you entered valid times and clicked 'Calculate Deductions'.
+Q: How do I edit or delete a record?
+A: Right-click on a record in the Deduction History or select it and press 'Delete'. You can also choose 'Edit Record' to modify times.
 
-Q: Will the data remain after I close the program?
-A: Yes, as long as the JSON file remains in the same folder and is not corrupted or deleted.
+Q: How does sorting work?
+A: Click the column header to sort ascending/descending for that column. Repeat click to toggle the order.
 
-Q: How do I correct a record after saving it?
-A: Go to the 'Deduction History', right-click on a record, then choose 'Edit Record'. Or select the record and press 'Delete' to remove it, and then re-enter the correct details.
+Q: Does the application remember my data after closing?
+A: Yes, data is stored in JSON (dtr_records.json). Keep it safe to avoid losing records.
 
-Q: How do I toggle between Light and Dark themes?
-A: Use the Light Mode and Dark Mode buttons in the header section. The themes dynamically update the application's appearance.
+Q: Can I see all records at once?
+A: Enter a broad date range in the search fields (e.g., 1900 to 2125) and click 'Search' to see all.
 
-Q: What happens if I accidentally delete a record?
-A: Unfortunately, there is no undo feature for deleted records. Always double-check before confirming deletion.
-
-Q: Can I edit the Supposed Time In or Supposed Time Out values?
-A: No, these values are automatically calculated based on predefined schedules and cannot be manually edited.
-
-Q: How does the system handle half-day absences?
-A: If either Morning or Afternoon is unchecked, the system adds a 0.5 deduction point for that half-day absence.
-
-Q: Can I export the history for specific dates only?
-A: Yes. Use the date range filters in the Deduction History tab to narrow the records. Once filtered, click Export History to save only the selected records.
-
-Q: What should I do if my JSON file is missing or corrupted?
-A: The program will start fresh if the JSON file is missing. However, if it is corrupted, you will need to manually fix it or delete it to allow the program to create a new file.
-
-Q: How are Late Minutes calculated?
-A: Late Minutes are the difference in minutes between the Supposed Time In and the Actual Time In for the Morning session.
-
-Q: How are Undertime Minutes calculated?
-A: Undertime Minutes are the difference in minutes between the Supposed Time Out and the Actual Time Out for the Afternoon session.
-
-Q: Can I view only specific columns in the Deduction History?
-A: No, all columns are displayed by default, but you can resize columns or sort them by clicking the column headers.
-
-Q: How do I quickly find records from a specific month or year?
-A: Use the date range filters in the Deduction History tab to search for records within a specific range.
-
-Q: Is there a limit to the number of records I can save?
-A: No, there is no limit as long as your computer has sufficient storage.
-
-Q: Why can’t I select more than one record when editing?
-A: The Edit Record functionality is designed to modify only one record at a time to avoid conflicts. Use the Delete option for multi-selection.
-
-Q: Can I add a record for a future date?
-A: Yes, you can select a future date and add a record, but ensure that it is intentional.
-
-Q: What happens if I forget to click 'Calculate Deductions' before saving?
-A: The deduction points will remain as zero for the record unless recalculated and updated manually.
-
-Q: How does the sorting work in the Deduction History?
-A: Clicking a column header toggles between ascending and descending order for that column.
-
-Q: How do I reset all inputs to default values?
-A: Use the Clear Morning and Clear Afternoon buttons to reset the respective inputs to their default state.
-
-Q: Can I disable the tooltip feature?
-A: Tooltips are always enabled for ease of use. They cannot be disabled.
-
-Q: How can I test the application without affecting actual records?
-A: Add and save test records, and delete them once you're done. Use the date range filters to separate test data from real records.
-
-Q: How do I open the Time Picker dialog?
-A: Click the Select Time button next to the time input fields for Morning or Afternoon to open the Time Picker dialog.
-
-Q: How does the application calculate Total Deduction Points?
-A: It sums up the Late Deduction, Undertime Deduction, and any Half-day Deduction (if applicable).
+Q: What if I want to revert to seeing only the selected date after searching?
+A: Simply click 'Reset' or change the date manually (which also forces single-date mode again).
 """
         label_faqs = tk.Text(tab_faqs, wrap="word", font=("Helvetica", 12),
                              bg=help_window.cget("bg"), borderwidth=0)
@@ -2063,6 +2182,7 @@ Enhanced with:
  - Time Picker for convenience
  - Light/Dark Mode toggle
  - Fullscreen toggle
+ - Keyboard Shortcuts for Date Navigation
 
 Developer: KCprsnlcc
 GitHub: https://github.com/KCprsnlcc
